@@ -1,12 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '@wellness-app/data-transfert/index';
 import * as bcrypt from 'bcrypt';
-import {
-  User,
-  UserCreateInput,
-  FindManyUserArgs,
-  DeleteOneUserArgs,
-} from '@wellness-app/data-transfert/index';
+import { UserCreateInput } from '../dtos/user/user-create.input';
+import { User } from '../dtos/user/user.model';
+import { FindManyUserArgs } from 'src/dtos/user/find-many-user.args';
+import { DeleteOneUserArgs } from 'src/dtos/user/delete-one-user.args';
+import { PrismaService } from 'src/prisma-module/prisma.service';
 
 @Injectable()
 export class UsersService {
@@ -64,7 +62,8 @@ export class UsersService {
       where,
     });
 
-    if (!user) throw new NotFoundException(`User ${where} not found`);
+    if (!user)
+      throw new NotFoundException(`User ${JSON.stringify(where)} not found`);
     return user;
   }
 }

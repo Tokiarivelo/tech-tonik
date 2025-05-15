@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import {
-  PrismaService,
-  RefreshToken,
-} from '@wellness-app/data-transfert/index';
+import { RefreshToken } from 'src/dtos/refresh-token/refresh-token.model';
+import { PrismaService } from 'src/prisma-module/prisma.service';
 
 @Injectable()
 export class TokensService {
@@ -15,7 +13,7 @@ export class TokensService {
   async create(
     userId: string,
     token: string,
-    expiresAt: Date
+    expiresAt: Date,
   ): Promise<RefreshToken> {
     return this.prisma.refreshToken.create({
       data: { token, expiresAt, userId },

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
 
   runtime                = "nodejs"
   moduleFormat           = "cjs"
@@ -10,12 +9,12 @@ generator client {
 
 generator nestgraphql {
   provider              = "prisma-nestjs-graphql"
-  output                = "./src/dtos"
+  output                = "../src/dtos"
   dtoInputNameSuffix    = "Input"
   dtoModelNameSuffix    = "Model"
   emitGraphQLTypes      = "true"
   emitInputAndArgsTypes = "true"
-  prismaClientImport    = "../../prisma-module"
+  prismaClientImport    = "@prisma/client"
 }
 
 datasource db {

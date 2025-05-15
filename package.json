@@ -4,8 +4,17 @@
   "scripts": {
     "dev:graphql": "pnpm --filter graphql-server start:dev",
     "dev:web": "pnpm --filter web dev",
+    "generate:web": "pnpm --filter web generate",
     "build:api": "pnpm --filter api build",
-    "build:web": "pnpm --filter web build"
+    "build:web": "pnpm --filter web build",
+    "graphql:generate": "pnpm --filter graphql-server prisma:generate",
+    "graphql:format": "pnpm --filter graphql-server prisma:format",
+    "graphql:lint": "pnpm --filter graphql-server prisma:lint",
+    "graphql:migrate": "pnpm --filter graphql-server prisma:migrate",
+    "graphql:studio": "pnpm --filter graphql-server prisma:studio",
+    "graphql:db-push": "pnpm --filter graphql-server prisma:db-push",
+    "graphql:seed": "pnpm --filter graphql-server prisma:seed",
+    "graphql:reset": "pnpm --filter graphql-server prisma:reset"
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
