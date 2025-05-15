@@ -2,7 +2,7 @@
   "name": "@tech-tonik/source",
   "private": true,
   "scripts": {
-    "dev:graphql": "pnpm --filter server-graphql dev",
+    "dev:graphql": "pnpm --filter graphql-server start:dev",
     "dev:web": "pnpm --filter web dev",
     "build:api": "pnpm --filter api build",
     "build:web": "pnpm --filter web build"
