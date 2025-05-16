@@ -15,12 +15,13 @@ export class AuthResolver {
     private tokensService: TokensService,
   ) {}
 
-  @Mutation(() => String)
+  @Mutation(() => String, { nullable: true })
   async login(@Args('data') data: LoginInput) {
     const result = await this.authService.login(data);
     if (!result || !result.accessToken) {
       return null;
     }
+
     return result.accessToken;
   }
 

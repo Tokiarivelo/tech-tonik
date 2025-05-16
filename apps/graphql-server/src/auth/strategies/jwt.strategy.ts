@@ -8,6 +8,7 @@ import { JwtPayload } from 'src/dtos/jwt/jwt-payload';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(config: ConfigService) {
     const jwtSecret = config.get<string>('JWT_SECRET');
+
     if (!jwtSecret) {
       throw new Error('JWT_SECRET is not defined in the configuration');
     }
