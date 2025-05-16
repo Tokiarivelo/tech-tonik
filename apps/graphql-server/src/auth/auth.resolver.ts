@@ -22,8 +22,6 @@ export class AuthResolver {
       return null;
     }
 
-    console.log('result :>> ', result);
-
     return result.accessToken;
   }
 
