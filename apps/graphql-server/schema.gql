@@ -52,7 +52,7 @@ input LoginInput {
 
 type Mutation {
   createUser(input: UserCreateInput!): User!
-  login(data: LoginInput!): String!
+  login(data: LoginInput!): String
   logout: Boolean!
   register(data: RegisterInput!): User!
 }
