@@ -10,54 +10,55 @@ import { RoleCreateNestedManyWithoutUsersInput } from '../role/role-create-neste
 
 @InputType()
 export class UserCreateInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => String, { nullable: false })
-  email!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => String, { nullable: false })
-  firstName!: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
 
-  @Field(() => String, { nullable: true })
-  lastName?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
 
-  @Field(() => String, { nullable: true })
-  phone?: string;
+    @Field(() => String, {nullable:true})
+    lastName?: string;
 
-  @Field(() => String, { nullable: false })
-  username!: string;
+    @Field(() => String, {nullable:true})
+    phone?: string;
 
-  @Field(() => String, { nullable: false })
-  password!: string;
+    @Field(() => String, {nullable:false})
+    username!: string;
 
-  @Field(() => Boolean, { nullable: true })
-  isVerified?: boolean;
+    @Field(() => String, {nullable:false})
+    password!: string;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => Boolean, {nullable:true})
+    isVerified?: boolean;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
 
-  @Field(() => PaymentCreateNestedManyWithoutUserInput, { nullable: true })
-  Payment?: PaymentCreateNestedManyWithoutUserInput;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 
-  @Field(() => PlaceCreateNestedManyWithoutProviderInput, { nullable: true })
-  Place?: PlaceCreateNestedManyWithoutProviderInput;
+    @Field(() => PaymentCreateNestedManyWithoutUserInput, {nullable:true})
+    Payment?: PaymentCreateNestedManyWithoutUserInput;
 
-  @Field(() => RefreshTokenCreateNestedManyWithoutUserInput, { nullable: true })
-  tokens?: RefreshTokenCreateNestedManyWithoutUserInput;
+    @Field(() => PlaceCreateNestedManyWithoutProviderInput, {nullable:true})
+    Place?: PlaceCreateNestedManyWithoutProviderInput;
 
-  @Field(() => ReservationCreateNestedManyWithoutUserInput, { nullable: true })
-  reservations?: ReservationCreateNestedManyWithoutUserInput;
+    @Field(() => RefreshTokenCreateNestedManyWithoutUserInput, {nullable:true})
+    tokens?: RefreshTokenCreateNestedManyWithoutUserInput;
 
-  @Field(() => ReviewCreateNestedManyWithoutUserInput, { nullable: true })
-  reviews?: ReviewCreateNestedManyWithoutUserInput;
+    @Field(() => ReservationCreateNestedManyWithoutUserInput, {nullable:true})
+    reservations?: ReservationCreateNestedManyWithoutUserInput;
 
-  @Field(() => UserImageCreateNestedManyWithoutUserInput, { nullable: true })
-  images?: UserImageCreateNestedManyWithoutUserInput;
+    @Field(() => ReviewCreateNestedManyWithoutUserInput, {nullable:true})
+    reviews?: ReviewCreateNestedManyWithoutUserInput;
 
-  @Field(() => RoleCreateNestedManyWithoutUsersInput, { nullable: true })
-  Role?: RoleCreateNestedManyWithoutUsersInput;
+    @Field(() => UserImageCreateNestedManyWithoutUserInput, {nullable:true})
+    images?: UserImageCreateNestedManyWithoutUserInput;
+
+    @Field(() => RoleCreateNestedManyWithoutUsersInput, {nullable:true})
+    Role?: RoleCreateNestedManyWithoutUsersInput;
 }
