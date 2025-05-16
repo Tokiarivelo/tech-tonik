@@ -1,4 +1,34 @@
-services:
+ervices:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web.dev
+    container_name: web_dev
+    volumes:
+      - ./apps/web:/workspace/apps/web
+      - /workspace/apps/web/node_modules
+    working_dir: /workspace/apps/web
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    command: pnpm dev
+
+  graphql:
+    build:
+      context: .
+      dockerfile: Dockerfile.graphql.dev
+    container_name: graphql_dev
+    volumes:
+      - ./apps/graphql:/workspace/apps/graphql
+      - /workspace/apps/graphql/node_modules
+    working_dir: /workspace/apps/graphql
+    ports:
+      - '4000:4000'
+    environment:
+      - NODE_ENV=development
+    command: pnpm start:dev
+
   mysql-db:
     image: mysql:8.0
     container_name: mysql-db
