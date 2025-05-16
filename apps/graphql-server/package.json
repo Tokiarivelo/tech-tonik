@@ -28,6 +28,9 @@
     "prisma:reset": "prisma migrate reset --force",
     "poststart:dev": "cp -r ./src/generated ./dist/generated"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@apollo/gateway": "^2.10.2",
     "@apollo/server": "^4.12.1",

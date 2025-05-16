@@ -45,8 +45,16 @@ input IntFilter {
   notIn: [Int!]
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createUser(input: UserCreateInput!): User!
+  login(data: LoginInput!): String!
+  logout: Boolean!
+  register(data: RegisterInput!): User!
 }
 
 input NestedBoolFilter {
@@ -347,6 +355,7 @@ input PlaceWhereUniqueInput {
 }
 
 type Query {
+  me: User!
   user(id: String!): User!
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
@@ -423,6 +432,13 @@ input RefreshTokenWhereUniqueInput {
   token: String
   user: UserScalarRelationFilter
   userId: StringFilter
+}
+
+input RegisterInput {
+  email: String!
+  firstName: String!
+  password: String!
+  username: String!
 }
 
 type Reservation {

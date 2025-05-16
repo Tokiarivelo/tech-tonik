@@ -14,7 +14,12 @@ export class AuthService {
 
   async validateUser(email: string, pass: string) {
     const user = await this.usersService.findByEmail(email);
-    if (user && (await bcrypt.compare(pass, user.password))) {
+    if (!user) {
+      return null;
+    }
+
+    const isValidPassword = await bcrypt.compare(pass, user.password);
+    if (isValidPassword) {
       const { password: _, ...rest } = user;
       return rest;
     }
@@ -23,6 +28,7 @@ export class AuthService {
 
   async login(dto: LoginInput) {
     const user = await this.validateUser(dto.email, dto.password);
+
     if (!user) {
       return null;
     }
@@ -36,7 +42,6 @@ export class AuthService {
   }
 
   async register(dto: RegisterInput) {
-    const hash = await bcrypt.hash(dto.password, 10);
-    return this.usersService.create({ ...dto, password: hash });
+    return this.usersService.create({ ...dto });
   }
 }

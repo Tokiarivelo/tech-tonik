@@ -5,13 +5,15 @@ import { User } from '../dtos/user/user.model';
 import { FindManyUserArgs } from 'src/dtos/user/find-many-user.args';
 import { DeleteOneUserArgs } from 'src/dtos/user/delete-one-user.args';
 import { PrismaService } from 'src/prisma-module/prisma.service';
+import { SALT_ROUNDS } from 'src/auth/constants';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(input: UserCreateInput): Promise<User> {
-    const hash = await bcrypt.hash(input.password, 10);
+    const hash = await bcrypt.hash(input.password, SALT_ROUNDS);
+
     const user = await this.prisma.user.create({
       data: {
         email: input.email,
