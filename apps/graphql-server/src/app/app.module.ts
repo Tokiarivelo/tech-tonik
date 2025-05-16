@@ -5,6 +5,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from '../user/user.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       subscriptions: {
         'graphql-ws': true,
       },
+
       context: ({ req }: any) => ({ req }),
     }),
     UsersModule,
