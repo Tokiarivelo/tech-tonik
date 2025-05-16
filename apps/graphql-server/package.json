@@ -24,6 +24,7 @@
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:studio": "prisma studio",
     "prisma:db-push": "prisma db push",
+    "prisma:db-pull": "prisma db pull",
     "prisma:seed": "ts-node --esm prisma/seed.ts",
     "prisma:reset": "prisma migrate reset --force"
   },

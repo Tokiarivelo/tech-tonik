@@ -1,0 +1,6 @@
+migrationName    = "baseline"
+checksum         = "c99e0d7b25a273f622e8fb3760ae1ceed127bce71a425ce403fc7ac1bc60918d"
+finishedAt       = "2025-05-10 11:31:37.459"
+logs             = []
+rolledBackAt     = null
+appliedStepsCount = 0

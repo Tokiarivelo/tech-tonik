@@ -1,10 +1,9 @@
 generator client {
-  provider = "prisma-client-js"
-
-  runtime                = "nodejs"
-  moduleFormat           = "cjs"
+  provider               = "prisma-client-js"
   generatedFileExtension = "ts"
   importFileExtension    = "ts"
+  moduleFormat           = "cjs"
+  runtime                = "nodejs"
 }
 
 generator nestgraphql {
