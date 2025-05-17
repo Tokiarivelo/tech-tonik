@@ -1,5 +1,5 @@
 import NavBar from '@/components/navbar/NavBar';
-import './global.css';
+import '../global.css';
 
 export const metadata = {
   title: 'Welcome to client',
