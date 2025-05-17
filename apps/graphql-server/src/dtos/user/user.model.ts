@@ -12,58 +12,57 @@ import { UserCount } from './user-count.output';
 
 @ObjectType()
 export class User {
+  @Field(() => ID, { nullable: false })
+  id!: string;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: false })
+  firstName!: string;
 
-    @Field(() => String, {nullable:false})
-    firstName!: string;
+  @Field(() => String, { nullable: true })
+  lastName!: string | null;
 
-    @Field(() => String, {nullable:true})
-    lastName!: string | null;
+  @Field(() => String, { nullable: true })
+  phone!: string | null;
 
-    @Field(() => String, {nullable:true})
-    phone!: string | null;
+  @Field(() => String, { nullable: false })
+  username!: string;
 
-    @Field(() => String, {nullable:false})
-    username!: string;
+  @Field(() => String, { nullable: false })
+  password!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+  @Field(() => Boolean, { defaultValue: false, nullable: false })
+  isVerified!: boolean;
 
-    @Field(() => Boolean, {defaultValue:false,nullable:false})
-    isVerified!: boolean;
+  @Field(() => Date, { nullable: false })
+  createdAt!: Date;
 
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date;
+  @Field(() => Date, { nullable: false })
+  updatedAt!: Date;
 
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date;
+  @Field(() => [Payment], { nullable: true })
+  Payment?: Array<Payment>;
 
-    @Field(() => [Payment], {nullable:true})
-    Payment?: Array<Payment>;
+  @Field(() => [Place], { nullable: true })
+  Place?: Array<Place>;
 
-    @Field(() => [Place], {nullable:true})
-    Place?: Array<Place>;
+  @Field(() => [RefreshToken], { nullable: true })
+  tokens?: Array<RefreshToken>;
 
-    @Field(() => [RefreshToken], {nullable:true})
-    tokens?: Array<RefreshToken>;
+  @Field(() => [Reservation], { nullable: true })
+  reservations?: Array<Reservation>;
 
-    @Field(() => [Reservation], {nullable:true})
-    reservations?: Array<Reservation>;
+  @Field(() => [Review], { nullable: true })
+  reviews?: Array<Review>;
 
-    @Field(() => [Review], {nullable:true})
-    reviews?: Array<Review>;
+  @Field(() => [UserImage], { nullable: true })
+  images?: Array<UserImage>;
 
-    @Field(() => [UserImage], {nullable:true})
-    images?: Array<UserImage>;
+  @Field(() => [Role], { nullable: true })
+  Role?: Array<Role>;
 
-    @Field(() => [Role], {nullable:true})
-    Role?: Array<Role>;
-
-    @Field(() => UserCount, {nullable:false})
-    _count?: UserCount;
+  @Field(() => UserCount, { nullable: false })
+  _count?: UserCount;
 }

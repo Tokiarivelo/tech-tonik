@@ -54,9 +54,14 @@ input LoginInput {
   password: String!
 }
 
+type LoginOutput {
+  token: String
+  user: User
+}
+
 type Mutation {
   createUser(input: UserCreateInput!): User!
-  login(data: LoginInput!): String
+  login(data: LoginInput!): LoginOutput
   logout: Boolean!
   register(data: RegisterInput!): User!
   uploadFile(file: Upload!, path: String): FileUploadResult!

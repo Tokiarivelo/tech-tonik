@@ -7,6 +7,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LoginInput } from 'src/dtos/auth/login.input';
 import { User } from 'src/dtos/user/user.model';
 import { RegisterInput } from 'src/dtos/auth/register.input';
+import { LoginOutput } from 'src/dtos/auth/login.output';
 
 @Resolver()
 export class AuthResolver {
@@ -15,14 +16,17 @@ export class AuthResolver {
     private tokensService: TokensService,
   ) {}
 
-  @Mutation(() => String, { nullable: true })
+  @Mutation(() => LoginOutput, { nullable: true })
   async login(@Args('data') data: LoginInput) {
     const result = await this.authService.login(data);
-    if (!result || !result.accessToken) {
+    if (!result || !result.accessToken || !result.user) {
       return null;
     }
 
-    return result.accessToken;
+    return {
+      token: result.accessToken,
+      user: result.user,
+    };
   }
 
   @Mutation(() => User)

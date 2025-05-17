@@ -9,7 +9,7 @@ const { graphqlUploadExpress } = require('graphql-upload-ts');
 const http = require('http');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   // Middleware upload GraphQL
   app.use(

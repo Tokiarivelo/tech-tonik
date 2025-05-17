@@ -9,7 +9,7 @@ import { AppModule } from './app/app.module';
 import { graphqlUploadExpress } from 'graphql-upload-ts';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   // Configurer le middleware pour l'upload de fichiers
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
