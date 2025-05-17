@@ -4,7 +4,7 @@ import NavbarUser from "@/components/NavbarUser/NavbarUser";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-emerald-100 text-white font-sans">
+    <main className="min-h-screen bg-primary text-white font-sans">
       <NavbarUser />
       <section className="pt-24 px-4">
         <PageGallery />
