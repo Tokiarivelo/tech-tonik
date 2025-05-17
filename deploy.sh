@@ -11,6 +11,9 @@ REMOTE_BACK_DIR="./back-end"
 echo "🟢 Déploiement du front-end"
 pushd apps/web > /dev/null
   
+  echo "🔨 Build Front"
+  pnpm run build
+
   echo "📦 Copie Front sur le serveur"
   scp -P ${SSH_PORT} -r package.json public .next pnpm-lock.yaml ${SSH_USER}@${SSH_HOST}:${REMOTE_FRONT_DIR}
 
@@ -22,6 +25,10 @@ popd > /dev/null
 
 echo "🟢 Déploiement du back-end"
 pushd apps/graphql-server > /dev/null
+
+  echo "🔨 Build Back"
+  pnpm run build
+
 
   echo "📦 Copie Back sur le serveur"
   scp -P ${SSH_PORT} package.json pnpm-lock.yaml ${SSH_USER}@${SSH_HOST}:${REMOTE_BACK_DIR}

@@ -6,15 +6,15 @@ generator client {
   runtime                = "nodejs"
 }
 
-generator nestgraphql {
-  provider              = "prisma-nestjs-graphql"
-  output                = "../src/dtos"
-  dtoInputNameSuffix    = "Input"
-  dtoModelNameSuffix    = "Model"
-  emitGraphQLTypes      = "true"
-  emitInputAndArgsTypes = "true"
-  prismaClientImport    = "@prisma/client"
-}
+// generator nestgraphql {
+//   provider              = "prisma-nestjs-graphql"
+//   output                = "../src/dtos"
+//   dtoInputNameSuffix    = "Input"
+//   dtoModelNameSuffix    = "Model"
+//   emitGraphQLTypes      = "true"
+//   emitInputAndArgsTypes = "true"
+//   prismaClientImport    = "@prisma/client"
+// }
 
 datasource db {
   provider = "mysql"
