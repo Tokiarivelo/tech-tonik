@@ -1,62 +1,104 @@
 "use client";
+import { useState, useRef } from 'react';
+import { ArrowLeft, ArrowRight, X } from 'lucide-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import Suggestion from '@/components/home/suggestion';
 import SuggestionHappy from '@/components/home/suggestionHappy';
 import SuggestionMoodSad from '@/components/home/suggestionMoodSad';
-import React from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-
-// Import Swiper
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 const Page = () => {
+  const swiperRef = useRef<any>(null);
+  const [activePreview, setActivePreview] = useState<{
+    title: string;
+    description: string;
+    image: string;
+  } | null>(null);
+
+  // Données des différents sliders
+  const sliderData = [
+    { component: Suggestion, data: require('@/components/home/data/index') },
+    { component: SuggestionMoodSad, data: require('@/components/home/data/indexMoodSad') },
+    { component: SuggestionHappy, data: require('@/components/home/data/indexMoodHappy') }
+  ];
+
+  const openPreview = (slideIndex: number, itemIndex: number) => {
+    const currentData = sliderData[slideIndex].data;
+    setActivePreview({
+      title: currentData.titre[itemIndex],
+      description: currentData.descriptions[itemIndex],
+      image: currentData.images[itemIndex]
+    });
+  };
+
+  const closePreview = () => setActivePreview(null);
+
   return (
-    <div className='relative bg-primary h-screen'>
-      <div className='absolute inset-0 text-tertiary'>
-        <Swiper 
-          navigation={{
-            nextEl: '.custom-next',
-            prevEl: '.custom-prev',
-          }} 
-          modules={[Navigation]} 
+    <div className="relative bg-primary h-screen">
+      <div className="absolute inset-0">
+        <Swiper
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
           className="h-full w-full"
         >
-          <SwiperSlide className="flex items-center justify-center">
-            <Suggestion/>
-          </SwiperSlide>
-          <SwiperSlide className="flex items-center justify-center">
-            <SuggestionMoodSad/>
-          </SwiperSlide>
-          <SwiperSlide className="flex items-center justify-center">
-            <SuggestionHappy/>
-          </SwiperSlide>
-          
-          {/* Boutons de navigation customisés */}
-          <div className="custom-prev absolute left-4 z-10 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm p-3 rounded-full hover:bg-white/50 transition-all duration-300 shadow-lg">
-            <ArrowLeft className="text-white cursor-pointer w-15 h-15" />
-          </div>
-          
-          <div className="custom-next absolute right-4 z-10 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm p-3 rounded-full hover:bg-white/50 transition-all duration-300 shadow-lg">
-            <ArrowRight className="text-white cursor-pointer w-15 h-15" />
-          </div>
+          {sliderData.map((slider, index) => (
+            <SwiperSlide key={index}>
+              <slider.component onImageClick={(i) => openPreview(index, i)} />
+            </SwiperSlide>
+          ))}
         </Swiper>
 
-        {/* Indicateurs de pagination */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-          {[0, 1, 2].map((i) => (
+        {/* Navigation */}
+        <button
+          onClick={() => swiperRef.current?.slidePrev()}
+          className="absolute left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+        >
+          <ArrowLeft className="text-gray-800 w-6 h-6" />
+        </button>
+
+        <button
+          onClick={() => swiperRef.current?.slideNext()}
+          className="absolute right-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+        >
+          <ArrowRight className="text-gray-800 w-6 h-6" />
+        </button>
+
+        {/* Modal Preview */}
+        {activePreview && (
+          <div 
+            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+            onClick={closePreview}
+          >
             <div 
-              key={i}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                i === 0 ? 'bg-white' : 'bg-white/30'
-              }`}
-            />
-          ))}
-        </div>
+              className="bg-white rounded-xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={closePreview}
+                className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100"
+              >
+                <X className="w-6 h-6 text-gray-500" />
+              </button>
+              
+              <img 
+                src={activePreview.image} 
+                alt={activePreview.title}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              
+              <h2 className="text-2xl font-bold mb-2">{activePreview.title}</h2>
+              <p className="text-gray-700 whitespace-pre-line">{activePreview.description}</p>
+              
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={closePreview}
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

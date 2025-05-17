@@ -7,9 +7,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const getRandomNumber = () => Math.floor(Math.random() * 41) - 20;
 
-const Suggestion = () => {
+const Suggestion = ({ onImageClick }: { onImageClick: (index: number) => void }) => {
   const [index, setIndex] = useState(2);
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   
   const goToPrev = () => setIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
@@ -19,34 +18,6 @@ const Suggestion = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[80vh] w-full py-10">
-      {/* Popup Modale */}
-      {selectedImage !== null && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-          <div 
-            className="bg-white rounded-xl max-w-2xl w-full p-6 relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button 
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
-              ✕
-            </button>
-            
-            <div className="flex flex-col md:flex-row gap-6">
-              <img 
-                src={images[selectedImage]} 
-                className="w-full md:w-1/2 h-auto object-cover rounded-lg"
-                alt="Preview" 
-              />
-              <div>
-                <h3 className="text-xl font-bold mb-2">{titre[selectedImage]}</h3>
-                <p className="text-gray-600">{descriptions[selectedImage]}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
       <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4">
         <div className="flex gap-x-20 lg:items-start items-center lg:flex-row flex-col w-full justify-center">
           
@@ -65,7 +36,7 @@ const Suggestion = () => {
                 <img
                   key={i}
                   src={image}
-                  onClick={() => setSelectedImage(i)}
+                  onClick={() => onImageClick(i)}
                   className={`w-full h-full absolute object-cover rounded-3xl transition-all duration-300 ${
                     isActive ? "opacity-100 z-10" : 
                     (isNext || isPrev) ? "opacity-30 z-0" : "opacity-0"

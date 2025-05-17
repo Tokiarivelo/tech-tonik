@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const getRandomNumber = () => Math.floor(Math.random() * 41) - 20;
 
-export const SuggestionMoodSad = () => {
+export const SuggestionMoodSad = ({ onImageClick }: { onImageClick: (index: number) => void }) => {
   const [index, setIndex] = useState(2);
   
   const goToPrev = () => setIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
@@ -30,6 +30,7 @@ export const SuggestionMoodSad = () => {
               <img
                 key={i}
                 src={image}
+                onClick={() => onImageClick(i)}
                 className={`w-full h-full absolute object-cover rounded-3xl transition-all duration-300 ${
                   isActive ? "opacity-100 z-10" : 
                   (isNext || isPrev) ? "opacity-30 z-0" : "opacity-0"
