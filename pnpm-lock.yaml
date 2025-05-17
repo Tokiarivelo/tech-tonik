@@ -73,9 +73,9 @@ importers:
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
-      graphql-upload:
-        specifier: ^17.0.0
-        version: 17.0.0(@types/express@5.0.1)(@types/koa@2.15.0)(graphql@16.11.0)
+      graphql-upload-ts:
+        specifier: ^2.1.2
+        version: 2.1.2(graphql@16.11.0)
       multer:
         specifier: 1.4.5-lts.2
         version: 1.4.5-lts.2
@@ -2323,9 +2323,6 @@ packages:
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
 
-  '@types/busboy@1.5.4':
-    resolution: {integrity: sha512-kG7WrUuAKK0NoyxfQHsVE6j1m01s6kMma64E+OZenQABMQyTJop1DumUWcLwAQ2JzpefU7PDYoRDKl8uZosFjw==}
-
   '@types/caseless@0.12.5':
     resolution: {integrity: sha512-hWtVTC2q7hc7xZ/RLbxapMvDMgUnDvKvMOpKal4DrMyfGBUfB1oKaZlIRr6mJL+If3bAP6sV/QneGzF6tJjZDg==}
 
@@ -2436,9 +2433,6 @@ packages:
 
   '@types/node@22.15.18':
     resolution: {integrity: sha512-v1DKRfUdyW+jJhZNEI1PYy29S2YRxMV5AOO/x/SjKmW0acCIOqmbj6Haf9eHAhsPmrhlHSxEhv/1WszcLWV4cg==}
-
-  '@types/object-path@0.11.4':
-    resolution: {integrity: sha512-4tgJ1Z3elF/tOMpA8JLVuR9spt9Ynsf7+JjqsQ2IqtiPJtcLoHoXcT6qU4E10cPFqyXX5HDm9QwIzZhBSkLxsw==}
 
   '@types/passport-jwt@4.0.1':
     resolution: {integrity: sha512-Y0Ykz6nWP4jpxgEUYq8NoVZeCQPo1ZndJLfapI249g1jHChvRfZRO/LS3tqu26YgAS/laI1qx98sYGz0IalRXQ==}
@@ -4246,18 +4240,11 @@ packages:
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
-  graphql-upload@17.0.0:
-    resolution: {integrity: sha512-AI42S1UR1mdqg+LQ7KqGbrgcf4l9gpPu/R0drM4vSA5C94NfIjYyCeCdpktEledvZoAL8JURLLeB53++WACo1w==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=22.0.0}
+  graphql-upload-ts@2.1.2:
+    resolution: {integrity: sha512-g0mL/55NI1MzRrTczIJw1cruIrqlUm7liQRkuGl6l9s4/j0aSuPkvZ52BS7teI43g6KXE/NeDyUotEAiTyZdHw==}
+    engines: {node: '>=12'}
     peerDependencies:
-      '@types/express': 4.0.29 - 5
-      '@types/koa': ^2.11.4
-      graphql: ^16.3.0
-    peerDependenciesMeta:
-      '@types/express':
-        optional: true
-      '@types/koa':
-        optional: true
+      graphql: '>=0.13.1'
 
   graphql-ws@6.0.4:
     resolution: {integrity: sha512-8b4OZtNOvv8+NZva8HXamrc0y1jluYC0+13gdh7198FKjVzXyTvVc95DCwGzaKEfn3YuWZxUqjJlHe3qKM/F2g==}
@@ -9436,10 +9423,6 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/node': 22.15.18
 
-  '@types/busboy@1.5.4':
-    dependencies:
-      '@types/node': 22.15.18
-
   '@types/caseless@0.12.5': {}
 
   '@types/connect@3.4.38':
@@ -9585,8 +9568,6 @@ snapshots:
   '@types/node@22.15.18':
     dependencies:
       undici-types: 6.21.0
-
-  '@types/object-path@0.11.4': {}
 
   '@types/passport-jwt@4.0.1':
     dependencies:
@@ -11883,19 +11864,12 @@ snapshots:
       graphql: 16.11.0
       tslib: 2.8.1
 
-  graphql-upload@17.0.0(@types/express@5.0.1)(@types/koa@2.15.0)(graphql@16.11.0):
+  graphql-upload-ts@2.1.2(graphql@16.11.0):
     dependencies:
-      '@types/busboy': 1.5.4
-      '@types/node': 22.15.18
-      '@types/object-path': 0.11.4
       busboy: 1.6.0
-      fs-capacitor: 8.0.0
       graphql: 16.11.0
       http-errors: 2.0.0
       object-path: 0.11.8
-    optionalDependencies:
-      '@types/express': 5.0.1
-      '@types/koa': 2.15.0
 
   graphql-ws@6.0.4(graphql@16.11.0)(ws@8.18.1):
     dependencies:

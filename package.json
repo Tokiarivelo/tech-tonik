@@ -9,7 +9,7 @@
     "graphql:dev": "pnpm --filter graphql-server start:dev",
     "graphql:build": "pnpm --filter graphql-server build",
     "graphql:start:prod": "pnpm --filter graphql-server start:prod",
-    "graphql:start:prod:passenger": "pnpm --filter graphql-server start:prod",
+    "graphql:start:prod:passenger": "pnpm --filter graphql-server start:prod:passenger",
     "graphql:generate": "pnpm --filter graphql-server prisma:generate",
     "graphql:format": "pnpm --filter graphql-server prisma:format",
     "graphql:lint": "pnpm --filter graphql-server prisma:lint",

@@ -1,42 +1,84 @@
-'use strict';
+// ADDED!!!
+if (typeof PhusionPassenger !== 'undefined') {
+  PhusionPassenger.configure({ autoInstall: false });
+}
 
-const http = require('http');
-const { Logger } = require('@nestjs/common');
 const { NestFactory } = require('@nestjs/core');
 const { AppModule } = require('./app/app.module');
+const { graphqlUploadExpress } = require('graphql-upload-ts');
+const http = require('http');
 
 async function bootstrap() {
-  // Si Passenger est chargé, désactivez l’auto-install
-  if (typeof PhusionPassenger !== 'undefined') {
-    PhusionPassenger.configure({ autoInstall: false });
-  }
-
-  // Crée l’app Nest sans appeler automatiquement listen()
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'graphql';
-  app.setGlobalPrefix(globalPrefix);
+
+  // Middleware upload GraphQL
+  app.use(
+    graphqlUploadExpress({
+      maxFileSize: 10_000_000,
+      maxFiles: 5,
+    }),
+  );
+
   await app.init();
 
-  // Crée un serveur HTTP simple
   const server = http.createServer((req, res) => {
-    app.getHttpAdapter().getInstance()(req, res);
+    const contentType = req.headers['content-type'] || '';
+
+    // Si c'est un upload multipart, on ne consomme pas le flux
+    if (contentType.startsWith('multipart/form-data')) {
+      console.log('➡️  HTTP', req.method, req.url);
+      console.log('   Content-Type:', contentType);
+      console.log('   Content-Length:', req.headers['content-length']);
+      console.log(
+        '   └─ Multipart upload detected, filenames logged in resolver.',
+      );
+
+      // On délègue tout de suite à Nest/Express
+      return app.getHttpAdapter().getInstance()(req, res);
+    }
+
+    // Sinon, pour les JSON ou autres, on peut encore logger les filenames
+    let rawBody = '';
+    req.on('data', (chunk) => {
+      rawBody += chunk;
+    });
+
+    req.on('end', () => {
+      console.log('➡️  HTTP', req.method, req.url);
+      console.log('   Content-Type:', contentType);
+      console.log('   Content-Length:', req.headers['content-length']);
+
+      // Extraction des filename si c'était du multipart (rare ici)
+      const filenames = [];
+      const filenameRegex = /filename="([^"]+)"/g;
+      let match;
+      while ((match = filenameRegex.exec(rawBody)) !== null) {
+        filenames.push(match[1]);
+      }
+      if (filenames.length) {
+        console.log('   └─ Uploaded filenames:', filenames.join(', '));
+      } else {
+        console.log(
+          '   └─ Aucun filename détecté (body non-multipart ou JSON)',
+        );
+      }
+
+      app.getHttpAdapter().getInstance()(req, res);
+    });
+
+    req.on('error', (err) => {
+      console.error('❌ Erreur lecture requête :', err);
+      res.statusCode = 400;
+      res.end('Bad Request');
+    });
   });
 
-  // Écoute sur le socket Passenger ou sur un port fallback
-  if (typeof PhusionPassenger !== 'undefined') {
-    server.listen('passenger', () => {
-      Logger.log(
-        `🚀 NestJS (Passenger) en écoute sur socket 'passenger'/${globalPrefix}`,
-      );
-    });
-  } else {
-    const port = process.env.PORT || 4000;
-    server.listen(port, () => {
-      Logger.log(
-        `🚀 Application NestJS en écoute sur http://localhost:${port}/${globalPrefix}`,
-      );
-    });
-  }
+  const port =
+    typeof PhusionPassenger !== 'undefined'
+      ? 'passenger'
+      : process.env.PORT || 3000;
+
+  server.listen(port, () => console.log(`Listening on ${port}`));
 }
 
 bootstrap();
