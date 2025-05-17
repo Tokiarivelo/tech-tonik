@@ -1,23 +1,31 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer components {
+  .container {
+    @apply mx-auto max-w-6xl xl:max-w-7xl px-8;
+  }
+}
+
 @layer {
   :root {
-    --color-primary: #0D0D0D;
-    --color-secondary: #C62828;
-    --color-tertiary: #FFD700;
+    --color-primary: #E2D4BB;
+    --color-secondary: #243932;
   }
 }
 
 @layer utilities {
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
   .text-primary {
     color: var(--color-primary);
   }
   .text-secondary {
     color: var(--color-secondary);
   }
-  .text-tertiary {
-    color: var(--color-tertiary);
+  .bg-secondary {
+    background-color: var(--color-secondary);
   }
 }
 
