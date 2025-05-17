@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:wt": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node passenger.js",
     "lint": "next lint",
@@ -18,6 +19,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "graphql": "^16.11.0",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.510.0",
     "next": "15.3.2",
     "react": "^19.0.0",
