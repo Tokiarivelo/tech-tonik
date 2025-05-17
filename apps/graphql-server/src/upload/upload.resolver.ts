@@ -13,8 +13,7 @@ type Mutation {
 // src/upload/upload.resolver.ts
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { UploadService } from './upload.service';
-import { FileUpload } from 'graphql-upload/processRequest.mjs';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
+import { FileUpload, GraphQLUpload } from 'graphql-upload-ts';
 import { FileUploadResult } from 'src/dtos/upload/upload.output';
 
 @Resolver(() => FileUploadResult)

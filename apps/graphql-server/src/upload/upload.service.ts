@@ -1,16 +1,12 @@
 // 4. Service pour gérer l'upload
 // src/upload/upload.service.ts
 import { Injectable } from '@nestjs/common';
-import { FirebaseService } from 'src/firebase/firebase.service';
-import { FileUpload } from 'graphql-upload/processRequest.mjs';
+import { FileUpload } from 'graphql-upload-ts';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UploadService {
-  constructor(
-    private readonly firebaseService: FirebaseService,
-    private readonly cloudinaryService: CloudinaryService,
-  ) {}
+  constructor(private readonly cloudinaryService: CloudinaryService) {}
 
   async uploadFile(
     file: FileUpload,
@@ -60,14 +56,17 @@ export class UploadService {
               resolve(res);
             })
             .catch((error) => {
+              console.log('res :>> ', error);
               reject(error instanceof Error ? error : new Error(String(error)));
             });
         } catch (error) {
+          console.log('res :>> ', error);
           reject(error instanceof Error ? error : new Error(String(error)));
         }
       });
 
       stream.on('error', (error) => {
+        console.log('res :>> ', error);
         reject(error instanceof Error ? error : new Error(String(error)));
       });
     });
