@@ -1,30 +1,7 @@
-import React, { useState } from 'react'
-import { images } from "./data/index";
+import React from 'react'
 
-const Slider = () =>{
-  const [index, setIndex] = useState(2);
-}
-
-const Acceuil = () => {
+export const acceuil = () => {
   return (
-    // Container
-    <div>
-      {/* Slider */}
-      <div>
-        {/* Image */}
-        <div>
-          {images.map((image, i)=>(
-            <img 
-            key={i}
-            src={image}
-            className={`w-full h-full absolute object-cover rounded-3xl transform-all duration-300 ${
-              i === index ? "activeImage"
-            }`} />
-          ))}
-        </div>
-      </div>
-    </div>
+    <div>acceuil</div>
   )
 }
-
-export default Acceuil
