@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:wt": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node passenger.js",
     "lint": "next lint",
