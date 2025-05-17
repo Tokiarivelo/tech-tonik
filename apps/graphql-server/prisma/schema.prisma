@@ -36,14 +36,17 @@ model User {
   username     String         @unique
   password     String
   isVerified   Boolean        @default(false)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  Payment      Payment[]
-  Place        Place[]
   tokens       RefreshToken[]
-  reservations Reservation[]
-  reviews      Review[]
   images       UserImage[]
+  pages      ExitPage[]    @relation("AuthorPages")
+  reactions  Reaction[]
+  votes      Vote[]
+  comments   Comment[]
+  views      PageView[]
+  shares     PageShare[]
+  versions   PageVersion[] @relation("UpdatesBy")
+  createdAt  DateTime      @default(now())
+  updatedAt    DateTime       @updatedAt
   Role         Role[]         @relation("UserRoles")
 }
 
@@ -68,83 +71,156 @@ model UserImage {
   @@index([userId], map: "UserImage_userId_fkey")
 }
 
-model Place {
-  id           String               @id @default(uuid())
-  name         String
-  description  String
-  category     String
-  price        Float
-  location     Unsupported("point")
-  providerId   String
-  createdAt    DateTime             @default(now())
-  updatedAt    DateTime             @updatedAt
-  provider     User                 @relation(fields: [providerId], references: [id])
-  images       PlaceImage[]
-  reservations Reservation[]
-  reviews      Review[]
-  tags         Tag[]
-
-  @@index([providerId], map: "Place_providerId_fkey")
-}
-
-model PlaceImage {
-  id      String @id @default(uuid())
-  url     String
-  placeId String
-  place   Place  @relation(fields: [placeId], references: [id])
-
-  @@index([placeId], map: "PlaceImage_placeId_fkey")
-}
 
 model Tag {
   id      String @id @default(uuid())
   name    String
-  placeId String
-  place   Place  @relation(fields: [placeId], references: [id])
+  pageId String
 
-  @@index([placeId], map: "Tag_placeId_fkey")
+  ExitPage ExitPage[]
 }
 
-model Reservation {
-  id        String   @id @default(uuid())
-  userId    String
-  placeId   String
-  status    String
-  date      DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  payment   Payment?
-  place     Place    @relation(fields: [placeId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+///////////////////////
+// ENUMS
+///////////////////////
 
-  @@index([placeId], map: "Reservation_placeId_fkey")
-  @@index([userId], map: "Reservation_userId_fkey")
+enum Tone {
+  DRAMATIC
+  IRONIC
+  CRINGE
+  CLASSY
+  TOUCHING
+  ABSURD
+  PASSIVE_AGGRESSIVE
+  HONEST
 }
 
-model Payment {
-  id            String      @id @default(uuid())
-  userId        String
-  reservationId String      @unique
-  amount        Float
-  method        String
-  status        String
-  createdAt     DateTime    @default(now())
-  reservation   Reservation @relation(fields: [reservationId], references: [id])
-  user          User        @relation(fields: [userId], references: [id])
-
-  @@index([userId], map: "Payment_userId_fkey")
+enum ReactionType {
+  LIKE
+  LOVE
+  HAHA
+  SAD
+  ANGRY
 }
 
-model Review {
-  id        String   @id @default(uuid())
-  userId    String
-  placeId   String
-  comment   String
-  rating    Int
-  createdAt DateTime @default(now())
-  place     Place    @relation(fields: [placeId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+///////////////////////
+// MODELS
+///////////////////////
 
-  @@index([placeId], map: "Review_placeId_fkey")
-  @@index([userId], map: "Review_userId_fkey")
+model Template {
+  id           String        @id @default(uuid())
+  name         String
+  description  String
+  // Structure complète des placeholders :
+  // [
+  //   {
+  //     key: String,
+  //     label: String,
+  //     inputType: String,    // "input" | "textarea" | "file" | "media" | "component"
+  //     component: String?,   // ex: "GifPicker", "ReactionPicker"
+  //     required: Boolean?,
+  //     multiple: Boolean?,
+  //     accept: String[]?,
+  //     rows: Int?,
+  //     props: Json?          // props à passer au composant
+  //   }, ...
+  // ]
+  placeholders Json
+  // HTML/Markdown avec helpers conditionnels et insertion de {{key}}
+  content      String
+  pages        ExitPage[]
+  createdAt    DateTime   @default(now())
+}
+
+model ExitPage {
+  id           String        @id @default(uuid())
+  author       User?         @relation("AuthorPages", fields: [authorId], references: [id])
+  authorId     String?
+  tone         Tone
+  template     Template      @relation(fields: [templateId], references: [id])
+  templateId   String
+  // Données utilisateur, ex :
+  // {
+  //   "openingLine": "Adieu…",
+  //   "gifUrls": ["https://…1.gif", "https://…2.gif"],
+  //   "reactionWidget": { "default": "HAHA" }
+  // }
+  data         Json
+  slug         String        @unique
+  isHallOfFame Boolean       @default(false)
+  reactions    Reaction[]
+  votes        Vote[]
+  comments     Comment[]
+  views        PageView[]
+  shares       PageShare[]
+  versions     PageVersion[] @relation("PageVersions")
+  tags         Tag[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Reaction {
+  id        String        @id @default(uuid())
+  page      ExitPage      @relation(fields: [pageId], references: [id])
+  pageId    String
+  user      User?         @relation(fields: [userId], references: [id])
+  userId    String?
+  type      ReactionType
+  createdAt DateTime      @default(now())
+  @@index([pageId, type])
+}
+
+model Vote {
+  id        String     @id @default(uuid())
+  page      ExitPage   @relation(fields: [pageId], references: [id])
+  pageId    String
+  user      User?      @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime   @default(now())
+  @@unique([pageId, userId], name: "one_vote_per_user_page")
+}
+
+model Comment {
+  id              String     @id @default(uuid())
+  page            ExitPage   @relation(fields: [pageId], references: [id])
+  pageId          String
+  user            User?      @relation(fields: [userId], references: [id])
+  userId          String?
+  content         String
+  parentComment   Comment?   @relation("CommentThread", fields: [parentCommentId], references: [id])
+  parentCommentId String?
+  replies         Comment[]  @relation("CommentThread")
+  createdAt       DateTime   @default(now())
+}
+
+model PageVersion {
+  id           String     @id @default(uuid())
+  page         ExitPage   @relation("PageVersions", fields: [pageId], references: [id])
+  pageId       String
+  version      Int
+  data         Json
+  updatedBy    User?      @relation("UpdatesBy", fields: [updatedById], references: [id])
+  updatedById  String?
+  createdAt    DateTime   @default(now())
+  @@unique([pageId, version], name: "one_version_per_page")
+}
+
+model PageView {
+  id         String     @id @default(uuid())
+  page       ExitPage   @relation(fields: [pageId], references: [id])
+  pageId     String
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     String?
+  sessionId  String?
+  createdAt  DateTime   @default(now())
+}
+
+model PageShare {
+  id         String     @id @default(uuid())
+  page       ExitPage   @relation(fields: [pageId], references: [id])
+  pageId     String
+  platform   String
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     String?
+  createdAt  DateTime   @default(now())
 }
