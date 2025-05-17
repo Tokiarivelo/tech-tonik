@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { images } from "./data/index";
 
-const Slider = () =>
+const Slider = () =>{
+  const [index, setIndex] = useState(2);
+}
 
 const Acceuil = () => {
   return (
@@ -16,7 +18,7 @@ const Acceuil = () => {
             key={i}
             src={image}
             className={`w-full h-full absolute object-cover rounded-3xl transform-all duration-300 ${
-              i === index ? 
+              i === index ? "activeImage"
             }`} />
           ))}
         </div>
