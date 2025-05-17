@@ -1,7 +1,13 @@
+import CreatePageButton from "@/components/dashboard/CreatePageButton/CreatePageButton";
+import PageGallery from "@/components/dashboard/GalleryUser/GalleryUser";
+
 export default function Dashboard() {
   return (
-    <div className="w-full h-screen flex justify-center items-center">
-      <h1 className="text-center text-4xl my-6">Dashboard Page</h1>
+    <div className="min-h-screen">
+      <section className="pt-8 px-4 max-w-7xl mx-auto">
+        <PageGallery />
+      </section>
+      <CreatePageButton />
     </div>
   );
 }
