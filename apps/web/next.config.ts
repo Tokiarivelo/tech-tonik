@@ -6,3 +6,9 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+export const mockPages = [
+    "../",
+    "/images/page2.png",
+    "/images/page3.png",
+    "/images/page4.png",
+];
