@@ -1,12 +1,12 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import { useLoginMutation } from '../../../graphql/generated/graphql';
 import { LoginFormValues, loginSchema } from './login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner'; // 👈 import direct
 import { useAuthStore } from '../stores/useAuthStore';
 import { useUserStore } from '../../user/stores/useUserSores';
 import { useState } from 'react';
+import { useLoginMutation } from '@/graphql/generated/graphql';
 
 export const useLogin = () => {
   const [mutationLogin, { loading, error }] = useLoginMutation();
