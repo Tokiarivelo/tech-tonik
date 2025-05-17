@@ -1,9 +1,16 @@
+
+import image1 from "./images/image-1.jpeg";
+import image2 from "./images/image-2.jpeg";
+import image3 from "./images/image-3.jpeg";
+import image4 from "./images/image-4.jpeg";
+import image5 from "./images/image-5.jpeg"; 
+
 export const images = [
-  "/images/image-1.jpg",
-  "/images/image-2.jpg",
-  "/images/image-3.jpg",
-  "/images/image-4.jpg",
-  "/images/image-5.jpg",
+  image1.src, 
+  image2.src,
+  image3.src,
+  image4.src,
+  image5.src
 ];
 
 export const descriptions = [
@@ -13,3 +20,12 @@ export const descriptions = [
   "🦁Known as the 'King of the Jungle,' lions are powerful big cats that live in groups called prides. Found mainly in Africa, male lions are known for their majestic manes, while lionesses do most of the hunting. They are skilled hunters, preying on zebras, antelopes, and other animals.",
   "The tallest land animal, 🦒 have long necks that help them reach tree leaves for food. Native to Africa, they have unique spotted coats and can run surprisingly fast despite their size. Their long legs also make them excellent kickers against predators like lions.",
 ];
+
+
+export const titre = [
+  "Titre 1",
+  "Titre 2",
+  "Titre 3",
+  "Titre 4",
+  "Titre 5"
+]

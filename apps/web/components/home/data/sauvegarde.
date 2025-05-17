@@ -1,0 +1,246 @@
+//  "use client";
+
+// import React from 'react'
+// import { useState } from "react";
+// import { descriptions, images } from "./data/index";
+// import { ArrowLeft, ArrowRight } from "lucide-react";
+
+// const getRandomNumber = () => Math.floor(Math.random() * 41) - 20;
+
+// const Suggestion = () => {
+//   const [index, setIndex] = useState(2);
+//   return (
+//      //   Container
+//      <div className="relative flex flex-col items-center justify-center min-h-screen w-full">
+//      {/* Slider */}
+//      <div className="flex gap-x-20 lg:items-start items-center lg:flex-row flex-col">
+//        {/* Images */}
+//        <div className="sm:w-[400px] sm:h-[400px] w-[300px] h-[300px] relative">
+//          {images.map((image, i) => (
+//            <img
+//              key={i}
+//              src={image}
+//              className={`w-full h-full absolute object-cover rounded-3xl transition-all duration-300 ${
+//                i === index ? "activeImage" : "inactiveImage"
+//              }`}
+//              style={{
+//                transform: `rotate(${index === i ? 0 : getRandomNumber()}deg)`,
+//              }}
+//            />
+//          ))}
+//        </div>
+//        {/* Descriptions */}
+//        <div className="relative sm:w-[400px] w-[320px] mt-22 lg:mt-5">
+//          {descriptions.map((desc, i) => (
+//            <p
+//              className={`text-center sm:text-xl text-gray-600 absolute transition-all duration-300 ${
+//                i === index ? "activeDesc delay-200" : "inactiveDesc"
+//              }`}
+//              key={i}
+//            >
+//              {desc}
+//            </p>
+//          ))}
+//        </div>
+//      </div>
+//      {/* Controls  */}
+//      <div className="absolute bottom-0 lg:-bottom-20 left-1/2 -translate-1/2 flex gap-x-5">
+//        <button
+//          className="bg-gray-100 p-1.5 cursor-pointer rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
+//          onClick={() =>
+//            setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
+//          }
+//        >
+//          <ArrowLeft size={18} />
+//        </button>
+//        <button
+//          className="bg-gray-100 p-1.5 cursor-pointer rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
+//          onClick={() =>
+//            setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
+//          }
+//        >
+//          <ArrowRight size={18} />
+//        </button>
+//      </div>
+//    </div>
+//   )
+// }
+
+// export default Suggestion; 
+
+
+//partie 2
+
+// "use client";
+
+// import React from 'react';
+// import { useState } from "react";
+// import { descriptions, images } from "./data/index";
+// import { ArrowLeft, ArrowRight } from "lucide-react";
+
+// const getRandomNumber = () => Math.floor(Math.random() * 41) - 20;
+
+// const Suggestion = () => {
+//   const [index, setIndex] = useState(2);
+  
+//   // Fonction pour naviguer vers la gauche
+//   const goToPrev = () => {
+//     setIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
+//   };
+  
+//   // Fonction pour naviguer vers la droite
+//   const goToNext = () => {
+//     setIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
+//   };
+
+//   return (
+//     <div className="relative flex flex-col items-center justify-center min-h-[80vh] w-full py-10">
+//       {/* Slider Container */}
+//       <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4">
+        
+//         {/* Images and Descriptions */}
+//         <div className="flex gap-x-20 lg:items-start items-center lg:flex-row flex-col w-full justify-center">
+          
+//           {/* Images */}
+//           <div className="sm:w-[400px] sm:h-[400px] w-[300px] h-[300px] relative">
+//             {images.map((image, i) => (
+//               <img
+//                 key={i}
+//                 src={image}
+//                 className={`w-full h-full absolute object-cover rounded-3xl transition-all duration-300 ${
+//                   i === index ? "opacity-100" : "opacity-0"
+//                 }`}
+//                 style={{
+//                   transform: `rotate(${index === i ? 0 : getRandomNumber()}deg)`,
+//                 }}
+//                 alt={`Slide ${i}`}
+//               />
+//             ))}
+//           </div>
+          
+//           {/* Descriptions */}
+//           <div className="relative sm:w-[400px] w-[320px] mt-10 lg:mt-5">
+//             {descriptions.map((desc, i) => (
+//               <p
+//                 className={`text-center sm:text-xl text-gray-600 transition-all duration-300 ${
+//                   i === index ? "opacity-100" : "opacity-0 absolute"
+//                 }`}
+//                 key={i}
+//               >
+//                 {desc}
+//               </p>
+//             ))}
+//           </div>
+//         </div>
+        
+//         {/* Controls */}
+//         <div className="absolute bottom-10 lg:bottom-0 left-1/2 transform -translate-x-1/2 flex gap-x-5">
+//           <button
+//             className="bg-gray-100 p-1.5 cursor-pointer rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
+//             onClick={goToPrev}
+//           >
+//             <ArrowLeft size={18} />
+//           </button>
+//           <button
+//             className="bg-gray-100 p-1.5 cursor-pointer rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
+//             onClick={goToNext}
+//           >
+//             <ArrowRight size={18} />
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Suggestion;
+
+<div className='relative bg-primary h-screen overflow-hidden'>
+  <div className='absolute inset-0 text-tertiary text-3xl flex flex-col items-center justify-center gap-12'>
+    <div className='relative transform rotate-[-3deg] z-10'>
+      <Suggestion/>
+    </div>
+    <div className='relative transform rotate-[2deg] translate-x-16 z-20'>
+      <SuggestionMoodSad/>
+    </div>
+    <div className='relative transform rotate-[-5deg] translate-x-32 z-30'>
+      <SuggestionHappy/>
+    </div>
+  </div>
+</div>
+
+
+import Suggestion from '@/components/home/suggestion'
+import SuggestionHappy from '@/components/home/suggestionHappy'
+import SuggestionMoodSad from '@/components/home/suggestionMoodSad'
+import React from 'react'
+
+const page = () => {
+  return (
+    <div className='relative bg-primary h-screen overflow-hidden'>
+      <div className='absolute inset-0 text-tertiary text-3xl flex flex-row items-center justify-center gap-12'>
+        <div className='relative transform rotate-[-3deg] z-10'>
+          <Suggestion/>
+        </div>
+        <div className='relative transform rotate-[2deg] translate-x-16 z-20'>
+          <SuggestionHappy/>
+        </div>
+        <div className='relative transform rotate-[-5deg] translate-x-32 z-30'>
+          <SuggestionMoodSad/>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default page
+
+
+ <div className="relative flex flex-col items-center justify-center min-h-[80vh] w-full py-10">
+      <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4">
+        <div className="flex gap-x-20 lg:items-start items-center lg:flex-row flex-col w-full justify-center">
+          
+          {/* Images Container - Modifié pour l'effet pile */}
+          <div className="sm:w-[400px] sm:h-[400px] w-[200px] h-[200px] relative ">
+            {images.map((image, i) => {
+              // Calculer la position dans la pile
+              const position = (i - index + images.length) % images.length;
+              const isActive = i === index;
+              const isNext = position === 1;
+              const isPrev = position === images.length - 1;
+
+              return (
+                <img
+                  key={i}
+                  src={image}
+                  className={`w-full h-full absolute object-cover rounded-3xl transition-all duration-300 ${
+                    isActive ? "opacity-100 z-10" : 
+                    (isNext || isPrev) ? "opacity-30 z-0" : "opacity-0"
+                  }`}
+                  style={{
+                    transform: isActive 
+                      ? "rotate(0deg)" 
+                      : `rotate(${getRandomNumber()}deg)`,
+                    ...(isNext && { 
+                      right: "-10px",
+                      top: "10px",
+                      width: "95%",
+                      height: "95%"
+                    }),
+                    ...(isPrev && {
+                      left: "-10px",
+                      bottom: "10px",
+                      width: "95%",
+                      height: "95%"
+                    })
+                  }}
+                  alt={`Slide ${i}`}
+                />
+              );
+            })}
+          </div>
+          
+          
+      </div>
+    </div>
+  );
