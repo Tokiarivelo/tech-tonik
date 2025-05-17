@@ -1,86 +1,125 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import Image from 'next/image';
+import ImageCard from "./ImageCard";
 
-const mockPages = Array.from({ length: 8 }, (_, i) => ({
+const mockPages = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   src: `/images/${(i % 4) + 1}.jpg`,
-  date: i < 2 ? "Aujourd'hui" : i < 4 ? "Hier" : `Il y a ${i} jours`
+  date: i < 2 ? "Aujourd'hui" : i < 4 ? "Hier" : `Il y a ${i} jours`,
+  description:
+    i % 2 === 0
+      ? "Page personnalisée avec design moderne et responsive"
+      : "Template premium avec animations fluides",
 }));
 
+const ITEMS_PER_PAGE = 4;
+
+// Fonction stable pour obtenir les premières pages
+function getInitialPages() {
+  return mockPages.slice(0, ITEMS_PER_PAGE);
+}
+
 export default function PageGallery() {
+  const [displayedPages, setDisplayedPages] = useState(getInitialPages);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const isAnimatingRef = useRef(false);
+  const animationIdRef = useRef(0); // Pour générer des clés uniques
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animation pour le header
-      gsap.from(headerRef.current, {
-        y: -40,
-        opacity: 0,
-        duration: 0.8,
-        ease: "back.out(1.7)"
-      });
+  // Fonction pour obtenir 4 pages aléatoires
+  function getRandomPages() {
+    if (typeof window === "undefined") return getInitialPages();
+    const shuffled = [...mockPages].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, ITEMS_PER_PAGE).map(page => ({
+      ...page,
+      uniqueKey: `${page.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+    }));
+  }
 
-      // Animation pour les cartes
-      gsap.from(cardsRef.current.filter(Boolean), {
-        y: 50,
-        opacity: 50,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power3.out",
-        delay: 0.4
-      });
+  // Fonction de changement avec animation
+  const animateCardChange = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+    animationIdRef.current += 1;
+    
+    const newPages = getRandomPages();
+    const tl = gsap.timeline({
+      onComplete: () => {
+        isAnimatingRef.current = false;
+      }
     });
 
-    return () => ctx.revert();
+    const indices = [0, 1, 2, 3].sort(() => 0.5 - Math.random());
+
+    indices.forEach((i, idx) => {
+      const el = cardsRef.current[i];
+      if (!el) return;
+
+      tl.to(el, {
+        rotateY: 180,
+        duration: 1,
+        ease: "power2.in",
+        delay: idx * 0.3,
+        onComplete: () => {
+          setDisplayedPages((prev) => {
+            const updated = [...prev];
+            updated[i] = newPages[i];
+            return updated;
+          });
+        }
+      })
+      .to(el, {
+        rotateY: 360,
+        duration: 1,
+        ease: "power2.out",
+      }, `-=${0.15}`);
+    });
+  };
+
+  useEffect(() => {
+    const timer = setInterval(animateCardChange, 10000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="py-8">
-      {/* Section Texte avant les images */}
-      <div ref={headerRef} className="mb-12 text-center px-4">
+    <div className="py-1">
+      <div className="mb-8 text-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
           Vos Créations
         </h1>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-          Retrouvez ici toutes vos pages créées. Cliquez pour éditer ou créez-en de nouvelles pour 
+          Retrouvez ici toutes vos pages créées. Cliquez pour éditer ou créez-en de nouvelles pour
           <span className="text-cyan-400 font-medium"> booster votre présence en ligne</span>.
         </p>
       </div>
 
-      {/* Galerie d'images */}
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {mockPages.map((page, i) => (
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+        {displayedPages.map((page, i) => (
           <div
-            key={page.id}
-            ref={el => {
-  if (el) cardsRef.current[i] = el;
-}}
-            className="relative group overflow-hidden rounded-xl bg-gray-800/50 border border-gray-700 hover:border-cyan-400/30 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10"
+            key={`${page.id}-${i}`} // Utilisation de la clé unique
+            ref={(el) => {
+              if (el) cardsRef.current[i] = el;
+            }}
+            className="transform-gpu preserve-3d"
+            style={{ transformStyle: 'preserve-3d' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <Image
+            <ImageCard
+              id={page.id}
               src={page.src}
-              alt={`Page ${page.id}`}
-              width={400}
-              height={500}
-              className="w-full h-64 object-cover brightness-90 group-hover:brightness-110 transition duration-700"
-              quality={95}
+              date={page.date}
+              description={page.description}
             />
-            
-            <div className="absolute bottom-0 w-full p-4">
-              <h3 className="text-xl font-bold text-white">Projet {page.id}</h3>
-              <p className="text-gray-400 text-sm">{page.date}</p>
-            </div>
-            
-            <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-cyan-500/90 backdrop-blur flex items-center justify-center shadow-md">
-              <span className="text-white text-sm font-bold">{page.id}</span>
-            </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-10 flex justify-center">
+        <button
+          onClick={animateCardChange}
+          className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:shadow-lg transition"
+        >
+          Suivant
+        </button>
       </div>
     </div>
   );

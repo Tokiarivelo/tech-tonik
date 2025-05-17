@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen bg-secondary from-gray-900 to-gray-800 text-white">
       <NavbarUser />
       <main className="pt-16 pb-24"> {/* Compensation pour la navbar fixe */}
         {children}
