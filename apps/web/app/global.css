@@ -11,6 +11,7 @@
   :root {
     --color-primary: #E2D4BB;
     --color-secondary: #243932;
+    --color-tertiary: #C62828;
   }
 }
 
@@ -26,6 +27,9 @@
   }
   .bg-secondary {
     background-color: var(--color-secondary);
+  }
+  .bg-tertiary {
+    background-color: var(--color-tertiary);
   }
 }
 
