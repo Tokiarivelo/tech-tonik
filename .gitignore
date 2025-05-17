@@ -6,7 +6,7 @@ tmp
 out-tsc
 
 # prisma
-generated
+# generated
 
 # dependencies
 node_modules
