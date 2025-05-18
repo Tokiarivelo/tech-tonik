@@ -25,6 +25,16 @@ type CommentCount {
   replies: Int!
 }
 
+input CommentCreateInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutCommentsInput!
+  parentComment: CommentCreateNestedOneWithoutRepliesInput
+  replies: CommentCreateNestedManyWithoutParentCommentInput
+  user: UserCreateNestedOneWithoutCommentsInput
+}
+
 input CommentCreateManyPageInput {
   content: String!
   createdAt: DateTime
@@ -160,6 +170,43 @@ input CommentNullableScalarRelationFilter {
 
 input CommentOrderByRelationAggregateInput {
   _count: SortOrder
+}
+
+enum CommentOrderByRelevanceFieldEnum {
+  content
+  id
+  pageId
+  parentCommentId
+  userId
+}
+
+input CommentOrderByRelevanceInput {
+  fields: [CommentOrderByRelevanceFieldEnum!]!
+  search: String!
+  sort: SortOrder!
+}
+
+input CommentOrderByWithRelationInput {
+  _relevance: CommentOrderByRelevanceInput
+  content: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  page: ExitPageOrderByWithRelationInput
+  pageId: SortOrder
+  parentComment: CommentOrderByWithRelationInput
+  parentCommentId: SortOrderInput
+  replies: CommentOrderByRelationAggregateInput
+  user: UserOrderByWithRelationInput
+  userId: SortOrderInput
+}
+
+enum CommentScalarFieldEnum {
+  content
+  createdAt
+  id
+  pageId
+  parentCommentId
+  userId
 }
 
 input CommentWhereInput {
@@ -699,16 +746,22 @@ type LoginOutput {
 }
 
 type Mutation {
+  createComment(input: CommentCreateInput!): Comment!
   createExitPage(input: ExitPageCreateInput!): ExitPage!
+  createPageVersion(input: PageVersionCreateInput!): PageVersion!
   createReaction(input: ReactionCreateInput!): Reaction!
   createTemplate(input: TemplateCreateInput!): Template!
   createUser(input: UserCreateInput!): User!
+  createVote(input: VoteCreateInput!): Vote!
   login(data: LoginInput!): LoginOutput
   logout: Boolean!
   register(data: RegisterInput!): User!
+  updateComment(id: String!, input: CommentCreateInput!): Comment!
   updateExitPage(id: String!, input: ExitPageCreateInput!): ExitPage!
+  updatePageVersion(id: String!, input: PageVersionCreateInput!): PageVersion!
   updateReaction(id: String!, input: ReactionCreateInput!): Reaction!
   updateTemplate(id: String!, input: TemplateCreateInput!): Template!
+  updateVote(id: String!, input: VoteCreateInput!): Vote!
   uploadFile(file: Upload!, path: String): FileUploadResult!
 }
 
@@ -907,6 +960,15 @@ type PageVersion {
   version: Int!
 }
 
+input PageVersionCreateInput {
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  page: ExitPageCreateNestedOneWithoutVersionsInput!
+  updatedBy: UserCreateNestedOneWithoutVersionsInput
+  version: Int!
+}
+
 input PageVersionCreateManyPageInput {
   createdAt: DateTime
   data: JSON!
@@ -986,6 +1048,39 @@ input PageVersionOne_version_per_pageCompoundUniqueInput {
 
 input PageVersionOrderByRelationAggregateInput {
   _count: SortOrder
+}
+
+enum PageVersionOrderByRelevanceFieldEnum {
+  id
+  pageId
+  updatedById
+}
+
+input PageVersionOrderByRelevanceInput {
+  fields: [PageVersionOrderByRelevanceFieldEnum!]!
+  search: String!
+  sort: SortOrder!
+}
+
+input PageVersionOrderByWithRelationInput {
+  _relevance: PageVersionOrderByRelevanceInput
+  createdAt: SortOrder
+  data: SortOrder
+  id: SortOrder
+  page: ExitPageOrderByWithRelationInput
+  pageId: SortOrder
+  updatedBy: UserOrderByWithRelationInput
+  updatedById: SortOrderInput
+  version: SortOrder
+}
+
+enum PageVersionScalarFieldEnum {
+  createdAt
+  data
+  id
+  pageId
+  updatedById
+  version
 }
 
 input PageVersionWhereInput {
@@ -1126,14 +1221,19 @@ input PageViewWhereUniqueInput {
 }
 
 type Query {
+  comment(id: String!): Comment!
+  comments(cursor: CommentWhereUniqueInput, distinct: [CommentScalarFieldEnum!], orderBy: [CommentOrderByWithRelationInput!], skip: Int, take: Int, where: CommentWhereInput): [Comment!]!
   exitPage(id: String!): ExitPage!
   exitPages(cursor: ExitPageWhereUniqueInput, distinct: [ExitPageScalarFieldEnum!], orderBy: [ExitPageOrderByWithRelationInput!], skip: Int, take: Int, where: ExitPageWhereInput): [ExitPage!]!
   me: User!
+  pageVersion(id: String!): PageVersion!
+  pageVersions(cursor: PageVersionWhereUniqueInput, distinct: [PageVersionScalarFieldEnum!], orderBy: [PageVersionOrderByWithRelationInput!], skip: Int, take: Int, where: PageVersionWhereInput): [PageVersion!]!
   reaction(id: String!): Reaction!
   template(id: String!): Template!
   templates(cursor: TemplateWhereUniqueInput, distinct: [TemplateScalarFieldEnum!], orderBy: [TemplateOrderByWithRelationInput!], skip: Int, take: Int, where: TemplateWhereInput): [Template!]!
   user(id: String!): User!
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+  vote(id: String!): Vote!
 }
 
 enum QueryMode {
@@ -2111,6 +2211,13 @@ type Vote {
   pageId: String!
   user: User
   userId: String
+}
+
+input VoteCreateInput {
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutVotesInput!
+  user: UserCreateNestedOneWithoutVotesInput
 }
 
 input VoteCreateManyPageInput {

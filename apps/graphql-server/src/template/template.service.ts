@@ -70,7 +70,7 @@ export class TemplateService {
     return template;
   }
 
-  async DeleteManyTemplateArgs(ids: string[]): Promise<Template[]> {
+  async deleteManyTemplateArgs(ids: string[]): Promise<Template[]> {
     const templates = await this.prisma.template.findMany({
       where: {
         id: { in: ids },
