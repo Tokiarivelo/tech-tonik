@@ -10,21 +10,21 @@ export class PageViewService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(input: PageViewCreateInput): Promise<PageView> {
-    const comment = await this.prisma.pageView.create({
+    const pageView = await this.prisma.pageView.create({
       data: {
         page: input.page,
         user: input.user,
         sessionId: input.sessionId,
       },
     });
-    return comment;
+    return pageView;
   }
 
   async updatePageView(
     id: string,
     input: PageViewCreateInput,
   ): Promise<PageView> {
-    const comment = await this.prisma.pageView.update({
+    const pageView = await this.prisma.pageView.update({
       where: { id },
       data: {
         page: input.page,
@@ -32,50 +32,50 @@ export class PageViewService {
         sessionId: input.sessionId,
       },
     });
-    if (!comment) throw new NotFoundException(`PageView ${id} not found`);
-    return comment;
+    if (!pageView) throw new NotFoundException(`PageView ${id} not found`);
+    return pageView;
   }
 
   async findAll(params: FindManyPageViewArgs): Promise<PageView[] | null> {
     const { skip, take, cursor, where, orderBy } = params;
-    const comment = await this.prisma.pageView.findMany({
+    const pageView = await this.prisma.pageView.findMany({
       skip,
       take,
       cursor,
       where,
       orderBy,
     });
-    return comment;
+    return pageView;
   }
 
   async findById(id: string): Promise<PageView> {
-    const comment = await this.prisma.pageView.findUnique({
+    const pageView = await this.prisma.pageView.findUnique({
       where: { id },
     });
-    if (!comment) throw new NotFoundException(`PageView ${id} not found`);
-    return comment;
+    if (!pageView) throw new NotFoundException(`PageView ${id} not found`);
+    return pageView;
   }
 
   async deletePageView({ where }: DeleteOnePageViewArgs): Promise<PageView> {
-    const comment = await this.prisma.pageView.delete({
+    const pageView = await this.prisma.pageView.delete({
       where,
     });
 
-    if (!comment)
+    if (!pageView)
       throw new NotFoundException(
         `PageView ${JSON.stringify(where)} not found`,
       );
-    return comment;
+    return pageView;
   }
 
   async deleteManyPageViewArgs(ids: string[]): Promise<PageView[]> {
-    const comments = await this.prisma.pageView.findMany({
+    const pageViews = await this.prisma.pageView.findMany({
       where: {
         id: { in: ids },
       },
     });
 
-    if (!comments || comments.length === 0)
+    if (!pageViews || pageViews.length === 0)
       throw new NotFoundException(`PageViews ${JSON.stringify(ids)} not found`);
 
     await this.prisma.pageView.deleteMany({
@@ -84,6 +84,6 @@ export class PageViewService {
       },
     });
 
-    return comments;
+    return pageViews;
   }
 }

@@ -10,7 +10,7 @@ export class PageVersionService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(input: PageVersionCreateInput): Promise<PageVersion> {
-    const comment = await this.prisma.pageVersion.create({
+    const pageVersion = await this.prisma.pageVersion.create({
       data: {
         data: input.data,
         version: input.version,
@@ -18,14 +18,14 @@ export class PageVersionService {
         updatedBy: input.updatedBy,
       },
     });
-    return comment;
+    return pageVersion;
   }
 
   async updatePageVersion(
     id: string,
     input: PageVersionCreateInput,
   ): Promise<PageVersion> {
-    const comment = await this.prisma.pageVersion.update({
+    const pageVersion = await this.prisma.pageVersion.update({
       where: { id },
       data: {
         data: input.data,
@@ -34,54 +34,56 @@ export class PageVersionService {
         updatedBy: input.updatedBy,
       },
     });
-    if (!comment) throw new NotFoundException(`PageVersion ${id} not found`);
-    return comment;
+    if (!pageVersion)
+      throw new NotFoundException(`PageVersion ${id} not found`);
+    return pageVersion;
   }
 
   async findAll(
     params: FindManyPageVersionArgs,
   ): Promise<PageVersion[] | null> {
     const { skip, take, cursor, where, orderBy } = params;
-    const comment = await this.prisma.pageVersion.findMany({
+    const pageVersion = await this.prisma.pageVersion.findMany({
       skip,
       take,
       cursor,
       where,
       orderBy,
     });
-    return comment;
+    return pageVersion;
   }
 
   async findById(id: string): Promise<PageVersion> {
-    const comment = await this.prisma.pageVersion.findUnique({
+    const pageVersion = await this.prisma.pageVersion.findUnique({
       where: { id },
     });
-    if (!comment) throw new NotFoundException(`PageVersion ${id} not found`);
-    return comment;
+    if (!pageVersion)
+      throw new NotFoundException(`PageVersion ${id} not found`);
+    return pageVersion;
   }
 
   async deletePageVersion({
     where,
   }: DeleteOnePageVersionArgs): Promise<PageVersion> {
-    const comment = await this.prisma.pageVersion.delete({
+    const pageVersion = await this.prisma.pageVersion.delete({
       where,
     });
 
-    if (!comment)
+    if (!pageVersion)
       throw new NotFoundException(
         `PageVersion ${JSON.stringify(where)} not found`,
       );
-    return comment;
+    return pageVersion;
   }
 
   async deleteManyPageVersionArgs(ids: string[]): Promise<PageVersion[]> {
-    const comments = await this.prisma.pageVersion.findMany({
+    const pageVersions = await this.prisma.pageVersion.findMany({
       where: {
         id: { in: ids },
       },
     });
 
-    if (!comments || comments.length === 0)
+    if (!pageVersions || pageVersions.length === 0)
       throw new NotFoundException(
         `PageVersions ${JSON.stringify(ids)} not found`,
       );
@@ -92,6 +94,6 @@ export class PageVersionService {
       },
     });
 
-    return comments;
+    return pageVersions;
   }
 }
