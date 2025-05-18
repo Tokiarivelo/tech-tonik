@@ -80,5 +80,6 @@ export const useRegister = () => {
     showPassword,
     register,
     handleShowPassword,
+    error,
   };
 };

@@ -47,7 +47,7 @@ const Reviews = () => {
     const currentData = sliderData[slideIndex].data;
     const itemCount = currentData.images.length;
     
-    let newItemIndex = direction === 'next' 
+    const newItemIndex = direction === 'next' 
       ? (itemIndex + 1) % itemCount
       : (itemIndex - 1 + itemCount) % itemCount;
     
