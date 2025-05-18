@@ -68,16 +68,16 @@ const Page = () => {
         {/* Navigation principale */}
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+          className="absolute cursor-pointer left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
         >
-          <ArrowLeft className="text-gray-800 w-6 h-6" />
+          <ArrowLeft className="text-gray-800 w-10 h-10" />
         </button>
 
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="absolute right-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+          className="absolute cursor-pointer right-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
         >
-          <ArrowRight className="text-gray-800 w-6 h-6" />
+          <ArrowRight className="text-gray-800 w-10 h-10" />
         </button>
 
         {/* Modal Preview améliorée */}
@@ -89,7 +89,7 @@ const Page = () => {
             >
               <button 
                 onClick={closePreview}
-                className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100"
+                className="absolute cursor-pointer top-4 right-4 p-1 rounded-full hover:bg-gray-100"
               >
                 <X className="w-6 h-6 text-gray-500" />
               </button>
@@ -106,13 +106,13 @@ const Page = () => {
               <div className="mt-6 flex justify-between">
                 <button
                   onClick={() => navigatePreview('prev')}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="px-4  py-2 cursor-pointer bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
                 >
                   Précédent
                 </button>
                 <button
                   onClick={() => navigatePreview('next')}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="px-4  py-2 cursor-pointer bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
                 >
                   Suivant
                 </button>
@@ -121,7 +121,7 @@ const Page = () => {
               <div className="mt-4 flex justify-center">
                 <button
                   onClick={closePreview}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                  className="px-4 cursor-pointer py-2 bg-blue-500 text-white rounded-lg hover:bg-primary-dark transition-colors"
                 >
                   Fermer
                 </button>

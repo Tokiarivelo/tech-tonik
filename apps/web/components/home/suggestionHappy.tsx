@@ -17,7 +17,9 @@ export const SuggestionHappy = ({ onImageClick }: { onImageClick: (index: number
     <div className="relative flex flex-col items-center justify-center min-h-[80vh] w-full py-10">
       <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4">
         <div className="flex gap-x-20 lg:items-start items-center lg:flex-row flex-col w-full justify-center">
-          
+          <h1 className="text-center text-3xl sm:text-5xl font-bold text-gray-800 absolute top-8 left-1/2 transform -translate-x-1/2 w-full max-w-[90%] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] tracking-wider drop-shadow-lg">
+              Parce que si c'est la fin, autant la rendre inoubliable...
+          </h1>
           {/* Images Container */}
           <div className="sm:w-[400px] sm:h-[400px] w-[200px] h-[200px] relative">
             {images.map((image, i) => {
