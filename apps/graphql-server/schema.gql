@@ -272,11 +272,34 @@ input ExitPageCreateManyAuthorInputEnvelope {
   skipDuplicates: Boolean
 }
 
+input ExitPageCreateManyTemplateInput {
+  authorId: String
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  slug: String!
+  tone: Tone!
+  updatedAt: DateTime
+}
+
+input ExitPageCreateManyTemplateInputEnvelope {
+  data: [ExitPageCreateManyTemplateInput!]!
+  skipDuplicates: Boolean
+}
+
 input ExitPageCreateNestedManyWithoutAuthorInput {
   connect: [ExitPageWhereUniqueInput!]
   connectOrCreate: [ExitPageCreateOrConnectWithoutAuthorInput!]
   create: [ExitPageCreateWithoutAuthorInput!]
   createMany: ExitPageCreateManyAuthorInputEnvelope
+}
+
+input ExitPageCreateNestedManyWithoutTemplateInput {
+  connect: [ExitPageWhereUniqueInput!]
+  connectOrCreate: [ExitPageCreateOrConnectWithoutTemplateInput!]
+  create: [ExitPageCreateWithoutTemplateInput!]
+  createMany: ExitPageCreateManyTemplateInputEnvelope
 }
 
 input ExitPageCreateNestedOneWithoutCommentsInput {
@@ -332,6 +355,11 @@ input ExitPageCreateOrConnectWithoutReactionsInput {
 
 input ExitPageCreateOrConnectWithoutSharesInput {
   create: ExitPageCreateWithoutSharesInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutTemplateInput {
+  create: ExitPageCreateWithoutTemplateInput!
   where: ExitPageWhereUniqueInput!
 }
 
@@ -415,6 +443,24 @@ input ExitPageCreateWithoutSharesInput {
   slug: String!
   tags: TagCreateNestedManyWithoutExitPageInput
   template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutTemplateInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
   tone: Tone!
   updatedAt: DateTime
   versions: PageVersionCreateNestedManyWithoutPageInput
@@ -587,10 +633,12 @@ type LoginOutput {
 }
 
 type Mutation {
+  createTemplate(input: TemplateCreateInput!): Template!
   createUser(input: UserCreateInput!): User!
   login(data: LoginInput!): LoginOutput
   logout: Boolean!
   register(data: RegisterInput!): User!
+  updateTemplate(id: String!, input: TemplateCreateInput!): Template!
   uploadFile(file: Upload!, path: String): FileUploadResult!
 }
 
@@ -1009,6 +1057,8 @@ input PageViewWhereUniqueInput {
 
 type Query {
   me: User!
+  template(id: String!): Template!
+  templates(cursor: TemplateWhereUniqueInput, distinct: [TemplateScalarFieldEnum!], orderBy: [TemplateOrderByWithRelationInput!], skip: Int, take: Int, where: TemplateWhereInput): [Template!]!
   user(id: String!): User!
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
@@ -1380,6 +1430,16 @@ type TemplateCount {
   pages: Int!
 }
 
+input TemplateCreateInput {
+  content: String!
+  createdAt: DateTime
+  description: String!
+  id: String
+  name: String!
+  pages: ExitPageCreateNestedManyWithoutTemplateInput
+  placeholders: JSON!
+}
+
 input TemplateCreateNestedOneWithoutPagesInput {
   connect: TemplateWhereUniqueInput
   connectOrCreate: TemplateCreateOrConnectWithoutPagesInput
@@ -1398,6 +1458,39 @@ input TemplateCreateWithoutPagesInput {
   id: String
   name: String!
   placeholders: JSON!
+}
+
+enum TemplateOrderByRelevanceFieldEnum {
+  content
+  description
+  id
+  name
+}
+
+input TemplateOrderByRelevanceInput {
+  fields: [TemplateOrderByRelevanceFieldEnum!]!
+  search: String!
+  sort: SortOrder!
+}
+
+input TemplateOrderByWithRelationInput {
+  _relevance: TemplateOrderByRelevanceInput
+  content: SortOrder
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  name: SortOrder
+  pages: ExitPageOrderByRelationAggregateInput
+  placeholders: SortOrder
+}
+
+enum TemplateScalarFieldEnum {
+  content
+  createdAt
+  description
+  id
+  name
+  placeholders
 }
 
 input TemplateScalarRelationFilter {
