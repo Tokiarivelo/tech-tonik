@@ -3,67 +3,86 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
+const text = 'TheEnd.Page';
+
 const Logo = () => {
-  const logoRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lettersRef = useRef<HTMLSpanElement[]>([]);
 
   useEffect(() => {
-    const el = logoRef.current;
-    if (!el) return;
+    const letters = lettersRef.current;
+    if (!letters || letters.length === 0) return;
+
 
     gsap.fromTo(
-      el,
-      { rotateX: 75, rotateY: -45, opacity: 0, scale: 0.6 },
+      letters,
       {
-        rotateX: 0,
-        rotateY: 0,
+        y: 80,
+        opacity: 0,
+        rotateX: 90,
+      },
+      {
+        y: 0,
         opacity: 1,
-        scale: 1,
-        duration: 1.5,
+        rotateX: 0,
+        stagger: 0.08,
+        duration: 1,
         ease: 'back.out(1.7)',
       }
     );
 
-    // Animation 3D sur hover
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 30;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 30;
+    const container = containerRef.current;
+    if (!container) return;
 
-      gsap.to(el, {
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
+
+      gsap.to(container, {
         rotateY: x,
         rotateX: -y,
         duration: 0.4,
         ease: 'power2.out',
+        transformPerspective: 1000,
       });
     };
 
-    const resetRotation = () => {
-      gsap.to(el, {
+    const reset = () => {
+      gsap.to(container, {
         rotateX: 0,
         rotateY: 0,
-        duration: 0.5,
-        ease: 'power2.out',
+        duration: 0.6,
+        ease: 'power3.out',
       });
     };
 
-    el.addEventListener('mousemove', handleMouseMove);
-    el.addEventListener('mouseleave', resetRotation);
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', reset);
 
     return () => {
-      el.removeEventListener('mousemove', handleMouseMove);
-      el.removeEventListener('mouseleave', resetRotation);
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseleave', reset);
     };
   }, []);
 
   return (
     <div className="perspective-[1200px] ml-10">
       <div
-        ref={logoRef}
-        className="text-5xl font-extrabold font-mono tracking-wide transform-gpu drop-shadow-[4px_4px_6px_rgba(0,0,0,0.5)]"
+        ref={containerRef}
+        className="inline-block transform-gpu origin-center text-5xl font-extrabold font-mono tracking-wide drop-shadow-[4px_4px_6px_rgba(0,0,0,0.5)]"
       >
-        <span className="bg-gradient-to-r from-red-700 via-slate-400 to-blue-600 text-transparent bg-clip-text">
-          TheEnd.Page
-        </span>
+        {text.split('').map((char, index) => (
+          <span
+            key={index}
+            ref={(el) => {
+              if (el) lettersRef.current[index] = el;
+            }}
+            className="inline-block bg-gradient-to-r from-[#e1a134] via-[#e7b057] to-[#cab38f] text-transparent bg-clip-text"
+          >
+            {char}
+          </span>
+        ))}
       </div>
     </div>
   );
