@@ -1,9 +1,7 @@
 import React from 'react'
 
-const acceuil = () => {
+export const acceuil = () => {
   return (
     <div>acceuil</div>
   )
 }
-
-export default acceuil
