@@ -1,4 +1,3 @@
-'use client';
 import { useForm } from 'react-hook-form';
 import { LoginFormValues, loginSchema } from './login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +6,7 @@ import { useAuthStore } from '../stores/useAuthStore';
 import { useUserStore } from '../../user/stores/useUserSores';
 import { useState } from 'react';
 import { useLoginMutation } from '@/graphql/generated/graphql';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export const useLogin = () => {
   const [mutationLogin, { loading, error }] = useLoginMutation();
