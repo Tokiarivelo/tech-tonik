@@ -8,6 +8,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { UploadModule } from 'src/upload/upload.module';
 import { TemplateModule } from 'src/template/template.module';
 import { ExitPageModule } from 'src/exit-page/exitPage.module';
+import { ReactionModule } from 'src/reaction/reaction.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ExitPageModule } from 'src/exit-page/exitPage.module';
     UploadModule,
     TemplateModule,
     ExitPageModule,
+    ReactionModule,
   ],
 })
 export class AppModule {}

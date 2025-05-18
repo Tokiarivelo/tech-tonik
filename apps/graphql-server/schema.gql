@@ -700,12 +700,14 @@ type LoginOutput {
 
 type Mutation {
   createExitPage(input: ExitPageCreateInput!): ExitPage!
+  createReaction(input: ReactionCreateInput!): Reaction!
   createTemplate(input: TemplateCreateInput!): Template!
   createUser(input: UserCreateInput!): User!
   login(data: LoginInput!): LoginOutput
   logout: Boolean!
   register(data: RegisterInput!): User!
   updateExitPage(id: String!, input: ExitPageCreateInput!): ExitPage!
+  updateReaction(id: String!, input: ReactionCreateInput!): Reaction!
   updateTemplate(id: String!, input: TemplateCreateInput!): Template!
   uploadFile(file: Upload!, path: String): FileUploadResult!
 }
@@ -1127,6 +1129,7 @@ type Query {
   exitPage(id: String!): ExitPage!
   exitPages(cursor: ExitPageWhereUniqueInput, distinct: [ExitPageScalarFieldEnum!], orderBy: [ExitPageOrderByWithRelationInput!], skip: Int, take: Int, where: ExitPageWhereInput): [ExitPage!]!
   me: User!
+  reaction(id: String!): Reaction!
   template(id: String!): Template!
   templates(cursor: TemplateWhereUniqueInput, distinct: [TemplateScalarFieldEnum!], orderBy: [TemplateOrderByWithRelationInput!], skip: Int, take: Int, where: TemplateWhereInput): [Template!]!
   user(id: String!): User!
@@ -1146,6 +1149,14 @@ type Reaction {
   type: ReactionType!
   user: User
   userId: String
+}
+
+input ReactionCreateInput {
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutReactionsInput!
+  type: ReactionType!
+  user: UserCreateNestedOneWithoutReactionsInput
 }
 
 input ReactionCreateManyPageInput {
