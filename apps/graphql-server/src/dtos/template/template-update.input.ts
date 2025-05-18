@@ -23,6 +23,9 @@ export class TemplateUpdateInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     content?: StringFieldUpdateOperationsInput;
 
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    uniqueKey?: StringFieldUpdateOperationsInput;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 

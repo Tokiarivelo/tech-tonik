@@ -23,6 +23,9 @@ export class TemplateGroupBy {
     @Field(() => String, {nullable:false})
     content!: string;
 
+    @Field(() => String, {nullable:false})
+    uniqueKey!: string;
+
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
 

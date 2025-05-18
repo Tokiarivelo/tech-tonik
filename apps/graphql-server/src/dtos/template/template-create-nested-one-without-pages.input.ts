@@ -19,5 +19,5 @@ export class TemplateCreateNestedOneWithoutPagesInput {
 
     @Field(() => TemplateWhereUniqueInput, {nullable:true})
     @Type(() => TemplateWhereUniqueInput)
-    connect?: Prisma.AtLeast<TemplateWhereUniqueInput, 'id'>;
+    connect?: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
 }

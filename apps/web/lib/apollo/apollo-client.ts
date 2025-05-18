@@ -10,8 +10,6 @@ const authLink = setContext((_, { headers }) => {
   // Récupère le token depuis zustand (hors React)
   const token = useAuthStore.getState().token;
 
-  console.log('token :>> ', token);
-
   return {
     headers: {
       ...headers,

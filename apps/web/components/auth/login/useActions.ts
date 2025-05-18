@@ -1,4 +1,3 @@
-'use client';
 import { useForm } from 'react-hook-form';
 import { LoginFormValues, loginSchema } from './login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,12 +6,14 @@ import { useAuthStore } from '../stores/useAuthStore';
 import { useUserStore } from '../../user/stores/useUserSores';
 import { useState } from 'react';
 import { useLoginMutation } from '@/graphql/generated/graphql';
+import { useRouter } from 'next/navigation';
 
 export const useLogin = () => {
   const [mutationLogin, { loading, error }] = useLoginMutation();
   const setToken = useAuthStore(state => state.setToken);
   const setUser = useUserStore(state => state.setUser);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -51,7 +52,7 @@ export const useLogin = () => {
         description: `Bienvenue ${user?.firstName} ! Redirection en cours...`,
       });
 
-      window.location.href = '/'; // Redirection vers la page d'accueil
+      router.replace('/'); // Redirection vers la page d'accueil
       return data;
     } catch (error) {
       if (error instanceof Error) {

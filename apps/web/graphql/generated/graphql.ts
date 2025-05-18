@@ -16,12 +16,249 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
   Upload: { input: any; output: any; }
 };
 
 export type BoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type Comment = {
+  __typename?: 'Comment';
+  _count: CommentCount;
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  page: ExitPage;
+  pageId: Scalars['String']['output'];
+  parentComment?: Maybe<Comment>;
+  parentCommentId?: Maybe<Scalars['String']['output']>;
+  replies?: Maybe<Array<Comment>>;
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type CommentCount = {
+  __typename?: 'CommentCount';
+  replies: Scalars['Int']['output'];
+};
+
+export type CommentCreateInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutCommentsInput;
+  parentComment?: InputMaybe<CommentCreateNestedOneWithoutRepliesInput>;
+  replies?: InputMaybe<CommentCreateNestedManyWithoutParentCommentInput>;
+  user?: InputMaybe<UserCreateNestedOneWithoutCommentsInput>;
+};
+
+export type CommentCreateManyPageInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  parentCommentId?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CommentCreateManyPageInputEnvelope = {
+  data: Array<CommentCreateManyPageInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CommentCreateManyParentCommentInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['String']['input'];
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CommentCreateManyParentCommentInputEnvelope = {
+  data: Array<CommentCreateManyParentCommentInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CommentCreateManyUserInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['String']['input'];
+  parentCommentId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CommentCreateManyUserInputEnvelope = {
+  data: Array<CommentCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CommentCreateNestedManyWithoutPageInput = {
+  connect?: InputMaybe<Array<CommentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CommentCreateOrConnectWithoutPageInput>>;
+  create?: InputMaybe<Array<CommentCreateWithoutPageInput>>;
+  createMany?: InputMaybe<CommentCreateManyPageInputEnvelope>;
+};
+
+export type CommentCreateNestedManyWithoutParentCommentInput = {
+  connect?: InputMaybe<Array<CommentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CommentCreateOrConnectWithoutParentCommentInput>>;
+  create?: InputMaybe<Array<CommentCreateWithoutParentCommentInput>>;
+  createMany?: InputMaybe<CommentCreateManyParentCommentInputEnvelope>;
+};
+
+export type CommentCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<CommentWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CommentCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<CommentCreateWithoutUserInput>>;
+  createMany?: InputMaybe<CommentCreateManyUserInputEnvelope>;
+};
+
+export type CommentCreateNestedOneWithoutRepliesInput = {
+  connect?: InputMaybe<CommentWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CommentCreateOrConnectWithoutRepliesInput>;
+  create?: InputMaybe<CommentCreateWithoutRepliesInput>;
+};
+
+export type CommentCreateOrConnectWithoutPageInput = {
+  create: CommentCreateWithoutPageInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type CommentCreateOrConnectWithoutParentCommentInput = {
+  create: CommentCreateWithoutParentCommentInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type CommentCreateOrConnectWithoutRepliesInput = {
+  create: CommentCreateWithoutRepliesInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type CommentCreateOrConnectWithoutUserInput = {
+  create: CommentCreateWithoutUserInput;
+  where: CommentWhereUniqueInput;
+};
+
+export type CommentCreateWithoutPageInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  parentComment?: InputMaybe<CommentCreateNestedOneWithoutRepliesInput>;
+  replies?: InputMaybe<CommentCreateNestedManyWithoutParentCommentInput>;
+  user?: InputMaybe<UserCreateNestedOneWithoutCommentsInput>;
+};
+
+export type CommentCreateWithoutParentCommentInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutCommentsInput;
+  replies?: InputMaybe<CommentCreateNestedManyWithoutParentCommentInput>;
+  user?: InputMaybe<UserCreateNestedOneWithoutCommentsInput>;
+};
+
+export type CommentCreateWithoutRepliesInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutCommentsInput;
+  parentComment?: InputMaybe<CommentCreateNestedOneWithoutRepliesInput>;
+  user?: InputMaybe<UserCreateNestedOneWithoutCommentsInput>;
+};
+
+export type CommentCreateWithoutUserInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutCommentsInput;
+  parentComment?: InputMaybe<CommentCreateNestedOneWithoutRepliesInput>;
+  replies?: InputMaybe<CommentCreateNestedManyWithoutParentCommentInput>;
+};
+
+export type CommentListRelationFilter = {
+  every?: InputMaybe<CommentWhereInput>;
+  none?: InputMaybe<CommentWhereInput>;
+  some?: InputMaybe<CommentWhereInput>;
+};
+
+export type CommentNullableScalarRelationFilter = {
+  is?: InputMaybe<CommentWhereInput>;
+  isNot?: InputMaybe<CommentWhereInput>;
+};
+
+export type CommentOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum CommentOrderByRelevanceFieldEnum {
+  CONTENT = 'content',
+  ID = 'id',
+  PAGEID = 'pageId',
+  PARENTCOMMENTID = 'parentCommentId',
+  USERID = 'userId'
+}
+
+export type CommentOrderByRelevanceInput = {
+  fields: Array<CommentOrderByRelevanceFieldEnum>;
+  search: Scalars['String']['input'];
+  sort: SortOrder;
+};
+
+export type CommentOrderByWithRelationInput = {
+  _relevance?: InputMaybe<CommentOrderByRelevanceInput>;
+  content?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  page?: InputMaybe<ExitPageOrderByWithRelationInput>;
+  pageId?: InputMaybe<SortOrder>;
+  parentComment?: InputMaybe<CommentOrderByWithRelationInput>;
+  parentCommentId?: InputMaybe<SortOrderInput>;
+  replies?: InputMaybe<CommentOrderByRelationAggregateInput>;
+  user?: InputMaybe<UserOrderByWithRelationInput>;
+  userId?: InputMaybe<SortOrderInput>;
+};
+
+export enum CommentScalarFieldEnum {
+  CONTENT = 'content',
+  CREATEDAT = 'createdAt',
+  ID = 'id',
+  PAGEID = 'pageId',
+  PARENTCOMMENTID = 'parentCommentId',
+  USERID = 'userId'
+}
+
+export type CommentWhereInput = {
+  AND?: InputMaybe<Array<CommentWhereInput>>;
+  NOT?: InputMaybe<Array<CommentWhereInput>>;
+  OR?: InputMaybe<Array<CommentWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  parentComment?: InputMaybe<CommentNullableScalarRelationFilter>;
+  parentCommentId?: InputMaybe<StringNullableFilter>;
+  replies?: InputMaybe<CommentListRelationFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
+};
+
+export type CommentWhereUniqueInput = {
+  AND?: InputMaybe<Array<CommentWhereInput>>;
+  NOT?: InputMaybe<Array<CommentWhereInput>>;
+  OR?: InputMaybe<Array<CommentWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  parentComment?: InputMaybe<CommentNullableScalarRelationFilter>;
+  parentCommentId?: InputMaybe<StringNullableFilter>;
+  replies?: InputMaybe<CommentListRelationFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
 };
 
 export type DateTimeFilter = {
@@ -35,20 +272,452 @@ export type DateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type EnumReactionTypeFilter = {
+  equals?: InputMaybe<ReactionType>;
+  in?: InputMaybe<Array<ReactionType>>;
+  not?: InputMaybe<NestedEnumReactionTypeFilter>;
+  notIn?: InputMaybe<Array<ReactionType>>;
+};
+
+export type EnumToneFilter = {
+  equals?: InputMaybe<Tone>;
+  in?: InputMaybe<Array<Tone>>;
+  not?: InputMaybe<NestedEnumToneFilter>;
+  notIn?: InputMaybe<Array<Tone>>;
+};
+
+export type ExitPage = {
+  __typename?: 'ExitPage';
+  _count: ExitPageCount;
+  author?: Maybe<User>;
+  authorId?: Maybe<Scalars['String']['output']>;
+  comments?: Maybe<Array<Comment>>;
+  createdAt: Scalars['DateTime']['output'];
+  data: Scalars['JSON']['output'];
+  id: Scalars['ID']['output'];
+  isHallOfFame: Scalars['Boolean']['output'];
+  reactions?: Maybe<Array<Reaction>>;
+  shares?: Maybe<Array<PageShare>>;
+  slug: Scalars['String']['output'];
+  tags?: Maybe<Array<Tag>>;
+  template: Template;
+  templateId: Scalars['String']['output'];
+  tone: Tone;
+  updatedAt: Scalars['DateTime']['output'];
+  versions?: Maybe<Array<PageVersion>>;
+  views?: Maybe<Array<PageView>>;
+  votes?: Maybe<Array<Vote>>;
+};
+
+export type ExitPageCount = {
+  __typename?: 'ExitPageCount';
+  comments: Scalars['Int']['output'];
+  reactions: Scalars['Int']['output'];
+  shares: Scalars['Int']['output'];
+  tags: Scalars['Int']['output'];
+  versions: Scalars['Int']['output'];
+  views: Scalars['Int']['output'];
+  votes: Scalars['Int']['output'];
+};
+
+export type ExitPageCreateInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateManyAuthorInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  slug: Scalars['String']['input'];
+  templateId: Scalars['String']['input'];
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ExitPageCreateManyAuthorInputEnvelope = {
+  data: Array<ExitPageCreateManyAuthorInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ExitPageCreateManyTemplateInput = {
+  authorId?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  slug: Scalars['String']['input'];
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ExitPageCreateManyTemplateInputEnvelope = {
+  data: Array<ExitPageCreateManyTemplateInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ExitPageCreateNestedManyWithoutAuthorInput = {
+  connect?: InputMaybe<Array<ExitPageWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ExitPageCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<ExitPageCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<ExitPageCreateManyAuthorInputEnvelope>;
+};
+
+export type ExitPageCreateNestedManyWithoutTemplateInput = {
+  connect?: InputMaybe<Array<ExitPageWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ExitPageCreateOrConnectWithoutTemplateInput>>;
+  create?: InputMaybe<Array<ExitPageCreateWithoutTemplateInput>>;
+  createMany?: InputMaybe<ExitPageCreateManyTemplateInputEnvelope>;
+};
+
+export type ExitPageCreateNestedOneWithoutCommentsInput = {
+  connect?: InputMaybe<ExitPageWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ExitPageCreateOrConnectWithoutCommentsInput>;
+  create?: InputMaybe<ExitPageCreateWithoutCommentsInput>;
+};
+
+export type ExitPageCreateNestedOneWithoutReactionsInput = {
+  connect?: InputMaybe<ExitPageWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ExitPageCreateOrConnectWithoutReactionsInput>;
+  create?: InputMaybe<ExitPageCreateWithoutReactionsInput>;
+};
+
+export type ExitPageCreateNestedOneWithoutSharesInput = {
+  connect?: InputMaybe<ExitPageWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ExitPageCreateOrConnectWithoutSharesInput>;
+  create?: InputMaybe<ExitPageCreateWithoutSharesInput>;
+};
+
+export type ExitPageCreateNestedOneWithoutVersionsInput = {
+  connect?: InputMaybe<ExitPageWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ExitPageCreateOrConnectWithoutVersionsInput>;
+  create?: InputMaybe<ExitPageCreateWithoutVersionsInput>;
+};
+
+export type ExitPageCreateNestedOneWithoutViewsInput = {
+  connect?: InputMaybe<ExitPageWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ExitPageCreateOrConnectWithoutViewsInput>;
+  create?: InputMaybe<ExitPageCreateWithoutViewsInput>;
+};
+
+export type ExitPageCreateNestedOneWithoutVotesInput = {
+  connect?: InputMaybe<ExitPageWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ExitPageCreateOrConnectWithoutVotesInput>;
+  create?: InputMaybe<ExitPageCreateWithoutVotesInput>;
+};
+
+export type ExitPageCreateOrConnectWithoutAuthorInput = {
+  create: ExitPageCreateWithoutAuthorInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutCommentsInput = {
+  create: ExitPageCreateWithoutCommentsInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutReactionsInput = {
+  create: ExitPageCreateWithoutReactionsInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutSharesInput = {
+  create: ExitPageCreateWithoutSharesInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutTemplateInput = {
+  create: ExitPageCreateWithoutTemplateInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutVersionsInput = {
+  create: ExitPageCreateWithoutVersionsInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutViewsInput = {
+  create: ExitPageCreateWithoutViewsInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateOrConnectWithoutVotesInput = {
+  create: ExitPageCreateWithoutVotesInput;
+  where: ExitPageWhereUniqueInput;
+};
+
+export type ExitPageCreateWithoutAuthorInput = {
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutCommentsInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutReactionsInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutSharesInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutTemplateInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutVersionsInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutViewsInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageCreateWithoutVotesInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
+  slug: Scalars['String']['input'];
+  tags?: InputMaybe<TagCreateNestedManyWithoutExitPageInput>;
+  template: TemplateCreateNestedOneWithoutPagesInput;
+  tone: Tone;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
+};
+
+export type ExitPageListRelationFilter = {
+  every?: InputMaybe<ExitPageWhereInput>;
+  none?: InputMaybe<ExitPageWhereInput>;
+  some?: InputMaybe<ExitPageWhereInput>;
+};
+
+export type ExitPageOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum ExitPageOrderByRelevanceFieldEnum {
+  AUTHORID = 'authorId',
+  ID = 'id',
+  SLUG = 'slug',
+  TEMPLATEID = 'templateId'
+}
+
+export type ExitPageOrderByRelevanceInput = {
+  fields: Array<ExitPageOrderByRelevanceFieldEnum>;
+  search: Scalars['String']['input'];
+  sort: SortOrder;
+};
+
+export type ExitPageOrderByWithRelationInput = {
+  _relevance?: InputMaybe<ExitPageOrderByRelevanceInput>;
+  author?: InputMaybe<UserOrderByWithRelationInput>;
+  authorId?: InputMaybe<SortOrderInput>;
+  comments?: InputMaybe<CommentOrderByRelationAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  isHallOfFame?: InputMaybe<SortOrder>;
+  reactions?: InputMaybe<ReactionOrderByRelationAggregateInput>;
+  shares?: InputMaybe<PageShareOrderByRelationAggregateInput>;
+  slug?: InputMaybe<SortOrder>;
+  tags?: InputMaybe<TagOrderByRelationAggregateInput>;
+  template?: InputMaybe<TemplateOrderByWithRelationInput>;
+  templateId?: InputMaybe<SortOrder>;
+  tone?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  versions?: InputMaybe<PageVersionOrderByRelationAggregateInput>;
+  views?: InputMaybe<PageViewOrderByRelationAggregateInput>;
+  votes?: InputMaybe<VoteOrderByRelationAggregateInput>;
+};
+
+export enum ExitPageScalarFieldEnum {
+  AUTHORID = 'authorId',
+  CREATEDAT = 'createdAt',
+  DATA = 'data',
+  ID = 'id',
+  ISHALLOFFAME = 'isHallOfFame',
+  SLUG = 'slug',
+  TEMPLATEID = 'templateId',
+  TONE = 'tone',
+  UPDATEDAT = 'updatedAt'
+}
+
+export type ExitPageScalarRelationFilter = {
+  is?: InputMaybe<ExitPageWhereInput>;
+  isNot?: InputMaybe<ExitPageWhereInput>;
+};
+
+export type ExitPageWhereInput = {
+  AND?: InputMaybe<Array<ExitPageWhereInput>>;
+  NOT?: InputMaybe<Array<ExitPageWhereInput>>;
+  OR?: InputMaybe<Array<ExitPageWhereInput>>;
+  author?: InputMaybe<UserNullableScalarRelationFilter>;
+  authorId?: InputMaybe<StringNullableFilter>;
+  comments?: InputMaybe<CommentListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  data?: InputMaybe<JsonFilter>;
+  id?: InputMaybe<StringFilter>;
+  isHallOfFame?: InputMaybe<BoolFilter>;
+  reactions?: InputMaybe<ReactionListRelationFilter>;
+  shares?: InputMaybe<PageShareListRelationFilter>;
+  slug?: InputMaybe<StringFilter>;
+  tags?: InputMaybe<TagListRelationFilter>;
+  template?: InputMaybe<TemplateScalarRelationFilter>;
+  templateId?: InputMaybe<StringFilter>;
+  tone?: InputMaybe<EnumToneFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  versions?: InputMaybe<PageVersionListRelationFilter>;
+  views?: InputMaybe<PageViewListRelationFilter>;
+  votes?: InputMaybe<VoteListRelationFilter>;
+};
+
+export type ExitPageWhereUniqueInput = {
+  AND?: InputMaybe<Array<ExitPageWhereInput>>;
+  NOT?: InputMaybe<Array<ExitPageWhereInput>>;
+  OR?: InputMaybe<Array<ExitPageWhereInput>>;
+  author?: InputMaybe<UserNullableScalarRelationFilter>;
+  authorId?: InputMaybe<StringNullableFilter>;
+  comments?: InputMaybe<CommentListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  data?: InputMaybe<JsonFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  isHallOfFame?: InputMaybe<BoolFilter>;
+  reactions?: InputMaybe<ReactionListRelationFilter>;
+  shares?: InputMaybe<PageShareListRelationFilter>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<TagListRelationFilter>;
+  template?: InputMaybe<TemplateScalarRelationFilter>;
+  templateId?: InputMaybe<StringFilter>;
+  tone?: InputMaybe<EnumToneFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  versions?: InputMaybe<PageVersionListRelationFilter>;
+  views?: InputMaybe<PageViewListRelationFilter>;
+  votes?: InputMaybe<VoteListRelationFilter>;
+};
+
 export type FileUploadResult = {
   __typename?: 'FileUploadResult';
   url: Scalars['String']['output'];
-};
-
-export type FloatFilter = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  gt?: InputMaybe<Scalars['Float']['input']>;
-  gte?: InputMaybe<Scalars['Float']['input']>;
-  in?: InputMaybe<Array<Scalars['Float']['input']>>;
-  lt?: InputMaybe<Scalars['Float']['input']>;
-  lte?: InputMaybe<Scalars['Float']['input']>;
-  not?: InputMaybe<NestedFloatFilter>;
-  notIn?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
 export type IntFilter = {
@@ -60,6 +729,23 @@ export type IntFilter = {
   lte?: InputMaybe<Scalars['Int']['input']>;
   not?: InputMaybe<NestedIntFilter>;
   notIn?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
+export type JsonFilter = {
+  array_contains?: InputMaybe<Scalars['JSON']['input']>;
+  array_ends_with?: InputMaybe<Scalars['JSON']['input']>;
+  array_starts_with?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  gt?: InputMaybe<Scalars['JSON']['input']>;
+  gte?: InputMaybe<Scalars['JSON']['input']>;
+  lt?: InputMaybe<Scalars['JSON']['input']>;
+  lte?: InputMaybe<Scalars['JSON']['input']>;
+  mode?: InputMaybe<QueryMode>;
+  not?: InputMaybe<Scalars['JSON']['input']>;
+  path?: InputMaybe<Scalars['String']['input']>;
+  string_contains?: InputMaybe<Scalars['String']['input']>;
+  string_ends_with?: InputMaybe<Scalars['String']['input']>;
+  string_starts_with?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type LoginInput = {
@@ -75,16 +761,58 @@ export type LoginOutput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createComment: Comment;
+  createExitPage: ExitPage;
+  createPageVersion: PageVersion;
+  createReaction: Reaction;
+  createTemplate: Template;
   createUser: User;
+  createVote: Vote;
   login?: Maybe<LoginOutput>;
   logout: Scalars['Boolean']['output'];
   register: User;
+  updateComment: Comment;
+  updateExitPage: ExitPage;
+  updatePageVersion: PageVersion;
+  updateReaction: Reaction;
+  updateTemplate: Template;
+  updateVote: Vote;
   uploadFile: FileUploadResult;
+};
+
+
+export type MutationCreateCommentArgs = {
+  input: CommentCreateInput;
+};
+
+
+export type MutationCreateExitPageArgs = {
+  input: ExitPageCreateInput;
+};
+
+
+export type MutationCreatePageVersionArgs = {
+  input: PageVersionCreateInput;
+};
+
+
+export type MutationCreateReactionArgs = {
+  input: ReactionCreateInput;
+};
+
+
+export type MutationCreateTemplateArgs = {
+  input: TemplateCreateInput;
 };
 
 
 export type MutationCreateUserArgs = {
   input: UserCreateInput;
+};
+
+
+export type MutationCreateVoteArgs = {
+  input: VoteCreateInput;
 };
 
 
@@ -95,6 +823,42 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   data: RegisterInput;
+};
+
+
+export type MutationUpdateCommentArgs = {
+  id: Scalars['String']['input'];
+  input: CommentCreateInput;
+};
+
+
+export type MutationUpdateExitPageArgs = {
+  id: Scalars['String']['input'];
+  input: ExitPageCreateInput;
+};
+
+
+export type MutationUpdatePageVersionArgs = {
+  id: Scalars['String']['input'];
+  input: PageVersionCreateInput;
+};
+
+
+export type MutationUpdateReactionArgs = {
+  id: Scalars['String']['input'];
+  input: ReactionCreateInput;
+};
+
+
+export type MutationUpdateTemplateArgs = {
+  id: Scalars['String']['input'];
+  input: TemplateCreateInput;
+};
+
+
+export type MutationUpdateVoteArgs = {
+  id: Scalars['String']['input'];
+  input: VoteCreateInput;
 };
 
 
@@ -119,15 +883,18 @@ export type NestedDateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
-export type NestedFloatFilter = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  gt?: InputMaybe<Scalars['Float']['input']>;
-  gte?: InputMaybe<Scalars['Float']['input']>;
-  in?: InputMaybe<Array<Scalars['Float']['input']>>;
-  lt?: InputMaybe<Scalars['Float']['input']>;
-  lte?: InputMaybe<Scalars['Float']['input']>;
-  not?: InputMaybe<NestedFloatFilter>;
-  notIn?: InputMaybe<Array<Scalars['Float']['input']>>;
+export type NestedEnumReactionTypeFilter = {
+  equals?: InputMaybe<ReactionType>;
+  in?: InputMaybe<Array<ReactionType>>;
+  not?: InputMaybe<NestedEnumReactionTypeFilter>;
+  notIn?: InputMaybe<Array<ReactionType>>;
+};
+
+export type NestedEnumToneFilter = {
+  equals?: InputMaybe<Tone>;
+  in?: InputMaybe<Array<Tone>>;
+  not?: InputMaybe<NestedEnumToneFilter>;
+  notIn?: InputMaybe<Array<Tone>>;
 };
 
 export type NestedIntFilter = {
@@ -176,239 +943,468 @@ export enum NullsOrder {
   LAST = 'last'
 }
 
-export type Payment = {
-  __typename?: 'Payment';
-  amount: Scalars['Float']['output'];
+export type PageShare = {
+  __typename?: 'PageShare';
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  method: Scalars['String']['output'];
-  reservation: Reservation;
-  reservationId: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
+  page: ExitPage;
+  pageId: Scalars['String']['output'];
+  platform: Scalars['String']['output'];
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']['output']>;
 };
 
-export type PaymentCreateManyUserInput = {
-  amount: Scalars['Float']['input'];
+export type PageShareCreateManyPageInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  method: Scalars['String']['input'];
-  reservationId: Scalars['String']['input'];
-  status: Scalars['String']['input'];
+  platform: Scalars['String']['input'];
+  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PaymentCreateManyUserInputEnvelope = {
-  data: Array<PaymentCreateManyUserInput>;
+export type PageShareCreateManyPageInputEnvelope = {
+  data: Array<PageShareCreateManyPageInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type PaymentCreateNestedManyWithoutUserInput = {
-  connect?: InputMaybe<Array<PaymentWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<PaymentCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<PaymentCreateWithoutUserInput>>;
-  createMany?: InputMaybe<PaymentCreateManyUserInputEnvelope>;
-};
-
-export type PaymentCreateNestedOneWithoutReservationInput = {
-  connect?: InputMaybe<PaymentWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<PaymentCreateOrConnectWithoutReservationInput>;
-  create?: InputMaybe<PaymentCreateWithoutReservationInput>;
-};
-
-export type PaymentCreateOrConnectWithoutReservationInput = {
-  create: PaymentCreateWithoutReservationInput;
-  where: PaymentWhereUniqueInput;
-};
-
-export type PaymentCreateOrConnectWithoutUserInput = {
-  create: PaymentCreateWithoutUserInput;
-  where: PaymentWhereUniqueInput;
-};
-
-export type PaymentCreateWithoutReservationInput = {
-  amount: Scalars['Float']['input'];
+export type PageShareCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  method: Scalars['String']['input'];
-  status: Scalars['String']['input'];
-  user: UserCreateNestedOneWithoutPaymentInput;
+  pageId: Scalars['String']['input'];
+  platform: Scalars['String']['input'];
 };
 
-export type PaymentCreateWithoutUserInput = {
-  amount: Scalars['Float']['input'];
+export type PageShareCreateManyUserInputEnvelope = {
+  data: Array<PageShareCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageShareCreateNestedManyWithoutPageInput = {
+  connect?: InputMaybe<Array<PageShareWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PageShareCreateOrConnectWithoutPageInput>>;
+  create?: InputMaybe<Array<PageShareCreateWithoutPageInput>>;
+  createMany?: InputMaybe<PageShareCreateManyPageInputEnvelope>;
+};
+
+export type PageShareCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<PageShareWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PageShareCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<PageShareCreateWithoutUserInput>>;
+  createMany?: InputMaybe<PageShareCreateManyUserInputEnvelope>;
+};
+
+export type PageShareCreateOrConnectWithoutPageInput = {
+  create: PageShareCreateWithoutPageInput;
+  where: PageShareWhereUniqueInput;
+};
+
+export type PageShareCreateOrConnectWithoutUserInput = {
+  create: PageShareCreateWithoutUserInput;
+  where: PageShareWhereUniqueInput;
+};
+
+export type PageShareCreateWithoutPageInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  method: Scalars['String']['input'];
-  reservation: ReservationCreateNestedOneWithoutPaymentInput;
-  status: Scalars['String']['input'];
+  platform: Scalars['String']['input'];
+  user?: InputMaybe<UserCreateNestedOneWithoutSharesInput>;
 };
 
-export type PaymentListRelationFilter = {
-  every?: InputMaybe<PaymentWhereInput>;
-  none?: InputMaybe<PaymentWhereInput>;
-  some?: InputMaybe<PaymentWhereInput>;
+export type PageShareCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutSharesInput;
+  platform: Scalars['String']['input'];
 };
 
-export type PaymentNullableScalarRelationFilter = {
-  is?: InputMaybe<PaymentWhereInput>;
-  isNot?: InputMaybe<PaymentWhereInput>;
+export type PageShareListRelationFilter = {
+  every?: InputMaybe<PageShareWhereInput>;
+  none?: InputMaybe<PageShareWhereInput>;
+  some?: InputMaybe<PageShareWhereInput>;
 };
 
-export type PaymentOrderByRelationAggregateInput = {
+export type PageShareOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type PaymentWhereInput = {
-  AND?: InputMaybe<Array<PaymentWhereInput>>;
-  NOT?: InputMaybe<Array<PaymentWhereInput>>;
-  OR?: InputMaybe<Array<PaymentWhereInput>>;
-  amount?: InputMaybe<FloatFilter>;
+export type PageShareWhereInput = {
+  AND?: InputMaybe<Array<PageShareWhereInput>>;
+  NOT?: InputMaybe<Array<PageShareWhereInput>>;
+  OR?: InputMaybe<Array<PageShareWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<StringFilter>;
-  method?: InputMaybe<StringFilter>;
-  reservation?: InputMaybe<ReservationScalarRelationFilter>;
-  reservationId?: InputMaybe<StringFilter>;
-  status?: InputMaybe<StringFilter>;
-  user?: InputMaybe<UserScalarRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  platform?: InputMaybe<StringFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
 };
 
-export type PaymentWhereUniqueInput = {
-  AND?: InputMaybe<Array<PaymentWhereInput>>;
-  NOT?: InputMaybe<Array<PaymentWhereInput>>;
-  OR?: InputMaybe<Array<PaymentWhereInput>>;
-  amount?: InputMaybe<FloatFilter>;
+export type PageShareWhereUniqueInput = {
+  AND?: InputMaybe<Array<PageShareWhereInput>>;
+  NOT?: InputMaybe<Array<PageShareWhereInput>>;
+  OR?: InputMaybe<Array<PageShareWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<Scalars['String']['input']>;
-  method?: InputMaybe<StringFilter>;
-  reservation?: InputMaybe<ReservationScalarRelationFilter>;
-  reservationId?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<StringFilter>;
-  user?: InputMaybe<UserScalarRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  platform?: InputMaybe<StringFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
 };
 
-export type Place = {
-  __typename?: 'Place';
-  _count: PlaceCount;
-  category: Scalars['String']['output'];
+export type PageVersion = {
+  __typename?: 'PageVersion';
   createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
+  data: Scalars['JSON']['output'];
   id: Scalars['ID']['output'];
-  images?: Maybe<Array<PlaceImage>>;
-  name: Scalars['String']['output'];
-  price: Scalars['Float']['output'];
-  provider: User;
-  providerId: Scalars['String']['output'];
-  reservations?: Maybe<Array<Reservation>>;
-  reviews?: Maybe<Array<Review>>;
-  tags?: Maybe<Array<Tag>>;
-  updatedAt: Scalars['DateTime']['output'];
+  page: ExitPage;
+  pageId: Scalars['String']['output'];
+  updatedBy?: Maybe<User>;
+  updatedById?: Maybe<Scalars['String']['output']>;
+  version: Scalars['Int']['output'];
 };
 
-export type PlaceCount = {
-  __typename?: 'PlaceCount';
-  images: Scalars['Int']['output'];
-  reservations: Scalars['Int']['output'];
-  reviews: Scalars['Int']['output'];
-  tags: Scalars['Int']['output'];
+export type PageVersionCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutVersionsInput;
+  updatedBy?: InputMaybe<UserCreateNestedOneWithoutVersionsInput>;
+  version: Scalars['Int']['input'];
 };
 
-export type PlaceCreateNestedManyWithoutProviderInput = {
-  connect?: InputMaybe<Array<PlaceWhereUniqueInput>>;
+export type PageVersionCreateManyPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  updatedById?: InputMaybe<Scalars['String']['input']>;
+  version: Scalars['Int']['input'];
 };
 
-export type PlaceCreateNestedOneWithoutReservationsInput = {
-  connect?: InputMaybe<PlaceWhereUniqueInput>;
+export type PageVersionCreateManyPageInputEnvelope = {
+  data: Array<PageVersionCreateManyPageInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type PlaceCreateNestedOneWithoutReviewsInput = {
-  connect?: InputMaybe<PlaceWhereUniqueInput>;
+export type PageVersionCreateManyUpdatedByInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['String']['input'];
+  version: Scalars['Int']['input'];
 };
 
-export type PlaceImage = {
-  __typename?: 'PlaceImage';
-  id: Scalars['ID']['output'];
-  place: Place;
-  placeId: Scalars['String']['output'];
-  url: Scalars['String']['output'];
+export type PageVersionCreateManyUpdatedByInputEnvelope = {
+  data: Array<PageVersionCreateManyUpdatedByInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type PlaceImageListRelationFilter = {
-  every?: InputMaybe<PlaceImageWhereInput>;
-  none?: InputMaybe<PlaceImageWhereInput>;
-  some?: InputMaybe<PlaceImageWhereInput>;
+export type PageVersionCreateNestedManyWithoutPageInput = {
+  connect?: InputMaybe<Array<PageVersionWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PageVersionCreateOrConnectWithoutPageInput>>;
+  create?: InputMaybe<Array<PageVersionCreateWithoutPageInput>>;
+  createMany?: InputMaybe<PageVersionCreateManyPageInputEnvelope>;
 };
 
-export type PlaceImageWhereInput = {
-  AND?: InputMaybe<Array<PlaceImageWhereInput>>;
-  NOT?: InputMaybe<Array<PlaceImageWhereInput>>;
-  OR?: InputMaybe<Array<PlaceImageWhereInput>>;
-  id?: InputMaybe<StringFilter>;
-  place?: InputMaybe<PlaceScalarRelationFilter>;
-  placeId?: InputMaybe<StringFilter>;
-  url?: InputMaybe<StringFilter>;
+export type PageVersionCreateNestedManyWithoutUpdatedByInput = {
+  connect?: InputMaybe<Array<PageVersionWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PageVersionCreateOrConnectWithoutUpdatedByInput>>;
+  create?: InputMaybe<Array<PageVersionCreateWithoutUpdatedByInput>>;
+  createMany?: InputMaybe<PageVersionCreateManyUpdatedByInputEnvelope>;
 };
 
-export type PlaceListRelationFilter = {
-  every?: InputMaybe<PlaceWhereInput>;
-  none?: InputMaybe<PlaceWhereInput>;
-  some?: InputMaybe<PlaceWhereInput>;
+export type PageVersionCreateOrConnectWithoutPageInput = {
+  create: PageVersionCreateWithoutPageInput;
+  where: PageVersionWhereUniqueInput;
 };
 
-export type PlaceOrderByRelationAggregateInput = {
+export type PageVersionCreateOrConnectWithoutUpdatedByInput = {
+  create: PageVersionCreateWithoutUpdatedByInput;
+  where: PageVersionWhereUniqueInput;
+};
+
+export type PageVersionCreateWithoutPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  updatedBy?: InputMaybe<UserCreateNestedOneWithoutVersionsInput>;
+  version: Scalars['Int']['input'];
+};
+
+export type PageVersionCreateWithoutUpdatedByInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  data: Scalars['JSON']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutVersionsInput;
+  version: Scalars['Int']['input'];
+};
+
+export type PageVersionListRelationFilter = {
+  every?: InputMaybe<PageVersionWhereInput>;
+  none?: InputMaybe<PageVersionWhereInput>;
+  some?: InputMaybe<PageVersionWhereInput>;
+};
+
+export type PageVersionOneVersionPerPageCompoundUniqueInput = {
+  pageId: Scalars['String']['input'];
+  version: Scalars['Int']['input'];
+};
+
+export type PageVersionOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type PlaceScalarRelationFilter = {
-  is?: InputMaybe<PlaceWhereInput>;
-  isNot?: InputMaybe<PlaceWhereInput>;
+export enum PageVersionOrderByRelevanceFieldEnum {
+  ID = 'id',
+  PAGEID = 'pageId',
+  UPDATEDBYID = 'updatedById'
+}
+
+export type PageVersionOrderByRelevanceInput = {
+  fields: Array<PageVersionOrderByRelevanceFieldEnum>;
+  search: Scalars['String']['input'];
+  sort: SortOrder;
 };
 
-export type PlaceWhereInput = {
-  AND?: InputMaybe<Array<PlaceWhereInput>>;
-  NOT?: InputMaybe<Array<PlaceWhereInput>>;
-  OR?: InputMaybe<Array<PlaceWhereInput>>;
-  category?: InputMaybe<StringFilter>;
+export type PageVersionOrderByWithRelationInput = {
+  _relevance?: InputMaybe<PageVersionOrderByRelevanceInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  page?: InputMaybe<ExitPageOrderByWithRelationInput>;
+  pageId?: InputMaybe<SortOrder>;
+  updatedBy?: InputMaybe<UserOrderByWithRelationInput>;
+  updatedById?: InputMaybe<SortOrderInput>;
+  version?: InputMaybe<SortOrder>;
+};
+
+export enum PageVersionScalarFieldEnum {
+  CREATEDAT = 'createdAt',
+  DATA = 'data',
+  ID = 'id',
+  PAGEID = 'pageId',
+  UPDATEDBYID = 'updatedById',
+  VERSION = 'version'
+}
+
+export type PageVersionWhereInput = {
+  AND?: InputMaybe<Array<PageVersionWhereInput>>;
+  NOT?: InputMaybe<Array<PageVersionWhereInput>>;
+  OR?: InputMaybe<Array<PageVersionWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  description?: InputMaybe<StringFilter>;
+  data?: InputMaybe<JsonFilter>;
   id?: InputMaybe<StringFilter>;
-  images?: InputMaybe<PlaceImageListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
-  price?: InputMaybe<FloatFilter>;
-  provider?: InputMaybe<UserScalarRelationFilter>;
-  providerId?: InputMaybe<StringFilter>;
-  reservations?: InputMaybe<ReservationListRelationFilter>;
-  reviews?: InputMaybe<ReviewListRelationFilter>;
-  tags?: InputMaybe<TagListRelationFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  updatedBy?: InputMaybe<UserNullableScalarRelationFilter>;
+  updatedById?: InputMaybe<StringNullableFilter>;
+  version?: InputMaybe<IntFilter>;
 };
 
-export type PlaceWhereUniqueInput = {
-  AND?: InputMaybe<Array<PlaceWhereInput>>;
-  NOT?: InputMaybe<Array<PlaceWhereInput>>;
-  OR?: InputMaybe<Array<PlaceWhereInput>>;
-  category?: InputMaybe<StringFilter>;
+export type PageVersionWhereUniqueInput = {
+  AND?: InputMaybe<Array<PageVersionWhereInput>>;
+  NOT?: InputMaybe<Array<PageVersionWhereInput>>;
+  OR?: InputMaybe<Array<PageVersionWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  description?: InputMaybe<StringFilter>;
+  data?: InputMaybe<JsonFilter>;
   id?: InputMaybe<Scalars['String']['input']>;
-  images?: InputMaybe<PlaceImageListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
-  price?: InputMaybe<FloatFilter>;
-  provider?: InputMaybe<UserScalarRelationFilter>;
-  providerId?: InputMaybe<StringFilter>;
-  reservations?: InputMaybe<ReservationListRelationFilter>;
-  reviews?: InputMaybe<ReviewListRelationFilter>;
-  tags?: InputMaybe<TagListRelationFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
+  one_version_per_page?: InputMaybe<PageVersionOneVersionPerPageCompoundUniqueInput>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  updatedBy?: InputMaybe<UserNullableScalarRelationFilter>;
+  updatedById?: InputMaybe<StringNullableFilter>;
+  version?: InputMaybe<IntFilter>;
+};
+
+export type PageView = {
+  __typename?: 'PageView';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  page: ExitPage;
+  pageId: Scalars['String']['output'];
+  sessionId?: Maybe<Scalars['String']['output']>;
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageViewCreateManyPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  sessionId?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageViewCreateManyPageInputEnvelope = {
+  data: Array<PageViewCreateManyPageInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageViewCreateManyUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['String']['input'];
+  sessionId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageViewCreateManyUserInputEnvelope = {
+  data: Array<PageViewCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageViewCreateNestedManyWithoutPageInput = {
+  connect?: InputMaybe<Array<PageViewWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PageViewCreateOrConnectWithoutPageInput>>;
+  create?: InputMaybe<Array<PageViewCreateWithoutPageInput>>;
+  createMany?: InputMaybe<PageViewCreateManyPageInputEnvelope>;
+};
+
+export type PageViewCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<PageViewWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PageViewCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<PageViewCreateWithoutUserInput>>;
+  createMany?: InputMaybe<PageViewCreateManyUserInputEnvelope>;
+};
+
+export type PageViewCreateOrConnectWithoutPageInput = {
+  create: PageViewCreateWithoutPageInput;
+  where: PageViewWhereUniqueInput;
+};
+
+export type PageViewCreateOrConnectWithoutUserInput = {
+  create: PageViewCreateWithoutUserInput;
+  where: PageViewWhereUniqueInput;
+};
+
+export type PageViewCreateWithoutPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  sessionId?: InputMaybe<Scalars['String']['input']>;
+  user?: InputMaybe<UserCreateNestedOneWithoutViewsInput>;
+};
+
+export type PageViewCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutViewsInput;
+  sessionId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageViewListRelationFilter = {
+  every?: InputMaybe<PageViewWhereInput>;
+  none?: InputMaybe<PageViewWhereInput>;
+  some?: InputMaybe<PageViewWhereInput>;
+};
+
+export type PageViewOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type PageViewWhereInput = {
+  AND?: InputMaybe<Array<PageViewWhereInput>>;
+  NOT?: InputMaybe<Array<PageViewWhereInput>>;
+  OR?: InputMaybe<Array<PageViewWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  sessionId?: InputMaybe<StringNullableFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
+};
+
+export type PageViewWhereUniqueInput = {
+  AND?: InputMaybe<Array<PageViewWhereInput>>;
+  NOT?: InputMaybe<Array<PageViewWhereInput>>;
+  OR?: InputMaybe<Array<PageViewWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  sessionId?: InputMaybe<StringNullableFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  comment: Comment;
+  comments: Array<Comment>;
+  exitPage: ExitPage;
+  exitPages: Array<ExitPage>;
   me: User;
+  pageVersion: PageVersion;
+  pageVersions: Array<PageVersion>;
+  reaction: Reaction;
+  template: Template;
+  templates: Array<Template>;
   user: User;
   users: Array<User>;
+  vote: Vote;
+};
+
+
+export type QueryCommentArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryCommentsArgs = {
+  cursor?: InputMaybe<CommentWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CommentScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CommentOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CommentWhereInput>;
+};
+
+
+export type QueryExitPageArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryExitPagesArgs = {
+  cursor?: InputMaybe<ExitPageWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ExitPageScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ExitPageOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ExitPageWhereInput>;
+};
+
+
+export type QueryPageVersionArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryPageVersionsArgs = {
+  cursor?: InputMaybe<PageVersionWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PageVersionScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PageVersionOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PageVersionWhereInput>;
+};
+
+
+export type QueryReactionArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryTemplateArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryTemplatesArgs = {
+  cursor?: InputMaybe<TemplateWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TemplateScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TemplateOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<TemplateWhereInput>;
 };
 
 
@@ -424,6 +1420,141 @@ export type QueryUsersArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryVoteArgs = {
+  id: Scalars['String']['input'];
+};
+
+export enum QueryMode {
+  DEFAULT = 'default',
+  INSENSITIVE = 'insensitive'
+}
+
+export type Reaction = {
+  __typename?: 'Reaction';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  page: ExitPage;
+  pageId: Scalars['String']['output'];
+  type: ReactionType;
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type ReactionCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutReactionsInput;
+  type: ReactionType;
+  user?: InputMaybe<UserCreateNestedOneWithoutReactionsInput>;
+};
+
+export type ReactionCreateManyPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  type: ReactionType;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ReactionCreateManyPageInputEnvelope = {
+  data: Array<ReactionCreateManyPageInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ReactionCreateManyUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['String']['input'];
+  type: ReactionType;
+};
+
+export type ReactionCreateManyUserInputEnvelope = {
+  data: Array<ReactionCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ReactionCreateNestedManyWithoutPageInput = {
+  connect?: InputMaybe<Array<ReactionWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ReactionCreateOrConnectWithoutPageInput>>;
+  create?: InputMaybe<Array<ReactionCreateWithoutPageInput>>;
+  createMany?: InputMaybe<ReactionCreateManyPageInputEnvelope>;
+};
+
+export type ReactionCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<ReactionWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ReactionCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<ReactionCreateWithoutUserInput>>;
+  createMany?: InputMaybe<ReactionCreateManyUserInputEnvelope>;
+};
+
+export type ReactionCreateOrConnectWithoutPageInput = {
+  create: ReactionCreateWithoutPageInput;
+  where: ReactionWhereUniqueInput;
+};
+
+export type ReactionCreateOrConnectWithoutUserInput = {
+  create: ReactionCreateWithoutUserInput;
+  where: ReactionWhereUniqueInput;
+};
+
+export type ReactionCreateWithoutPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  type: ReactionType;
+  user?: InputMaybe<UserCreateNestedOneWithoutReactionsInput>;
+};
+
+export type ReactionCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutReactionsInput;
+  type: ReactionType;
+};
+
+export type ReactionListRelationFilter = {
+  every?: InputMaybe<ReactionWhereInput>;
+  none?: InputMaybe<ReactionWhereInput>;
+  some?: InputMaybe<ReactionWhereInput>;
+};
+
+export type ReactionOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum ReactionType {
+  ANGRY = 'ANGRY',
+  HAHA = 'HAHA',
+  LIKE = 'LIKE',
+  LOVE = 'LOVE',
+  SAD = 'SAD'
+}
+
+export type ReactionWhereInput = {
+  AND?: InputMaybe<Array<ReactionWhereInput>>;
+  NOT?: InputMaybe<Array<ReactionWhereInput>>;
+  OR?: InputMaybe<Array<ReactionWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  type?: InputMaybe<EnumReactionTypeFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
+};
+
+export type ReactionWhereUniqueInput = {
+  AND?: InputMaybe<Array<ReactionWhereInput>>;
+  NOT?: InputMaybe<Array<ReactionWhereInput>>;
+  OR?: InputMaybe<Array<ReactionWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  type?: InputMaybe<EnumReactionTypeFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
 };
 
 export type RefreshToken = {
@@ -506,207 +1637,6 @@ export type RegisterInput = {
   firstName: Scalars['String']['input'];
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
-};
-
-export type Reservation = {
-  __typename?: 'Reservation';
-  createdAt: Scalars['DateTime']['output'];
-  date: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  payment?: Maybe<Payment>;
-  place: Place;
-  placeId: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export type ReservationCreateManyUserInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  date: Scalars['DateTime']['input'];
-  id?: InputMaybe<Scalars['String']['input']>;
-  placeId: Scalars['String']['input'];
-  status: Scalars['String']['input'];
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type ReservationCreateManyUserInputEnvelope = {
-  data: Array<ReservationCreateManyUserInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type ReservationCreateNestedManyWithoutUserInput = {
-  connect?: InputMaybe<Array<ReservationWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<ReservationCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<ReservationCreateWithoutUserInput>>;
-  createMany?: InputMaybe<ReservationCreateManyUserInputEnvelope>;
-};
-
-export type ReservationCreateNestedOneWithoutPaymentInput = {
-  connect?: InputMaybe<ReservationWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<ReservationCreateOrConnectWithoutPaymentInput>;
-  create?: InputMaybe<ReservationCreateWithoutPaymentInput>;
-};
-
-export type ReservationCreateOrConnectWithoutPaymentInput = {
-  create: ReservationCreateWithoutPaymentInput;
-  where: ReservationWhereUniqueInput;
-};
-
-export type ReservationCreateOrConnectWithoutUserInput = {
-  create: ReservationCreateWithoutUserInput;
-  where: ReservationWhereUniqueInput;
-};
-
-export type ReservationCreateWithoutPaymentInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  date: Scalars['DateTime']['input'];
-  id?: InputMaybe<Scalars['String']['input']>;
-  place: PlaceCreateNestedOneWithoutReservationsInput;
-  status: Scalars['String']['input'];
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  user: UserCreateNestedOneWithoutReservationsInput;
-};
-
-export type ReservationCreateWithoutUserInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  date: Scalars['DateTime']['input'];
-  id?: InputMaybe<Scalars['String']['input']>;
-  payment?: InputMaybe<PaymentCreateNestedOneWithoutReservationInput>;
-  place: PlaceCreateNestedOneWithoutReservationsInput;
-  status: Scalars['String']['input'];
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type ReservationListRelationFilter = {
-  every?: InputMaybe<ReservationWhereInput>;
-  none?: InputMaybe<ReservationWhereInput>;
-  some?: InputMaybe<ReservationWhereInput>;
-};
-
-export type ReservationOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type ReservationScalarRelationFilter = {
-  is?: InputMaybe<ReservationWhereInput>;
-  isNot?: InputMaybe<ReservationWhereInput>;
-};
-
-export type ReservationWhereInput = {
-  AND?: InputMaybe<Array<ReservationWhereInput>>;
-  NOT?: InputMaybe<Array<ReservationWhereInput>>;
-  OR?: InputMaybe<Array<ReservationWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  date?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<StringFilter>;
-  payment?: InputMaybe<PaymentNullableScalarRelationFilter>;
-  place?: InputMaybe<PlaceScalarRelationFilter>;
-  placeId?: InputMaybe<StringFilter>;
-  status?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  user?: InputMaybe<UserScalarRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
-};
-
-export type ReservationWhereUniqueInput = {
-  AND?: InputMaybe<Array<ReservationWhereInput>>;
-  NOT?: InputMaybe<Array<ReservationWhereInput>>;
-  OR?: InputMaybe<Array<ReservationWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  date?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  payment?: InputMaybe<PaymentNullableScalarRelationFilter>;
-  place?: InputMaybe<PlaceScalarRelationFilter>;
-  placeId?: InputMaybe<StringFilter>;
-  status?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  user?: InputMaybe<UserScalarRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
-};
-
-export type Review = {
-  __typename?: 'Review';
-  comment: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  place: Place;
-  placeId: Scalars['String']['output'];
-  rating: Scalars['Int']['output'];
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export type ReviewCreateManyUserInput = {
-  comment: Scalars['String']['input'];
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  placeId: Scalars['String']['input'];
-  rating: Scalars['Int']['input'];
-};
-
-export type ReviewCreateManyUserInputEnvelope = {
-  data: Array<ReviewCreateManyUserInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type ReviewCreateNestedManyWithoutUserInput = {
-  connect?: InputMaybe<Array<ReviewWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<ReviewCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<ReviewCreateWithoutUserInput>>;
-  createMany?: InputMaybe<ReviewCreateManyUserInputEnvelope>;
-};
-
-export type ReviewCreateOrConnectWithoutUserInput = {
-  create: ReviewCreateWithoutUserInput;
-  where: ReviewWhereUniqueInput;
-};
-
-export type ReviewCreateWithoutUserInput = {
-  comment: Scalars['String']['input'];
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  place: PlaceCreateNestedOneWithoutReviewsInput;
-  rating: Scalars['Int']['input'];
-};
-
-export type ReviewListRelationFilter = {
-  every?: InputMaybe<ReviewWhereInput>;
-  none?: InputMaybe<ReviewWhereInput>;
-  some?: InputMaybe<ReviewWhereInput>;
-};
-
-export type ReviewOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type ReviewWhereInput = {
-  AND?: InputMaybe<Array<ReviewWhereInput>>;
-  NOT?: InputMaybe<Array<ReviewWhereInput>>;
-  OR?: InputMaybe<Array<ReviewWhereInput>>;
-  comment?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<StringFilter>;
-  place?: InputMaybe<PlaceScalarRelationFilter>;
-  placeId?: InputMaybe<StringFilter>;
-  rating?: InputMaybe<IntFilter>;
-  user?: InputMaybe<UserScalarRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
-};
-
-export type ReviewWhereUniqueInput = {
-  AND?: InputMaybe<Array<ReviewWhereInput>>;
-  NOT?: InputMaybe<Array<ReviewWhereInput>>;
-  OR?: InputMaybe<Array<ReviewWhereInput>>;
-  comment?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  place?: InputMaybe<PlaceScalarRelationFilter>;
-  placeId?: InputMaybe<StringFilter>;
-  rating?: InputMaybe<IntFilter>;
-  user?: InputMaybe<UserScalarRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
 };
 
 export type Role = {
@@ -808,10 +1738,33 @@ export type StringNullableFilter = {
 
 export type Tag = {
   __typename?: 'Tag';
+  ExitPage?: Maybe<Array<ExitPage>>;
+  _count: TagCount;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  place: Place;
-  placeId: Scalars['String']['output'];
+  pageId: Scalars['String']['output'];
+};
+
+export type TagCount = {
+  __typename?: 'TagCount';
+  ExitPage: Scalars['Int']['output'];
+};
+
+export type TagCreateNestedManyWithoutExitPageInput = {
+  connect?: InputMaybe<Array<TagWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutExitPageInput>>;
+  create?: InputMaybe<Array<TagCreateWithoutExitPageInput>>;
+};
+
+export type TagCreateOrConnectWithoutExitPageInput = {
+  create: TagCreateWithoutExitPageInput;
+  where: TagWhereUniqueInput;
+};
+
+export type TagCreateWithoutExitPageInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  pageId: Scalars['String']['input'];
 };
 
 export type TagListRelationFilter = {
@@ -820,22 +1773,165 @@ export type TagListRelationFilter = {
   some?: InputMaybe<TagWhereInput>;
 };
 
+export type TagOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
 export type TagWhereInput = {
   AND?: InputMaybe<Array<TagWhereInput>>;
+  ExitPage?: InputMaybe<ExitPageListRelationFilter>;
   NOT?: InputMaybe<Array<TagWhereInput>>;
   OR?: InputMaybe<Array<TagWhereInput>>;
   id?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
-  place?: InputMaybe<PlaceScalarRelationFilter>;
-  placeId?: InputMaybe<StringFilter>;
+  pageId?: InputMaybe<StringFilter>;
 };
+
+export type TagWhereUniqueInput = {
+  AND?: InputMaybe<Array<TagWhereInput>>;
+  ExitPage?: InputMaybe<ExitPageListRelationFilter>;
+  NOT?: InputMaybe<Array<TagWhereInput>>;
+  OR?: InputMaybe<Array<TagWhereInput>>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<StringFilter>;
+  pageId?: InputMaybe<StringFilter>;
+};
+
+export type Template = {
+  __typename?: 'Template';
+  _count: TemplateCount;
+  content: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  pages?: Maybe<Array<ExitPage>>;
+  placeholders: Scalars['JSON']['output'];
+  uniqueKey: Scalars['String']['output'];
+};
+
+export type TemplateCount = {
+  __typename?: 'TemplateCount';
+  pages: Scalars['Int']['output'];
+};
+
+export type TemplateCreateInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutTemplateInput>;
+  placeholders: Scalars['JSON']['input'];
+  uniqueKey: Scalars['String']['input'];
+};
+
+export type TemplateCreateNestedOneWithoutPagesInput = {
+  connect?: InputMaybe<TemplateWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TemplateCreateOrConnectWithoutPagesInput>;
+  create?: InputMaybe<TemplateCreateWithoutPagesInput>;
+};
+
+export type TemplateCreateOrConnectWithoutPagesInput = {
+  create: TemplateCreateWithoutPagesInput;
+  where: TemplateWhereUniqueInput;
+};
+
+export type TemplateCreateWithoutPagesInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  placeholders: Scalars['JSON']['input'];
+  uniqueKey: Scalars['String']['input'];
+};
+
+export enum TemplateOrderByRelevanceFieldEnum {
+  CONTENT = 'content',
+  DESCRIPTION = 'description',
+  ID = 'id',
+  NAME = 'name',
+  UNIQUEKEY = 'uniqueKey'
+}
+
+export type TemplateOrderByRelevanceInput = {
+  fields: Array<TemplateOrderByRelevanceFieldEnum>;
+  search: Scalars['String']['input'];
+  sort: SortOrder;
+};
+
+export type TemplateOrderByWithRelationInput = {
+  _relevance?: InputMaybe<TemplateOrderByRelevanceInput>;
+  content?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  pages?: InputMaybe<ExitPageOrderByRelationAggregateInput>;
+  placeholders?: InputMaybe<SortOrder>;
+  uniqueKey?: InputMaybe<SortOrder>;
+};
+
+export enum TemplateScalarFieldEnum {
+  CONTENT = 'content',
+  CREATEDAT = 'createdAt',
+  DESCRIPTION = 'description',
+  ID = 'id',
+  NAME = 'name',
+  PLACEHOLDERS = 'placeholders',
+  UNIQUEKEY = 'uniqueKey'
+}
+
+export type TemplateScalarRelationFilter = {
+  is?: InputMaybe<TemplateWhereInput>;
+  isNot?: InputMaybe<TemplateWhereInput>;
+};
+
+export type TemplateWhereInput = {
+  AND?: InputMaybe<Array<TemplateWhereInput>>;
+  NOT?: InputMaybe<Array<TemplateWhereInput>>;
+  OR?: InputMaybe<Array<TemplateWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  pages?: InputMaybe<ExitPageListRelationFilter>;
+  placeholders?: InputMaybe<JsonFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+};
+
+export type TemplateWhereUniqueInput = {
+  AND?: InputMaybe<Array<TemplateWhereInput>>;
+  NOT?: InputMaybe<Array<TemplateWhereInput>>;
+  OR?: InputMaybe<Array<TemplateWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<StringFilter>;
+  pages?: InputMaybe<ExitPageListRelationFilter>;
+  placeholders?: InputMaybe<JsonFilter>;
+  uniqueKey?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum Tone {
+  ABSURD = 'ABSURD',
+  CLASSY = 'CLASSY',
+  CRINGE = 'CRINGE',
+  DRAMATIC = 'DRAMATIC',
+  HONEST = 'HONEST',
+  IRONIC = 'IRONIC',
+  PASSIVE_AGGRESSIVE = 'PASSIVE_AGGRESSIVE',
+  TOUCHING = 'TOUCHING'
+}
 
 export type User = {
   __typename?: 'User';
-  Payment?: Maybe<Array<Payment>>;
-  Place?: Maybe<Array<Place>>;
   Role?: Maybe<Array<Role>>;
   _count: UserCount;
+  comments?: Maybe<Array<Comment>>;
   createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
   firstName: Scalars['String']['output'];
@@ -843,30 +1939,36 @@ export type User = {
   images?: Maybe<Array<UserImage>>;
   isVerified: Scalars['Boolean']['output'];
   lastName?: Maybe<Scalars['String']['output']>;
+  pages?: Maybe<Array<ExitPage>>;
   password: Scalars['String']['output'];
   phone?: Maybe<Scalars['String']['output']>;
-  reservations?: Maybe<Array<Reservation>>;
-  reviews?: Maybe<Array<Review>>;
+  reactions?: Maybe<Array<Reaction>>;
+  shares?: Maybe<Array<PageShare>>;
   tokens?: Maybe<Array<RefreshToken>>;
   updatedAt: Scalars['DateTime']['output'];
   username: Scalars['String']['output'];
+  versions?: Maybe<Array<PageVersion>>;
+  views?: Maybe<Array<PageView>>;
+  votes?: Maybe<Array<Vote>>;
 };
 
 export type UserCount = {
   __typename?: 'UserCount';
-  Payment: Scalars['Int']['output'];
-  Place: Scalars['Int']['output'];
   Role: Scalars['Int']['output'];
+  comments: Scalars['Int']['output'];
   images: Scalars['Int']['output'];
-  reservations: Scalars['Int']['output'];
-  reviews: Scalars['Int']['output'];
+  pages: Scalars['Int']['output'];
+  reactions: Scalars['Int']['output'];
+  shares: Scalars['Int']['output'];
   tokens: Scalars['Int']['output'];
+  versions: Scalars['Int']['output'];
+  views: Scalars['Int']['output'];
+  votes: Scalars['Int']['output'];
 };
 
 export type UserCreateInput = {
-  Payment?: InputMaybe<PaymentCreateNestedManyWithoutUserInput>;
-  Place?: InputMaybe<PlaceCreateNestedManyWithoutProviderInput>;
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -874,60 +1976,121 @@ export type UserCreateInput = {
   images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
   isVerified?: InputMaybe<Scalars['Boolean']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
   password: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
-  reservations?: InputMaybe<ReservationCreateNestedManyWithoutUserInput>;
-  reviews?: InputMaybe<ReviewCreateNestedManyWithoutUserInput>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
   tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
 };
 
-export type UserCreateNestedOneWithoutPaymentInput = {
+export type UserCreateNestedOneWithoutCommentsInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutPaymentInput>;
-  create?: InputMaybe<UserCreateWithoutPaymentInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutCommentsInput>;
+  create?: InputMaybe<UserCreateWithoutCommentsInput>;
 };
 
-export type UserCreateNestedOneWithoutReservationsInput = {
+export type UserCreateNestedOneWithoutPagesInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutReservationsInput>;
-  create?: InputMaybe<UserCreateWithoutReservationsInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutPagesInput>;
+  create?: InputMaybe<UserCreateWithoutPagesInput>;
 };
 
-export type UserCreateOrConnectWithoutPaymentInput = {
-  create: UserCreateWithoutPaymentInput;
+export type UserCreateNestedOneWithoutReactionsInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutReactionsInput>;
+  create?: InputMaybe<UserCreateWithoutReactionsInput>;
+};
+
+export type UserCreateNestedOneWithoutSharesInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutSharesInput>;
+  create?: InputMaybe<UserCreateWithoutSharesInput>;
+};
+
+export type UserCreateNestedOneWithoutVersionsInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutVersionsInput>;
+  create?: InputMaybe<UserCreateWithoutVersionsInput>;
+};
+
+export type UserCreateNestedOneWithoutViewsInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutViewsInput>;
+  create?: InputMaybe<UserCreateWithoutViewsInput>;
+};
+
+export type UserCreateNestedOneWithoutVotesInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutVotesInput>;
+  create?: InputMaybe<UserCreateWithoutVotesInput>;
+};
+
+export type UserCreateOrConnectWithoutCommentsInput = {
+  create: UserCreateWithoutCommentsInput;
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutReservationsInput = {
-  create: UserCreateWithoutReservationsInput;
+export type UserCreateOrConnectWithoutPagesInput = {
+  create: UserCreateWithoutPagesInput;
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateWithoutPaymentInput = {
-  Place?: InputMaybe<PlaceCreateNestedManyWithoutProviderInput>;
-  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  email: Scalars['String']['input'];
-  firstName: Scalars['String']['input'];
-  id?: InputMaybe<Scalars['String']['input']>;
-  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
-  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
-  lastName?: InputMaybe<Scalars['String']['input']>;
-  password: Scalars['String']['input'];
-  phone?: InputMaybe<Scalars['String']['input']>;
-  reservations?: InputMaybe<ReservationCreateNestedManyWithoutUserInput>;
-  reviews?: InputMaybe<ReviewCreateNestedManyWithoutUserInput>;
-  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  username: Scalars['String']['input'];
+export type UserCreateOrConnectWithoutReactionsInput = {
+  create: UserCreateWithoutReactionsInput;
+  where: UserWhereUniqueInput;
 };
 
-export type UserCreateWithoutReservationsInput = {
-  Payment?: InputMaybe<PaymentCreateNestedManyWithoutUserInput>;
-  Place?: InputMaybe<PlaceCreateNestedManyWithoutProviderInput>;
+export type UserCreateOrConnectWithoutSharesInput = {
+  create: UserCreateWithoutSharesInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutVersionsInput = {
+  create: UserCreateWithoutVersionsInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutViewsInput = {
+  create: UserCreateWithoutViewsInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutVotesInput = {
+  create: UserCreateWithoutVotesInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateWithoutCommentsInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
+export type UserCreateWithoutPagesInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -937,10 +2100,124 @@ export type UserCreateWithoutReservationsInput = {
   lastName?: InputMaybe<Scalars['String']['input']>;
   password: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
-  reviews?: InputMaybe<ReviewCreateNestedManyWithoutUserInput>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
   tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
+export type UserCreateWithoutReactionsInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
+export type UserCreateWithoutSharesInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
+export type UserCreateWithoutVersionsInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
+export type UserCreateWithoutViewsInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
+export type UserCreateWithoutVotesInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
 };
 
 export type UserImage = {
@@ -1019,6 +2296,11 @@ export type UserListRelationFilter = {
   some?: InputMaybe<UserWhereInput>;
 };
 
+export type UserNullableScalarRelationFilter = {
+  is?: InputMaybe<UserWhereInput>;
+  isNot?: InputMaybe<UserWhereInput>;
+};
+
 export enum UserOrderByRelevanceFieldEnum {
   EMAIL = 'email',
   FIRSTNAME = 'firstName',
@@ -1036,10 +2318,9 @@ export type UserOrderByRelevanceInput = {
 };
 
 export type UserOrderByWithRelationInput = {
-  Payment?: InputMaybe<PaymentOrderByRelationAggregateInput>;
-  Place?: InputMaybe<PlaceOrderByRelationAggregateInput>;
   Role?: InputMaybe<RoleOrderByRelationAggregateInput>;
   _relevance?: InputMaybe<UserOrderByRelevanceInput>;
+  comments?: InputMaybe<CommentOrderByRelationAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
@@ -1047,13 +2328,17 @@ export type UserOrderByWithRelationInput = {
   images?: InputMaybe<UserImageOrderByRelationAggregateInput>;
   isVerified?: InputMaybe<SortOrder>;
   lastName?: InputMaybe<SortOrderInput>;
+  pages?: InputMaybe<ExitPageOrderByRelationAggregateInput>;
   password?: InputMaybe<SortOrder>;
   phone?: InputMaybe<SortOrderInput>;
-  reservations?: InputMaybe<ReservationOrderByRelationAggregateInput>;
-  reviews?: InputMaybe<ReviewOrderByRelationAggregateInput>;
+  reactions?: InputMaybe<ReactionOrderByRelationAggregateInput>;
+  shares?: InputMaybe<PageShareOrderByRelationAggregateInput>;
   tokens?: InputMaybe<RefreshTokenOrderByRelationAggregateInput>;
   updatedAt?: InputMaybe<SortOrder>;
   username?: InputMaybe<SortOrder>;
+  versions?: InputMaybe<PageVersionOrderByRelationAggregateInput>;
+  views?: InputMaybe<PageViewOrderByRelationAggregateInput>;
+  votes?: InputMaybe<VoteOrderByRelationAggregateInput>;
 };
 
 export enum UserScalarFieldEnum {
@@ -1078,9 +2363,8 @@ export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
-  Payment?: InputMaybe<PaymentListRelationFilter>;
-  Place?: InputMaybe<PlaceListRelationFilter>;
   Role?: InputMaybe<RoleListRelationFilter>;
+  comments?: InputMaybe<CommentListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
@@ -1088,22 +2372,25 @@ export type UserWhereInput = {
   images?: InputMaybe<UserImageListRelationFilter>;
   isVerified?: InputMaybe<BoolFilter>;
   lastName?: InputMaybe<StringNullableFilter>;
+  pages?: InputMaybe<ExitPageListRelationFilter>;
   password?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringNullableFilter>;
-  reservations?: InputMaybe<ReservationListRelationFilter>;
-  reviews?: InputMaybe<ReviewListRelationFilter>;
+  reactions?: InputMaybe<ReactionListRelationFilter>;
+  shares?: InputMaybe<PageShareListRelationFilter>;
   tokens?: InputMaybe<RefreshTokenListRelationFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   username?: InputMaybe<StringFilter>;
+  versions?: InputMaybe<PageVersionListRelationFilter>;
+  views?: InputMaybe<PageViewListRelationFilter>;
+  votes?: InputMaybe<VoteListRelationFilter>;
 };
 
 export type UserWhereUniqueInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
-  Payment?: InputMaybe<PaymentListRelationFilter>;
-  Place?: InputMaybe<PlaceListRelationFilter>;
   Role?: InputMaybe<RoleListRelationFilter>;
+  comments?: InputMaybe<CommentListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   email?: InputMaybe<Scalars['String']['input']>;
   firstName?: InputMaybe<StringFilter>;
@@ -1111,13 +2398,132 @@ export type UserWhereUniqueInput = {
   images?: InputMaybe<UserImageListRelationFilter>;
   isVerified?: InputMaybe<BoolFilter>;
   lastName?: InputMaybe<StringNullableFilter>;
+  pages?: InputMaybe<ExitPageListRelationFilter>;
   password?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringNullableFilter>;
-  reservations?: InputMaybe<ReservationListRelationFilter>;
-  reviews?: InputMaybe<ReviewListRelationFilter>;
+  reactions?: InputMaybe<ReactionListRelationFilter>;
+  shares?: InputMaybe<PageShareListRelationFilter>;
   tokens?: InputMaybe<RefreshTokenListRelationFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   username?: InputMaybe<Scalars['String']['input']>;
+  versions?: InputMaybe<PageVersionListRelationFilter>;
+  views?: InputMaybe<PageViewListRelationFilter>;
+  votes?: InputMaybe<VoteListRelationFilter>;
+};
+
+export type Vote = {
+  __typename?: 'Vote';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  page: ExitPage;
+  pageId: Scalars['String']['output'];
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type VoteCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutVotesInput;
+  user?: InputMaybe<UserCreateNestedOneWithoutVotesInput>;
+};
+
+export type VoteCreateManyPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type VoteCreateManyPageInputEnvelope = {
+  data: Array<VoteCreateManyPageInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type VoteCreateManyUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['String']['input'];
+};
+
+export type VoteCreateManyUserInputEnvelope = {
+  data: Array<VoteCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type VoteCreateNestedManyWithoutPageInput = {
+  connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutPageInput>>;
+  create?: InputMaybe<Array<VoteCreateWithoutPageInput>>;
+  createMany?: InputMaybe<VoteCreateManyPageInputEnvelope>;
+};
+
+export type VoteCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<VoteCreateWithoutUserInput>>;
+  createMany?: InputMaybe<VoteCreateManyUserInputEnvelope>;
+};
+
+export type VoteCreateOrConnectWithoutPageInput = {
+  create: VoteCreateWithoutPageInput;
+  where: VoteWhereUniqueInput;
+};
+
+export type VoteCreateOrConnectWithoutUserInput = {
+  create: VoteCreateWithoutUserInput;
+  where: VoteWhereUniqueInput;
+};
+
+export type VoteCreateWithoutPageInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  user?: InputMaybe<UserCreateNestedOneWithoutVotesInput>;
+};
+
+export type VoteCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  page: ExitPageCreateNestedOneWithoutVotesInput;
+};
+
+export type VoteListRelationFilter = {
+  every?: InputMaybe<VoteWhereInput>;
+  none?: InputMaybe<VoteWhereInput>;
+  some?: InputMaybe<VoteWhereInput>;
+};
+
+export type VoteOneVotePerUserPageCompoundUniqueInput = {
+  pageId: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+};
+
+export type VoteOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type VoteWhereInput = {
+  AND?: InputMaybe<Array<VoteWhereInput>>;
+  NOT?: InputMaybe<Array<VoteWhereInput>>;
+  OR?: InputMaybe<Array<VoteWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
+};
+
+export type VoteWhereUniqueInput = {
+  AND?: InputMaybe<Array<VoteWhereInput>>;
+  NOT?: InputMaybe<Array<VoteWhereInput>>;
+  OR?: InputMaybe<Array<VoteWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  one_vote_per_user_page?: InputMaybe<VoteOneVotePerUserPageCompoundUniqueInput>;
+  page?: InputMaybe<ExitPageScalarRelationFilter>;
+  pageId?: InputMaybe<StringFilter>;
+  user?: InputMaybe<UserNullableScalarRelationFilter>;
+  userId?: InputMaybe<StringNullableFilter>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -1126,6 +2532,13 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'LoginOutput', token?: string | null, user?: { __typename?: 'User', id: string, email: string, firstName: string, lastName?: string | null, phone?: string | null, username: string } | null } | null };
+
+export type RegisterMutationVariables = Exact<{
+  data: RegisterInput;
+}>;
+
+
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'User', id: string, firstName: string, username: string } };
 
 export type UserFragmentFragment = { __typename?: 'User', id: string, firstName: string, lastName?: string | null, email: string, phone?: string | null, username: string };
 
@@ -1194,6 +2607,41 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const RegisterDocument = gql`
+    mutation Register($data: RegisterInput!) {
+  register(data: $data) {
+    id
+    firstName
+    username
+  }
+}
+    `;
+export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
+
+/**
+ * __useRegisterMutation__
+ *
+ * To run a mutation, you first call `useRegisterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerMutation, { data, loading, error }] = useRegisterMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
+      }
+export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
+export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($input: UserCreateInput!) {
   createUser(input: $input) {

@@ -129,6 +129,7 @@ model Template {
   // HTML/Markdown avec helpers conditionnels et insertion de {{key}}
   content      String
   pages        ExitPage[]
+  uniqueKey    String     @unique
   createdAt    DateTime   @default(now())
 }
 

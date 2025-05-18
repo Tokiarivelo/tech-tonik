@@ -20,6 +20,9 @@ export class TemplateCreateWithoutPagesInput {
     @Field(() => String, {nullable:false})
     content!: string;
 
+    @Field(() => String, {nullable:false})
+    uniqueKey!: string;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 }

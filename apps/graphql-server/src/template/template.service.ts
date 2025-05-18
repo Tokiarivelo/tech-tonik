@@ -16,6 +16,7 @@ export class TemplateService {
         name: input.name,
         description: input.description,
         placeholders: input.placeholders,
+        uniqueKey: input.uniqueKey,
       },
     });
     return template;

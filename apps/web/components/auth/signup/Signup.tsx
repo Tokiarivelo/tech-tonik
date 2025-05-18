@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { EyeIcon, EyeOffIcon, KeyIcon, MailIcon, User } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, KeyIcon, MailIcon, User, User2Icon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -41,7 +41,7 @@ export const Register = () => {
             {/* Champ Nom complet */}
             <FormField
               control={form.control}
-              name="fullName"
+              name="firstName"
               render={({ field }) => (
                 <FormItem className="mb-3">
                   <FormLabel className="text-sm font-medium text-gray-700">Nom complet</FormLabel>
@@ -71,6 +71,28 @@ export const Register = () => {
                       placeholder="techtonik@example.com"
                       {...field}
                       startOrnerIcon={<MailIcon className="h-4 w-4 text-gray-400" />}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs text-red-500" />
+                </FormItem>
+              )}
+            />
+
+            {/* Champ Nom d'utilisateur */}
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem className="mb-3">
+                  <FormLabel className="text-sm font-medium text-gray-700">
+                    Nom d'utilisateur
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="techtonik@example.com"
+                      {...field}
+                      startOrnerIcon={<User2Icon className="h-4 w-4 text-gray-400" />}
                     />
                   </FormControl>
                   <FormMessage className="text-xs text-red-500" />

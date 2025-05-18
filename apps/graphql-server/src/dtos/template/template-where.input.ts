@@ -32,6 +32,9 @@ export class TemplateWhereInput {
     @Field(() => StringFilter, {nullable:true})
     content?: StringFilter;
 
+    @Field(() => StringFilter, {nullable:true})
+    uniqueKey?: StringFilter;
+
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
 

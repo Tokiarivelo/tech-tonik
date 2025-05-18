@@ -18,5 +18,8 @@ export class TemplateMaxOrderByAggregateInput {
     content?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    uniqueKey?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 }

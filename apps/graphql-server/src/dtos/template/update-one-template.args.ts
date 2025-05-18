@@ -14,5 +14,5 @@ export class UpdateOneTemplateArgs {
 
     @Field(() => TemplateWhereUniqueInput, {nullable:false})
     @Type(() => TemplateWhereUniqueInput)
-    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
 }

@@ -24,6 +24,9 @@ export class TemplateOrderByWithAggregationInput {
     content?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    uniqueKey?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
     @Field(() => TemplateCountOrderByAggregateInput, {nullable:true})
