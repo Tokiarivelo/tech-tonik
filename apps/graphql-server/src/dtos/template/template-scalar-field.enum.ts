@@ -6,6 +6,7 @@ export enum TemplateScalarFieldEnum {
     description = "description",
     placeholders = "placeholders",
     content = "content",
+    uniqueKey = "uniqueKey",
     createdAt = "createdAt"
 }
 

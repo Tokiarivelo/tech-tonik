@@ -14,51 +14,52 @@ import { TagCreateNestedManyWithoutExitPageInput } from '../tag/tag-create-neste
 
 @InputType()
 export class ExitPageCreateInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => Tone, { nullable: false })
-  tone!: `${Tone}`;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => GraphQLJSON, { nullable: false })
-  data!: any;
+    @Field(() => Tone, {nullable:false})
+    tone!: `${Tone}`;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => GraphQLJSON, {nullable:false})
+    data!: any;
 
-  @Field(() => Boolean, { nullable: true })
-  isHallOfFame?: boolean;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date | string;
+    @Field(() => Boolean, {nullable:true})
+    isHallOfFame?: boolean;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
 
-  @Field(() => UserCreateNestedOneWithoutPagesInput, { nullable: true })
-  author?: UserCreateNestedOneWithoutPagesInput;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 
-  @Field(() => TemplateCreateNestedOneWithoutPagesInput, { nullable: false })
-  template!: TemplateCreateNestedOneWithoutPagesInput;
+    @Field(() => UserCreateNestedOneWithoutPagesInput, {nullable:true})
+    author?: UserCreateNestedOneWithoutPagesInput;
 
-  @Field(() => ReactionCreateNestedManyWithoutPageInput, { nullable: true })
-  reactions?: ReactionCreateNestedManyWithoutPageInput;
+    @Field(() => TemplateCreateNestedOneWithoutPagesInput, {nullable:false})
+    template!: TemplateCreateNestedOneWithoutPagesInput;
 
-  @Field(() => VoteCreateNestedManyWithoutPageInput, { nullable: true })
-  votes?: VoteCreateNestedManyWithoutPageInput;
+    @Field(() => ReactionCreateNestedManyWithoutPageInput, {nullable:true})
+    reactions?: ReactionCreateNestedManyWithoutPageInput;
 
-  @Field(() => CommentCreateNestedManyWithoutPageInput, { nullable: true })
-  comments?: CommentCreateNestedManyWithoutPageInput;
+    @Field(() => VoteCreateNestedManyWithoutPageInput, {nullable:true})
+    votes?: VoteCreateNestedManyWithoutPageInput;
 
-  @Field(() => PageViewCreateNestedManyWithoutPageInput, { nullable: true })
-  views?: PageViewCreateNestedManyWithoutPageInput;
+    @Field(() => CommentCreateNestedManyWithoutPageInput, {nullable:true})
+    comments?: CommentCreateNestedManyWithoutPageInput;
 
-  @Field(() => PageShareCreateNestedManyWithoutPageInput, { nullable: true })
-  shares?: PageShareCreateNestedManyWithoutPageInput;
+    @Field(() => PageViewCreateNestedManyWithoutPageInput, {nullable:true})
+    views?: PageViewCreateNestedManyWithoutPageInput;
 
-  @Field(() => PageVersionCreateNestedManyWithoutPageInput, { nullable: true })
-  versions?: PageVersionCreateNestedManyWithoutPageInput;
+    @Field(() => PageShareCreateNestedManyWithoutPageInput, {nullable:true})
+    shares?: PageShareCreateNestedManyWithoutPageInput;
 
-  @Field(() => TagCreateNestedManyWithoutExitPageInput, { nullable: true })
-  tags?: TagCreateNestedManyWithoutExitPageInput;
+    @Field(() => PageVersionCreateNestedManyWithoutPageInput, {nullable:true})
+    versions?: PageVersionCreateNestedManyWithoutPageInput;
+
+    @Field(() => TagCreateNestedManyWithoutExitPageInput, {nullable:true})
+    tags?: TagCreateNestedManyWithoutExitPageInput;
 }

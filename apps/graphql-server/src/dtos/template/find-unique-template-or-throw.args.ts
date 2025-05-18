@@ -9,5 +9,5 @@ export class FindUniqueTemplateOrThrowArgs {
 
     @Field(() => TemplateWhereUniqueInput, {nullable:false})
     @Type(() => TemplateWhereUniqueInput)
-    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
 }

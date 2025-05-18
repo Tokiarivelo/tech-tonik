@@ -1609,6 +1609,7 @@ type Template {
   name: String!
   pages: [ExitPage!]
   placeholders: JSON!
+  uniqueKey: String!
 }
 
 type TemplateCount {
@@ -1623,6 +1624,7 @@ input TemplateCreateInput {
   name: String!
   pages: ExitPageCreateNestedManyWithoutTemplateInput
   placeholders: JSON!
+  uniqueKey: String!
 }
 
 input TemplateCreateNestedOneWithoutPagesInput {
@@ -1643,6 +1645,7 @@ input TemplateCreateWithoutPagesInput {
   id: String
   name: String!
   placeholders: JSON!
+  uniqueKey: String!
 }
 
 enum TemplateOrderByRelevanceFieldEnum {
@@ -1650,6 +1653,7 @@ enum TemplateOrderByRelevanceFieldEnum {
   description
   id
   name
+  uniqueKey
 }
 
 input TemplateOrderByRelevanceInput {
@@ -1667,6 +1671,7 @@ input TemplateOrderByWithRelationInput {
   name: SortOrder
   pages: ExitPageOrderByRelationAggregateInput
   placeholders: SortOrder
+  uniqueKey: SortOrder
 }
 
 enum TemplateScalarFieldEnum {
@@ -1676,6 +1681,7 @@ enum TemplateScalarFieldEnum {
   id
   name
   placeholders
+  uniqueKey
 }
 
 input TemplateScalarRelationFilter {
@@ -1694,6 +1700,7 @@ input TemplateWhereInput {
   name: StringFilter
   pages: ExitPageListRelationFilter
   placeholders: JsonFilter
+  uniqueKey: StringFilter
 }
 
 input TemplateWhereUniqueInput {
@@ -1707,6 +1714,7 @@ input TemplateWhereUniqueInput {
   name: StringFilter
   pages: ExitPageListRelationFilter
   placeholders: JsonFilter
+  uniqueKey: String
 }
 
 enum Tone {

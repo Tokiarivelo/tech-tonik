@@ -19,7 +19,7 @@ export class FindFirstTemplateOrThrowArgs {
     orderBy?: Array<TemplateOrderByWithRelationInput>;
 
     @Field(() => TemplateWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<TemplateWhereUniqueInput, 'id'>;
+    cursor?: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
 
     @Field(() => Int, {nullable:true})
     take?: number;

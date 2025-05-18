@@ -17,5 +17,8 @@ export class TemplateMinAggregateInput {
     content?: true;
 
     @Field(() => Boolean, {nullable:true})
+    uniqueKey?: true;
+
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
 }

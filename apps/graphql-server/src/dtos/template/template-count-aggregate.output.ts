@@ -21,6 +21,9 @@ export class TemplateCountAggregate {
     content!: number;
 
     @Field(() => Int, {nullable:false})
+    uniqueKey!: number;
+
+    @Field(() => Int, {nullable:false})
     createdAt!: number;
 
     @Field(() => Int, {nullable:false})

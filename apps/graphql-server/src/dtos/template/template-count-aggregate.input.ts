@@ -20,6 +20,9 @@ export class TemplateCountAggregateInput {
     content?: true;
 
     @Field(() => Boolean, {nullable:true})
+    uniqueKey?: true;
+
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})

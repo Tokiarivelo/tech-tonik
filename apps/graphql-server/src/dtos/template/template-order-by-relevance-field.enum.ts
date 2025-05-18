@@ -4,7 +4,8 @@ export enum TemplateOrderByRelevanceFieldEnum {
     id = "id",
     name = "name",
     description = "description",
-    content = "content"
+    content = "content",
+    uniqueKey = "uniqueKey"
 }
 
 

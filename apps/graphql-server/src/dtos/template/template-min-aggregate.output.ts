@@ -16,6 +16,9 @@ export class TemplateMinAggregate {
     @Field(() => String, {nullable:true})
     content?: string;
 
+    @Field(() => String, {nullable:true})
+    uniqueKey?: string;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 }

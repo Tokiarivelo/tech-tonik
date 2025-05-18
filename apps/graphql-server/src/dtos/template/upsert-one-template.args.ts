@@ -11,7 +11,7 @@ export class UpsertOneTemplateArgs {
 
     @Field(() => TemplateWhereUniqueInput, {nullable:false})
     @Type(() => TemplateWhereUniqueInput)
-    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
 
     @Field(() => TemplateCreateInput, {nullable:false})
     @Type(() => TemplateCreateInput)

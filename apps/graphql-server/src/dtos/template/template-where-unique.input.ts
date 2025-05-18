@@ -12,6 +12,9 @@ export class TemplateWhereUniqueInput {
     @Field(() => String, {nullable:true})
     id?: string;
 
+    @Field(() => String, {nullable:true})
+    uniqueKey?: string;
+
     @Field(() => [TemplateWhereInput], {nullable:true})
     AND?: Array<TemplateWhereInput>;
 

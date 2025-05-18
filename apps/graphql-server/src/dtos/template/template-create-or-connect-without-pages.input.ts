@@ -10,7 +10,7 @@ export class TemplateCreateOrConnectWithoutPagesInput {
 
     @Field(() => TemplateWhereUniqueInput, {nullable:false})
     @Type(() => TemplateWhereUniqueInput)
-    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
 
     @Field(() => TemplateCreateWithoutPagesInput, {nullable:false})
     @Type(() => TemplateCreateWithoutPagesInput)

@@ -23,6 +23,9 @@ export class TemplateOrderByWithRelationInput {
     content?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    uniqueKey?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
     @Field(() => ExitPageOrderByRelationAggregateInput, {nullable:true})
