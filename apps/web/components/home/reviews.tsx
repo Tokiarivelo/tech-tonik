@@ -2,22 +2,25 @@
 import { useState, useRef } from 'react';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
-import Suggestion from '@/components/home/suggestion';
+import 'swiper/css/navigation';
+import Suggestion from './suggestion';
 import SuggestionHappy from '@/components/home/suggestionHappy';
 import SuggestionMoodSad from '@/components/home/suggestionMoodSad';
 
+type PreviewData = {
+  title: string;
+  description: string;
+  image: string;
+  slideIndex: number;
+  itemIndex: number;
+};
+
 const Page = () => {
   const swiperRef = useRef<any>(null);
-  const [activePreview, setActivePreview] = useState<{
-    title: string;
-    description: string;
-    image: string;
-    slideIndex: number;
-    itemIndex: number;
-  } | null>(null);
+  const [activePreview, setActivePreview] = useState<PreviewData | null>(null);
 
-  // Données des différents sliders
   const sliderData = [
     { component: Suggestion, data: require('@/components/home/data/index') },
     { component: SuggestionMoodSad, data: require('@/components/home/data/indexMoodSad') },
@@ -55,6 +58,16 @@ const Page = () => {
     <div className="relative bg-primary h-screen">
       <div className="absolute inset-0">
         <Swiper
+          modules={[Autoplay, Navigation]}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          loop={true}
+          navigation={{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           className="h-full w-full"
         >
@@ -65,22 +78,22 @@ const Page = () => {
           ))}
         </Swiper>
 
-        {/* Navigation principale */}
+        {/* Navigation personnalisée */}
         <button
-          onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute cursor-pointer left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+          className="swiper-button-prev absolute left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+          aria-label="Previous slide"
         >
-          <ArrowLeft className="text-gray-800 w-10 h-10" />
+          <ArrowLeft className="text-gray-800 w-6 h-6" />
         </button>
 
         <button
-          onClick={() => swiperRef.current?.slideNext()}
-          className="absolute cursor-pointer right-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+          className="swiper-button-next absolute right-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+          aria-label="Next slide"
         >
-          <ArrowRight className="text-gray-800 w-10 h-10" />
+          <ArrowRight className="text-gray-800 w-6 h-6" />
         </button>
 
-        {/* Modal Preview améliorée */}
+        {/* Modal Preview */}
         {activePreview && (
           <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
             <div 
@@ -89,41 +102,48 @@ const Page = () => {
             >
               <button 
                 onClick={closePreview}
-                className="absolute cursor-pointer top-4 right-4 p-1 rounded-full hover:bg-gray-100"
+                className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 transition-colors"
+                aria-label="Close preview"
               >
                 <X className="w-6 h-6 text-gray-500" />
               </button>
               
-              <img 
-                src={activePreview.image} 
-                alt={activePreview.title}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
+              <div className="aspect-video mb-4">
+                <img 
+                  src={activePreview.image} 
+                  alt={activePreview.title}
+                  className="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
+                />
+              </div>
               
-              <h2 className="text-2xl font-bold mb-2">{activePreview.title}</h2>
-              <p className="text-gray-700 whitespace-pre-line">{activePreview.description}</p>
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold">{activePreview.title}</h2>
+                <p className="text-gray-700 whitespace-pre-line">
+                  {activePreview.description}
+                </p>
+              </div>
               
-              <div className="mt-6 flex justify-between">
+              <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4">
                 <button
                   onClick={() => navigatePreview('prev')}
-                  className="px-4  py-2 cursor-pointer bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
+                  <ArrowLeft className="w-4 h-4" />
                   Précédent
                 </button>
                 <button
-                  onClick={() => navigatePreview('next')}
-                  className="px-4  py-2 cursor-pointer bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
-                >
-                  Suivant
-                </button>
-              </div>
-              
-              <div className="mt-4 flex justify-center">
-                <button
                   onClick={closePreview}
-                  className="px-4 cursor-pointer py-2 bg-blue-500 text-white rounded-lg hover:bg-primary-dark transition-colors"
+                  className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
                 >
                   Fermer
+                </button>
+                <button
+                  onClick={() => navigatePreview('next')}
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  Suivant
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
