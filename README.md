@@ -274,3 +274,4 @@ Ce document détaille l'architecture de la base de données pour l'application *
 6. **Mise en Hall of Fame** : via un process asynchrone utilisant la table `Vote`.
 
 ---
+---
