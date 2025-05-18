@@ -44,10 +44,11 @@ const VerticalBars: React.FC<VerticalBarsProps> = ({ activeIndex }) => {
           ref={(el) => { barsRef.current[i] = el; }}
           style={{ height: `${height}px` }}
           className={clsx(
-            'rounded-full bg-white/10 border border-white/20 shadow-lg transition-all duration-700',
+            'rounded-full bg-white/10 border border-black/20',
+            'shadow-[0_0_15px_2px_rgba(0,0,0,0.3)]',
+            'transition-all duration-700',
             'w-[20px] sm:w-10 md:w-20 lg:w-30'
           )}
-
         />
       ))}
     </div>
