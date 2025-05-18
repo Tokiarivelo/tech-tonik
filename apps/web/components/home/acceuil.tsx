@@ -124,7 +124,7 @@ export default function Acceuil() {
         <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
 
-      <div className="z-20 text-white px-10 pt-20 text-content">
+      <div className="z-20 text-white px-10 pt-20 mt-20 text-content">
         <h1 className="text-4xl font-bold mb-4">Parce que chaque fin mérite une scène</h1>
         <div>
           <Description activeIndex={activeIndex} />
