@@ -13,6 +13,8 @@ const Page = () => {
     title: string;
     description: string;
     image: string;
+    slideIndex: number;
+    itemIndex: number;
   } | null>(null);
 
   // Données des différents sliders
@@ -27,11 +29,27 @@ const Page = () => {
     setActivePreview({
       title: currentData.titre[itemIndex],
       description: currentData.descriptions[itemIndex],
-      image: currentData.images[itemIndex]
+      image: currentData.images[itemIndex],
+      slideIndex,
+      itemIndex
     });
   };
 
   const closePreview = () => setActivePreview(null);
+
+  const navigatePreview = (direction: 'prev' | 'next') => {
+    if (!activePreview) return;
+    
+    const { slideIndex, itemIndex } = activePreview;
+    const currentData = sliderData[slideIndex].data;
+    const itemCount = currentData.images.length;
+    
+    let newItemIndex = direction === 'next' 
+      ? (itemIndex + 1) % itemCount
+      : (itemIndex - 1 + itemCount) % itemCount;
+    
+    openPreview(slideIndex, newItemIndex);
+  };
 
   return (
     <div className="relative bg-primary h-screen">
@@ -47,7 +65,7 @@ const Page = () => {
           ))}
         </Swiper>
 
-        {/* Navigation */}
+        {/* Navigation principale */}
         <button
           onClick={() => swiperRef.current?.slidePrev()}
           className="absolute left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
@@ -62,12 +80,9 @@ const Page = () => {
           <ArrowRight className="text-gray-800 w-6 h-6" />
         </button>
 
-        {/* Modal Preview */}
+        {/* Modal Preview améliorée */}
         {activePreview && (
-          <div 
-            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
-            onClick={closePreview}
-          >
+          <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
             <div 
               className="bg-white rounded-xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
@@ -88,7 +103,22 @@ const Page = () => {
               <h2 className="text-2xl font-bold mb-2">{activePreview.title}</h2>
               <p className="text-gray-700 whitespace-pre-line">{activePreview.description}</p>
               
-              <div className="mt-6 flex justify-end">
+              <div className="mt-6 flex justify-between">
+                <button
+                  onClick={() => navigatePreview('prev')}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  Précédent
+                </button>
+                <button
+                  onClick={() => navigatePreview('next')}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  Suivant
+                </button>
+              </div>
+              
+              <div className="mt-4 flex justify-center">
                 <button
                   onClick={closePreview}
                   className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
