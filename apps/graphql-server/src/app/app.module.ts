@@ -9,6 +9,8 @@ import { UploadModule } from 'src/upload/upload.module';
 import { TemplateModule } from 'src/template/template.module';
 import { ExitPageModule } from 'src/exit-page/exitPage.module';
 import { ReactionModule } from 'src/reaction/reaction.module';
+import { VoteModule } from 'src/vote/vote.module';
+import { CommentModule } from 'src/comment/comment.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { ReactionModule } from 'src/reaction/reaction.module';
     TemplateModule,
     ExitPageModule,
     ReactionModule,
+    VoteModule,
+    CommentModule,
   ],
 })
 export class AppModule {}
