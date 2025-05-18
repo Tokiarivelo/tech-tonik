@@ -1,5 +1,8 @@
 import NavBar from '@/components/navbar/NavBar';
 import '../global.css';
+import ClientLayout from './client-layout';
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
 
 export const metadata = {
   title: 'Welcome to client',
@@ -12,13 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <div >
+      <ClientLayout>
+
         <NavBar />
-        <main>
+        <div>
           {children}
-        </main>
-      </body>
-    </html>
+        </div>
+      </ClientLayout>
+    </div>
   );
 }
