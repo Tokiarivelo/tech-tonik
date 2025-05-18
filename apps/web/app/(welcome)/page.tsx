@@ -9,8 +9,9 @@ const HomePage = () => {
                 <Acceuil />
             </section>
 
+
             {/* Séparateur visuel (optionnel) */}
-            <div className="w-full h-px"></div> 
+            <div className="w-full h-px"></div>
 
             {/* Section Reviews avec fond blanc */}
             <section className="relative w-full overflow-hidden bg-white min-h-screen">
