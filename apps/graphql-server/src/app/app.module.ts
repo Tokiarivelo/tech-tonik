@@ -7,6 +7,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { UploadModule } from 'src/upload/upload.module';
 import { TemplateModule } from 'src/template/template.module';
+import { ExitPageModule } from 'src/exit-page/exitPage.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { TemplateModule } from 'src/template/template.module';
     AuthModule,
     UploadModule,
     TemplateModule,
+    ExitPageModule,
   ],
 })
 export class AppModule {}
