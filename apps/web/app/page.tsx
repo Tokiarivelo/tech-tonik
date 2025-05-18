@@ -6,6 +6,7 @@ import 'swiper/css';
 import Suggestion from '@/components/home/suggestion';
 import SuggestionHappy from '@/components/home/suggestionHappy';
 import SuggestionMoodSad from '@/components/home/suggestionMoodSad';
+import Link from 'next/link';
 
 const Page = () => {
   const swiperRef = useRef<any>(null);
@@ -119,12 +120,19 @@ const Page = () => {
               </div>
               
               <div className="mt-4 flex justify-center">
+                <Link
+                  href=""
+                  passHref
+                  legacyBehavior
+                >
                 <button
                   onClick={closePreview}
                   className="px-4 cursor-pointer py-2 bg-blue-500 text-white rounded-lg hover:bg-primary-dark transition-colors"
                 >
-                  Fermer
+                  Voir plus
                 </button>
+
+                </Link>
               </div>
             </div>
           </div>
