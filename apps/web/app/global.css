@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 @layer components {
   .container {
     @apply mx-auto max-w-6xl xl:max-w-7xl px-8;
@@ -9,15 +18,19 @@
 
 @layer {
   :root {
-    --color-primary: #E2D4BB;
-    --color-secondary: #243932;
-    --color-tertiary: #C62828;
+    --color-primary: #243932;
+    --color-secondary: #E2D4BB;
+    --color-tertiary: #B3583E;
+
   }
 }
 
 @layer utilities {
   .bg-primary {
     background-color: var(--color-primary);
+  }
+  .bg-secondary {
+    background-color: var(--color-secondary);
   }
   .text-primary {
     color: var(--color-primary);
@@ -28,8 +41,8 @@
   .bg-secondary {
     background-color: var(--color-secondary);
   }
-  .bg-tertiary {
-    background-color: var(--color-tertiary);
+  .text-tertiary{
+    color: var(--color-tertiary)
   }
 }
 

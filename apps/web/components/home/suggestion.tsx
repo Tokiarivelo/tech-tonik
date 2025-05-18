@@ -1,123 +1,126 @@
 
 "use client";
 
-import React from 'react';
-import { useState } from "react";
-import { descriptions, images, titre } from "./data/index";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import React, { useState } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-const getRandomNumber = () => Math.floor(Math.random() * 41) - 20;
+interface SuggestionProps {
+  onImageClick: (index: number) => void;
+}
 
-const Suggestion = ({ onImageClick }: { onImageClick: (index: number) => void }) => {
-  const [index, setIndex] = useState(2);
+const getRandomRotation = () => Math.floor(Math.random() * 41) - 20;
 
-  
-  const goToPrev = () => setIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
-  const goToNext = () => setIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
+const Suggestion = ({ onImageClick }: SuggestionProps) => {
+  const [currentIndex, setCurrentIndex] = useState(2);
+  const { descriptions, images, titre } = require('./data/index');
 
-  /* first return() */
+  const navigateSlide = (direction: 'prev' | 'next') => {
+    setCurrentIndex(prev => 
+      direction === 'prev' 
+        ? (prev === 0 ? images.length - 1 : prev - 1)
+        : (prev === images.length - 1 ? 0 : prev + 1)
+    );
+  };
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[80vh] w-full py-10">
       <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4">
-        <div className="flex gap-x-20 lg:items-start items-center lg:flex-row flex-col w-full justify-center">
-        <h1 className="text-center text-3xl sm:text-5xl font-bold text-gray-800 absolute top-8 left-1/2 transform -translate-x-1/2 w-full max-w-[90%] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] tracking-wider drop-shadow-lg">
-          TheEnd.page est un endroit ou vous pouvez vous exprimer librement
+        <h1 className="text-center text-3xl sm:text-5xl font-bold text-gray-800 mb-10 lg:mb-16 w-full px-4 tracking-wider drop-shadow-lg">
+          TheEnd.page est un endroit où vous pouvez vous exprimer librement
         </h1>
-          {/* Images Container - Modifié pour l'effet pile */}
-          <div className="sm:w-[400px] sm:h-[400px] w-[200px] h-[200px] relative ">
-            {images.map((image, i) => {
-              // Calculer la position dans la pile
-              const position = (i - index + images.length) % images.length;
-              const isActive = i === index;
+
+        <div className="flex gap-x-20 lg:gap-x-32 items-center lg:flex-row flex-col w-full justify-center">
+          {/* Images Stack */}
+          <div className="sm:w-[400px] sm:h-[400px] w-[200px] h-[200px] relative mx-auto">
+            {images.map((image: string, i: number) => {
+              const position = (i - currentIndex + images.length) % images.length;
+              const isActive = i === currentIndex;
               const isNext = position === 1;
               const isPrev = position === images.length - 1;
-
-              /* Second return */
 
               return (
                 <img
                   key={i}
                   src={image}
                   onClick={() => onImageClick(i)}
-                  className={`w-full h-full absolute object-cover rounded-3xl transition-all duration-300 ${
-                    isActive ? "opacity-100 z-10" : 
-                    (isNext || isPrev) ? "opacity-30 z-0" : "opacity-0"
+                  className={`absolute w-full h-full object-cover rounded-3xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer ${
+                    isActive 
+                      ? 'opacity-100 z-10 shadow-xl'
+                      : (isNext || isPrev) 
+                        ? 'opacity-60 z-0' 
+                        : 'opacity-0'
                   }`}
                   style={{
                     transform: isActive 
-                      ? "rotate(0deg)" 
-                      : `rotate(${getRandomNumber()}deg)`,
-                    ...(isNext && { 
-                      right: "-10px",
-                      top: "10px",
-                      width: "95%",
-                      height: "95%"
-                    }),
-                    ...(isPrev && {
-                      left: "-10px",
-                      bottom: "10px",
-                      width: "95%",
-                      height: "95%"
-                    })
+                      ? 'rotate(0deg) scale(1)'
+                      : `rotate(${getRandomRotation()}deg) scale(${isNext || isPrev ? 0.9 : 0.8})`,
+                    ...(isNext && { right: '-5%', top: '5%' }),
+                    ...(isPrev && { left: '-5%', bottom: '5%' })
                   }}
                   alt={`Slide ${i}`}
+                  loading="lazy"
                 />
               );
             })}
           </div>
           
-          {/* Descriptions (inchangé) */}
-          <div className="relative sm:w-[400px] w-[320px] mt-100 lg:mt-5 h-[250px] overflow-hidden">*
-            {/* Titre */}
-            <div className="h-[60px] mb-4 overflow-hidden relative">
-            {titre.map((title, i) => (
-              <h1
-              key={i}
-              className={`text-center text-xl sm:text-2xl font-bold text-gray-800 absolute w-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                i === index
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 -translate-y-4"
-              }`}
-              style={{
-              transitionDelay: i === index ? "150ms" : "0ms"}}>
-                {title}
-              </h1>
-            ))}
+          {/* Content Description */}
+          <div className="sm:w-[400px] w-[320px] mt-10 lg:mt-0 min-h-[250px]">
+            {/* Title */}
+            <div className="h-[60px] mb-6 overflow-hidden relative">
+              {titre.map((title: string, i: number) => (
+                <h2
+                  key={i}
+                  className={`text-center text-xl sm:text-2xl font-bold text-gray-800 absolute w-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                    i === currentIndex
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 -translate-y-4'
+                  }`}
+                  style={{
+                    transitionDelay: i === currentIndex ? '200ms' : '0ms'
+                  }}
+                >
+                  {title}
+                </h2>
+              ))}
             </div>
 
-            {/* Paragraphe */}
-            <div className="h-[140px] overflow-hidden relative mt-4">
-              {descriptions.map((desc, i) => (
+            {/* Description */}
+            <div className="h-[140px] overflow-hidden relative">
+              {descriptions.map((desc: string, i: number) => (
                 <p
-                key={i}
-                className={`text-center text-gray-600 text-base sm:text-lg absolute w-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                  i === index
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                }`}
-                style={{
-                transitionDelay: i === index ? "150ms" : "0ms"}}>
+                  key={i}
+                  className={`text-center text-gray-600 text-base sm:text-lg absolute w-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                    i === currentIndex
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{
+                    transitionDelay: i === currentIndex ? '300ms' : '0ms'
+                  }}
+                >
                   {desc}
                 </p>
-                ))}
+              ))}
             </div>
           </div>
         </div>
         
-        {/* Controls (inchangé) */}
-        <div className="absolute mt-165 left-1/2 transform -translate-x-1/2 flex gap-x-30">
+        {/* Navigation Controls */}
+        <div className="flex gap-6 mt-12">
           <button
-            className="bg-gray-100 p-10 cursor-pointer rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
-            onClick={goToPrev}
+            onClick={() => navigateSlide('prev')}
+            className="p-3 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
+            aria-label="Previous slide"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeft size={15} className="text-gray-700" />
           </button>
           <button
-            className="bg-gray-100 p-10 cursor-pointer rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
-            onClick={goToNext}
+            onClick={() => navigateSlide('next')}
+            className="p-3 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
+            aria-label="Next slide"
           >
-            <ArrowRight size={18} />
+            <ArrowRight size={15} className="text-gray-700" />
           </button>
         </div>
       </div>
@@ -126,6 +129,3 @@ const Suggestion = ({ onImageClick }: { onImageClick: (index: number) => void })
 };
 
 export default Suggestion;
- 
-// lg:bottom-0 
-//
