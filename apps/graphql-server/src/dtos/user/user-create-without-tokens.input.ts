@@ -1,10 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { PaymentCreateNestedManyWithoutUserInput } from '../payment/payment-create-nested-many-without-user.input';
-import { PlaceCreateNestedManyWithoutProviderInput } from '../place/place-create-nested-many-without-provider.input';
-import { ReservationCreateNestedManyWithoutUserInput } from '../reservation/reservation-create-nested-many-without-user.input';
-import { ReviewCreateNestedManyWithoutUserInput } from '../review/review-create-nested-many-without-user.input';
 import { UserImageCreateNestedManyWithoutUserInput } from '../user-image/user-image-create-nested-many-without-user.input';
+import { ExitPageCreateNestedManyWithoutAuthorInput } from '../exit-page/exit-page-create-nested-many-without-author.input';
+import { ReactionCreateNestedManyWithoutUserInput } from '../reaction/reaction-create-nested-many-without-user.input';
+import { VoteCreateNestedManyWithoutUserInput } from '../vote/vote-create-nested-many-without-user.input';
+import { CommentCreateNestedManyWithoutUserInput } from '../comment/comment-create-nested-many-without-user.input';
+import { PageViewCreateNestedManyWithoutUserInput } from '../page-view/page-view-create-nested-many-without-user.input';
+import { PageShareCreateNestedManyWithoutUserInput } from '../page-share/page-share-create-nested-many-without-user.input';
+import { PageVersionCreateNestedManyWithoutUpdatedByInput } from '../page-version/page-version-create-nested-many-without-updated-by.input';
 import { RoleCreateNestedManyWithoutUsersInput } from '../role/role-create-nested-many-without-users.input';
 
 @InputType()
@@ -40,20 +43,29 @@ export class UserCreateWithoutTokensInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => PaymentCreateNestedManyWithoutUserInput, {nullable:true})
-    Payment?: PaymentCreateNestedManyWithoutUserInput;
-
-    @Field(() => PlaceCreateNestedManyWithoutProviderInput, {nullable:true})
-    Place?: PlaceCreateNestedManyWithoutProviderInput;
-
-    @Field(() => ReservationCreateNestedManyWithoutUserInput, {nullable:true})
-    reservations?: ReservationCreateNestedManyWithoutUserInput;
-
-    @Field(() => ReviewCreateNestedManyWithoutUserInput, {nullable:true})
-    reviews?: ReviewCreateNestedManyWithoutUserInput;
-
     @Field(() => UserImageCreateNestedManyWithoutUserInput, {nullable:true})
     images?: UserImageCreateNestedManyWithoutUserInput;
+
+    @Field(() => ExitPageCreateNestedManyWithoutAuthorInput, {nullable:true})
+    pages?: ExitPageCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ReactionCreateNestedManyWithoutUserInput, {nullable:true})
+    reactions?: ReactionCreateNestedManyWithoutUserInput;
+
+    @Field(() => VoteCreateNestedManyWithoutUserInput, {nullable:true})
+    votes?: VoteCreateNestedManyWithoutUserInput;
+
+    @Field(() => CommentCreateNestedManyWithoutUserInput, {nullable:true})
+    comments?: CommentCreateNestedManyWithoutUserInput;
+
+    @Field(() => PageViewCreateNestedManyWithoutUserInput, {nullable:true})
+    views?: PageViewCreateNestedManyWithoutUserInput;
+
+    @Field(() => PageShareCreateNestedManyWithoutUserInput, {nullable:true})
+    shares?: PageShareCreateNestedManyWithoutUserInput;
+
+    @Field(() => PageVersionCreateNestedManyWithoutUpdatedByInput, {nullable:true})
+    versions?: PageVersionCreateNestedManyWithoutUpdatedByInput;
 
     @Field(() => RoleCreateNestedManyWithoutUsersInput, {nullable:true})
     Role?: RoleCreateNestedManyWithoutUsersInput;

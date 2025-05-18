@@ -1,11 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { PaymentUncheckedCreateNestedManyWithoutUserInput } from '../payment/payment-unchecked-create-nested-many-without-user.input';
-import { PlaceUncheckedCreateNestedManyWithoutProviderInput } from '../place/place-unchecked-create-nested-many-without-provider.input';
 import { RefreshTokenUncheckedCreateNestedManyWithoutUserInput } from '../refresh-token/refresh-token-unchecked-create-nested-many-without-user.input';
-import { ReservationUncheckedCreateNestedManyWithoutUserInput } from '../reservation/reservation-unchecked-create-nested-many-without-user.input';
-import { ReviewUncheckedCreateNestedManyWithoutUserInput } from '../review/review-unchecked-create-nested-many-without-user.input';
 import { UserImageUncheckedCreateNestedManyWithoutUserInput } from '../user-image/user-image-unchecked-create-nested-many-without-user.input';
+import { ExitPageUncheckedCreateNestedManyWithoutAuthorInput } from '../exit-page/exit-page-unchecked-create-nested-many-without-author.input';
+import { ReactionUncheckedCreateNestedManyWithoutUserInput } from '../reaction/reaction-unchecked-create-nested-many-without-user.input';
+import { VoteUncheckedCreateNestedManyWithoutUserInput } from '../vote/vote-unchecked-create-nested-many-without-user.input';
+import { CommentUncheckedCreateNestedManyWithoutUserInput } from '../comment/comment-unchecked-create-nested-many-without-user.input';
+import { PageViewUncheckedCreateNestedManyWithoutUserInput } from '../page-view/page-view-unchecked-create-nested-many-without-user.input';
+import { PageShareUncheckedCreateNestedManyWithoutUserInput } from '../page-share/page-share-unchecked-create-nested-many-without-user.input';
+import { PageVersionUncheckedCreateNestedManyWithoutUpdatedByInput } from '../page-version/page-version-unchecked-create-nested-many-without-updated-by.input';
 import { RoleUncheckedCreateNestedManyWithoutUsersInput } from '../role/role-unchecked-create-nested-many-without-users.input';
 
 @InputType()
@@ -41,23 +44,32 @@ export class UserUncheckedCreateInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => PaymentUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    Payment?: PaymentUncheckedCreateNestedManyWithoutUserInput;
-
-    @Field(() => PlaceUncheckedCreateNestedManyWithoutProviderInput, {nullable:true})
-    Place?: PlaceUncheckedCreateNestedManyWithoutProviderInput;
-
     @Field(() => RefreshTokenUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     tokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
 
-    @Field(() => ReservationUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    reservations?: ReservationUncheckedCreateNestedManyWithoutUserInput;
-
-    @Field(() => ReviewUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput;
-
     @Field(() => UserImageUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     images?: UserImageUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => ExitPageUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    pages?: ExitPageUncheckedCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ReactionUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => VoteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    votes?: VoteUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => CommentUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => PageViewUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    views?: PageViewUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => PageShareUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    shares?: PageShareUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => PageVersionUncheckedCreateNestedManyWithoutUpdatedByInput, {nullable:true})
+    versions?: PageVersionUncheckedCreateNestedManyWithoutUpdatedByInput;
 
     @Field(() => RoleUncheckedCreateNestedManyWithoutUsersInput, {nullable:true})
     Role?: RoleUncheckedCreateNestedManyWithoutUsersInput;

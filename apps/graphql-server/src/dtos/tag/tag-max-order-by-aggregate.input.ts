@@ -12,5 +12,5 @@ export class TagMaxOrderByAggregateInput {
     name?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    placeId?: `${SortOrder}`;
+    pageId?: `${SortOrder}`;
 }

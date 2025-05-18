@@ -21,5 +21,5 @@ export class TagScalarWhereWithAggregatesInput {
     name?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    placeId?: StringWithAggregatesFilter;
+    pageId?: StringWithAggregatesFilter;
 }

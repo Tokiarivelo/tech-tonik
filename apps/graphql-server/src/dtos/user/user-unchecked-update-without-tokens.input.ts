@@ -4,11 +4,14 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { PaymentUncheckedUpdateManyWithoutUserNestedInput } from '../payment/payment-unchecked-update-many-without-user-nested.input';
-import { PlaceUncheckedUpdateManyWithoutProviderNestedInput } from '../place/place-unchecked-update-many-without-provider-nested.input';
-import { ReservationUncheckedUpdateManyWithoutUserNestedInput } from '../reservation/reservation-unchecked-update-many-without-user-nested.input';
-import { ReviewUncheckedUpdateManyWithoutUserNestedInput } from '../review/review-unchecked-update-many-without-user-nested.input';
 import { UserImageUncheckedUpdateManyWithoutUserNestedInput } from '../user-image/user-image-unchecked-update-many-without-user-nested.input';
+import { ExitPageUncheckedUpdateManyWithoutAuthorNestedInput } from '../exit-page/exit-page-unchecked-update-many-without-author-nested.input';
+import { ReactionUncheckedUpdateManyWithoutUserNestedInput } from '../reaction/reaction-unchecked-update-many-without-user-nested.input';
+import { VoteUncheckedUpdateManyWithoutUserNestedInput } from '../vote/vote-unchecked-update-many-without-user-nested.input';
+import { CommentUncheckedUpdateManyWithoutUserNestedInput } from '../comment/comment-unchecked-update-many-without-user-nested.input';
+import { PageViewUncheckedUpdateManyWithoutUserNestedInput } from '../page-view/page-view-unchecked-update-many-without-user-nested.input';
+import { PageShareUncheckedUpdateManyWithoutUserNestedInput } from '../page-share/page-share-unchecked-update-many-without-user-nested.input';
+import { PageVersionUncheckedUpdateManyWithoutUpdatedByNestedInput } from '../page-version/page-version-unchecked-update-many-without-updated-by-nested.input';
 import { RoleUncheckedUpdateManyWithoutUsersNestedInput } from '../role/role-unchecked-update-many-without-users-nested.input';
 
 @InputType()
@@ -44,20 +47,29 @@ export class UserUncheckedUpdateWithoutTokensInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => PaymentUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
-    Payment?: PaymentUncheckedUpdateManyWithoutUserNestedInput;
-
-    @Field(() => PlaceUncheckedUpdateManyWithoutProviderNestedInput, {nullable:true})
-    Place?: PlaceUncheckedUpdateManyWithoutProviderNestedInput;
-
-    @Field(() => ReservationUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
-    reservations?: ReservationUncheckedUpdateManyWithoutUserNestedInput;
-
-    @Field(() => ReviewUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
-    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput;
-
     @Field(() => UserImageUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     images?: UserImageUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => ExitPageUncheckedUpdateManyWithoutAuthorNestedInput, {nullable:true})
+    pages?: ExitPageUncheckedUpdateManyWithoutAuthorNestedInput;
+
+    @Field(() => ReactionUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => VoteUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    votes?: VoteUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => CommentUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => PageViewUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    views?: PageViewUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => PageShareUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    shares?: PageShareUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => PageVersionUncheckedUpdateManyWithoutUpdatedByNestedInput, {nullable:true})
+    versions?: PageVersionUncheckedUpdateManyWithoutUpdatedByNestedInput;
 
     @Field(() => RoleUncheckedUpdateManyWithoutUsersNestedInput, {nullable:true})
     Role?: RoleUncheckedUpdateManyWithoutUsersNestedInput;

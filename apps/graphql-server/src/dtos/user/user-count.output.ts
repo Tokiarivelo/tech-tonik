@@ -6,22 +6,31 @@ import { Int } from '@nestjs/graphql';
 export class UserCount {
 
     @Field(() => Int, {nullable:false})
-    Payment?: number;
-
-    @Field(() => Int, {nullable:false})
-    Place?: number;
-
-    @Field(() => Int, {nullable:false})
     tokens?: number;
 
     @Field(() => Int, {nullable:false})
-    reservations?: number;
-
-    @Field(() => Int, {nullable:false})
-    reviews?: number;
-
-    @Field(() => Int, {nullable:false})
     images?: number;
+
+    @Field(() => Int, {nullable:false})
+    pages?: number;
+
+    @Field(() => Int, {nullable:false})
+    reactions?: number;
+
+    @Field(() => Int, {nullable:false})
+    votes?: number;
+
+    @Field(() => Int, {nullable:false})
+    comments?: number;
+
+    @Field(() => Int, {nullable:false})
+    views?: number;
+
+    @Field(() => Int, {nullable:false})
+    shares?: number;
+
+    @Field(() => Int, {nullable:false})
+    versions?: number;
 
     @Field(() => Int, {nullable:false})
     Role?: number;

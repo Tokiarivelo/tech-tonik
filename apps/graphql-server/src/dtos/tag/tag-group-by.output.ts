@@ -14,7 +14,7 @@ export class TagGroupBy {
     name!: string;
 
     @Field(() => String, {nullable:false})
-    placeId!: string;
+    pageId!: string;
 
     @Field(() => TagCountAggregate, {nullable:true})
     _count?: TagCountAggregate;

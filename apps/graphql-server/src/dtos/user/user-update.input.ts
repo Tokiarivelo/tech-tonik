@@ -4,12 +4,15 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { PaymentUpdateManyWithoutUserNestedInput } from '../payment/payment-update-many-without-user-nested.input';
-import { PlaceUpdateManyWithoutProviderNestedInput } from '../place/place-update-many-without-provider-nested.input';
 import { RefreshTokenUpdateManyWithoutUserNestedInput } from '../refresh-token/refresh-token-update-many-without-user-nested.input';
-import { ReservationUpdateManyWithoutUserNestedInput } from '../reservation/reservation-update-many-without-user-nested.input';
-import { ReviewUpdateManyWithoutUserNestedInput } from '../review/review-update-many-without-user-nested.input';
 import { UserImageUpdateManyWithoutUserNestedInput } from '../user-image/user-image-update-many-without-user-nested.input';
+import { ExitPageUpdateManyWithoutAuthorNestedInput } from '../exit-page/exit-page-update-many-without-author-nested.input';
+import { ReactionUpdateManyWithoutUserNestedInput } from '../reaction/reaction-update-many-without-user-nested.input';
+import { VoteUpdateManyWithoutUserNestedInput } from '../vote/vote-update-many-without-user-nested.input';
+import { CommentUpdateManyWithoutUserNestedInput } from '../comment/comment-update-many-without-user-nested.input';
+import { PageViewUpdateManyWithoutUserNestedInput } from '../page-view/page-view-update-many-without-user-nested.input';
+import { PageShareUpdateManyWithoutUserNestedInput } from '../page-share/page-share-update-many-without-user-nested.input';
+import { PageVersionUpdateManyWithoutUpdatedByNestedInput } from '../page-version/page-version-update-many-without-updated-by-nested.input';
 import { RoleUpdateManyWithoutUsersNestedInput } from '../role/role-update-many-without-users-nested.input';
 
 @InputType()
@@ -45,23 +48,32 @@ export class UserUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => PaymentUpdateManyWithoutUserNestedInput, {nullable:true})
-    Payment?: PaymentUpdateManyWithoutUserNestedInput;
-
-    @Field(() => PlaceUpdateManyWithoutProviderNestedInput, {nullable:true})
-    Place?: PlaceUpdateManyWithoutProviderNestedInput;
-
     @Field(() => RefreshTokenUpdateManyWithoutUserNestedInput, {nullable:true})
     tokens?: RefreshTokenUpdateManyWithoutUserNestedInput;
 
-    @Field(() => ReservationUpdateManyWithoutUserNestedInput, {nullable:true})
-    reservations?: ReservationUpdateManyWithoutUserNestedInput;
-
-    @Field(() => ReviewUpdateManyWithoutUserNestedInput, {nullable:true})
-    reviews?: ReviewUpdateManyWithoutUserNestedInput;
-
     @Field(() => UserImageUpdateManyWithoutUserNestedInput, {nullable:true})
     images?: UserImageUpdateManyWithoutUserNestedInput;
+
+    @Field(() => ExitPageUpdateManyWithoutAuthorNestedInput, {nullable:true})
+    pages?: ExitPageUpdateManyWithoutAuthorNestedInput;
+
+    @Field(() => ReactionUpdateManyWithoutUserNestedInput, {nullable:true})
+    reactions?: ReactionUpdateManyWithoutUserNestedInput;
+
+    @Field(() => VoteUpdateManyWithoutUserNestedInput, {nullable:true})
+    votes?: VoteUpdateManyWithoutUserNestedInput;
+
+    @Field(() => CommentUpdateManyWithoutUserNestedInput, {nullable:true})
+    comments?: CommentUpdateManyWithoutUserNestedInput;
+
+    @Field(() => PageViewUpdateManyWithoutUserNestedInput, {nullable:true})
+    views?: PageViewUpdateManyWithoutUserNestedInput;
+
+    @Field(() => PageShareUpdateManyWithoutUserNestedInput, {nullable:true})
+    shares?: PageShareUpdateManyWithoutUserNestedInput;
+
+    @Field(() => PageVersionUpdateManyWithoutUpdatedByNestedInput, {nullable:true})
+    versions?: PageVersionUpdateManyWithoutUpdatedByNestedInput;
 
     @Field(() => RoleUpdateManyWithoutUsersNestedInput, {nullable:true})
     Role?: RoleUpdateManyWithoutUsersNestedInput;

@@ -1,0 +1,28 @@
+import { Field } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+
+@ObjectType()
+export class ExitPageCount {
+
+    @Field(() => Int, {nullable:false})
+    reactions?: number;
+
+    @Field(() => Int, {nullable:false})
+    votes?: number;
+
+    @Field(() => Int, {nullable:false})
+    comments?: number;
+
+    @Field(() => Int, {nullable:false})
+    views?: number;
+
+    @Field(() => Int, {nullable:false})
+    shares?: number;
+
+    @Field(() => Int, {nullable:false})
+    versions?: number;
+
+    @Field(() => Int, {nullable:false})
+    tags?: number;
+}

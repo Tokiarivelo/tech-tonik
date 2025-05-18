@@ -5,12 +5,15 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { PaymentListRelationFilter } from '../payment/payment-list-relation-filter.input';
-import { PlaceListRelationFilter } from '../place/place-list-relation-filter.input';
 import { RefreshTokenListRelationFilter } from '../refresh-token/refresh-token-list-relation-filter.input';
-import { ReservationListRelationFilter } from '../reservation/reservation-list-relation-filter.input';
-import { ReviewListRelationFilter } from '../review/review-list-relation-filter.input';
 import { UserImageListRelationFilter } from '../user-image/user-image-list-relation-filter.input';
+import { ExitPageListRelationFilter } from '../exit-page/exit-page-list-relation-filter.input';
+import { ReactionListRelationFilter } from '../reaction/reaction-list-relation-filter.input';
+import { VoteListRelationFilter } from '../vote/vote-list-relation-filter.input';
+import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
+import { PageViewListRelationFilter } from '../page-view/page-view-list-relation-filter.input';
+import { PageShareListRelationFilter } from '../page-share/page-share-list-relation-filter.input';
+import { PageVersionListRelationFilter } from '../page-version/page-version-list-relation-filter.input';
 import { RoleListRelationFilter } from '../role/role-list-relation-filter.input';
 
 @InputType()
@@ -55,23 +58,32 @@ export class UserWhereUniqueInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => PaymentListRelationFilter, {nullable:true})
-    Payment?: PaymentListRelationFilter;
-
-    @Field(() => PlaceListRelationFilter, {nullable:true})
-    Place?: PlaceListRelationFilter;
-
     @Field(() => RefreshTokenListRelationFilter, {nullable:true})
     tokens?: RefreshTokenListRelationFilter;
 
-    @Field(() => ReservationListRelationFilter, {nullable:true})
-    reservations?: ReservationListRelationFilter;
-
-    @Field(() => ReviewListRelationFilter, {nullable:true})
-    reviews?: ReviewListRelationFilter;
-
     @Field(() => UserImageListRelationFilter, {nullable:true})
     images?: UserImageListRelationFilter;
+
+    @Field(() => ExitPageListRelationFilter, {nullable:true})
+    pages?: ExitPageListRelationFilter;
+
+    @Field(() => ReactionListRelationFilter, {nullable:true})
+    reactions?: ReactionListRelationFilter;
+
+    @Field(() => VoteListRelationFilter, {nullable:true})
+    votes?: VoteListRelationFilter;
+
+    @Field(() => CommentListRelationFilter, {nullable:true})
+    comments?: CommentListRelationFilter;
+
+    @Field(() => PageViewListRelationFilter, {nullable:true})
+    views?: PageViewListRelationFilter;
+
+    @Field(() => PageShareListRelationFilter, {nullable:true})
+    shares?: PageShareListRelationFilter;
+
+    @Field(() => PageVersionListRelationFilter, {nullable:true})
+    versions?: PageVersionListRelationFilter;
 
     @Field(() => RoleListRelationFilter, {nullable:true})
     Role?: RoleListRelationFilter;

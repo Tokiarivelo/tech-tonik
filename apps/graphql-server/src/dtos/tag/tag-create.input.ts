@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { PlaceCreateNestedOneWithoutTagsInput } from '../place/place-create-nested-one-without-tags.input';
+import { ExitPageCreateNestedManyWithoutTagsInput } from '../exit-page/exit-page-create-nested-many-without-tags.input';
 
 @InputType()
 export class TagCreateInput {
@@ -11,6 +11,9 @@ export class TagCreateInput {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => PlaceCreateNestedOneWithoutTagsInput, {nullable:false})
-    place!: PlaceCreateNestedOneWithoutTagsInput;
+    @Field(() => String, {nullable:false})
+    pageId!: string;
+
+    @Field(() => ExitPageCreateNestedManyWithoutTagsInput, {nullable:true})
+    ExitPage?: ExitPageCreateNestedManyWithoutTagsInput;
 }

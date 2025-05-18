@@ -12,5 +12,5 @@ export class TagUncheckedUpdateManyInput {
     name?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    placeId?: StringFieldUpdateOperationsInput;
+    pageId?: StringFieldUpdateOperationsInput;
 }

@@ -3,7 +3,7 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum TagOrderByRelevanceFieldEnum {
     id = "id",
     name = "name",
-    placeId = "placeId"
+    pageId = "pageId"
 }
 
 

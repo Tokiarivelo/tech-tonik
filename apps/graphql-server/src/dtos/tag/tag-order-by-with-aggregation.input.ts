@@ -15,7 +15,7 @@ export class TagOrderByWithAggregationInput {
     name?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    placeId?: `${SortOrder}`;
+    pageId?: `${SortOrder}`;
 
     @Field(() => TagCountOrderByAggregateInput, {nullable:true})
     _count?: TagCountOrderByAggregateInput;

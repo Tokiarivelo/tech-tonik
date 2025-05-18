@@ -2,12 +2,15 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
-import { PaymentOrderByRelationAggregateInput } from '../payment/payment-order-by-relation-aggregate.input';
-import { PlaceOrderByRelationAggregateInput } from '../place/place-order-by-relation-aggregate.input';
 import { RefreshTokenOrderByRelationAggregateInput } from '../refresh-token/refresh-token-order-by-relation-aggregate.input';
-import { ReservationOrderByRelationAggregateInput } from '../reservation/reservation-order-by-relation-aggregate.input';
-import { ReviewOrderByRelationAggregateInput } from '../review/review-order-by-relation-aggregate.input';
 import { UserImageOrderByRelationAggregateInput } from '../user-image/user-image-order-by-relation-aggregate.input';
+import { ExitPageOrderByRelationAggregateInput } from '../exit-page/exit-page-order-by-relation-aggregate.input';
+import { ReactionOrderByRelationAggregateInput } from '../reaction/reaction-order-by-relation-aggregate.input';
+import { VoteOrderByRelationAggregateInput } from '../vote/vote-order-by-relation-aggregate.input';
+import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
+import { PageViewOrderByRelationAggregateInput } from '../page-view/page-view-order-by-relation-aggregate.input';
+import { PageShareOrderByRelationAggregateInput } from '../page-share/page-share-order-by-relation-aggregate.input';
+import { PageVersionOrderByRelationAggregateInput } from '../page-version/page-version-order-by-relation-aggregate.input';
 import { RoleOrderByRelationAggregateInput } from '../role/role-order-by-relation-aggregate.input';
 import { UserOrderByRelevanceInput } from './user-order-by-relevance.input';
 
@@ -44,23 +47,32 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: `${SortOrder}`;
 
-    @Field(() => PaymentOrderByRelationAggregateInput, {nullable:true})
-    Payment?: PaymentOrderByRelationAggregateInput;
-
-    @Field(() => PlaceOrderByRelationAggregateInput, {nullable:true})
-    Place?: PlaceOrderByRelationAggregateInput;
-
     @Field(() => RefreshTokenOrderByRelationAggregateInput, {nullable:true})
     tokens?: RefreshTokenOrderByRelationAggregateInput;
 
-    @Field(() => ReservationOrderByRelationAggregateInput, {nullable:true})
-    reservations?: ReservationOrderByRelationAggregateInput;
-
-    @Field(() => ReviewOrderByRelationAggregateInput, {nullable:true})
-    reviews?: ReviewOrderByRelationAggregateInput;
-
     @Field(() => UserImageOrderByRelationAggregateInput, {nullable:true})
     images?: UserImageOrderByRelationAggregateInput;
+
+    @Field(() => ExitPageOrderByRelationAggregateInput, {nullable:true})
+    pages?: ExitPageOrderByRelationAggregateInput;
+
+    @Field(() => ReactionOrderByRelationAggregateInput, {nullable:true})
+    reactions?: ReactionOrderByRelationAggregateInput;
+
+    @Field(() => VoteOrderByRelationAggregateInput, {nullable:true})
+    votes?: VoteOrderByRelationAggregateInput;
+
+    @Field(() => CommentOrderByRelationAggregateInput, {nullable:true})
+    comments?: CommentOrderByRelationAggregateInput;
+
+    @Field(() => PageViewOrderByRelationAggregateInput, {nullable:true})
+    views?: PageViewOrderByRelationAggregateInput;
+
+    @Field(() => PageShareOrderByRelationAggregateInput, {nullable:true})
+    shares?: PageShareOrderByRelationAggregateInput;
+
+    @Field(() => PageVersionOrderByRelationAggregateInput, {nullable:true})
+    versions?: PageVersionOrderByRelationAggregateInput;
 
     @Field(() => RoleOrderByRelationAggregateInput, {nullable:true})
     Role?: RoleOrderByRelationAggregateInput;

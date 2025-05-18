@@ -7,6 +7,193 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+type Comment {
+  _count: CommentCount!
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  page: ExitPage!
+  pageId: String!
+  parentComment: Comment
+  parentCommentId: String
+  replies: [Comment!]
+  user: User
+  userId: String
+}
+
+type CommentCount {
+  replies: Int!
+}
+
+input CommentCreateManyPageInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  parentCommentId: String
+  userId: String
+}
+
+input CommentCreateManyPageInputEnvelope {
+  data: [CommentCreateManyPageInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyParentCommentInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  pageId: String!
+  userId: String
+}
+
+input CommentCreateManyParentCommentInputEnvelope {
+  data: [CommentCreateManyParentCommentInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyUserInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  pageId: String!
+  parentCommentId: String
+}
+
+input CommentCreateManyUserInputEnvelope {
+  data: [CommentCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateNestedManyWithoutPageInput {
+  connect: [CommentWhereUniqueInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutPageInput!]
+  create: [CommentCreateWithoutPageInput!]
+  createMany: CommentCreateManyPageInputEnvelope
+}
+
+input CommentCreateNestedManyWithoutParentCommentInput {
+  connect: [CommentWhereUniqueInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutParentCommentInput!]
+  create: [CommentCreateWithoutParentCommentInput!]
+  createMany: CommentCreateManyParentCommentInputEnvelope
+}
+
+input CommentCreateNestedManyWithoutUserInput {
+  connect: [CommentWhereUniqueInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutUserInput!]
+  create: [CommentCreateWithoutUserInput!]
+  createMany: CommentCreateManyUserInputEnvelope
+}
+
+input CommentCreateNestedOneWithoutRepliesInput {
+  connect: CommentWhereUniqueInput
+  connectOrCreate: CommentCreateOrConnectWithoutRepliesInput
+  create: CommentCreateWithoutRepliesInput
+}
+
+input CommentCreateOrConnectWithoutPageInput {
+  create: CommentCreateWithoutPageInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateOrConnectWithoutParentCommentInput {
+  create: CommentCreateWithoutParentCommentInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateOrConnectWithoutRepliesInput {
+  create: CommentCreateWithoutRepliesInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateOrConnectWithoutUserInput {
+  create: CommentCreateWithoutUserInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateWithoutPageInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  parentComment: CommentCreateNestedOneWithoutRepliesInput
+  replies: CommentCreateNestedManyWithoutParentCommentInput
+  user: UserCreateNestedOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutParentCommentInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutCommentsInput!
+  replies: CommentCreateNestedManyWithoutParentCommentInput
+  user: UserCreateNestedOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutRepliesInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutCommentsInput!
+  parentComment: CommentCreateNestedOneWithoutRepliesInput
+  user: UserCreateNestedOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutUserInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutCommentsInput!
+  parentComment: CommentCreateNestedOneWithoutRepliesInput
+  replies: CommentCreateNestedManyWithoutParentCommentInput
+}
+
+input CommentListRelationFilter {
+  every: CommentWhereInput
+  none: CommentWhereInput
+  some: CommentWhereInput
+}
+
+input CommentNullableScalarRelationFilter {
+  is: CommentWhereInput
+  isNot: CommentWhereInput
+}
+
+input CommentOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input CommentWhereInput {
+  AND: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  parentComment: CommentNullableScalarRelationFilter
+  parentCommentId: StringNullableFilter
+  replies: CommentListRelationFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
+input CommentWhereUniqueInput {
+  AND: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  id: String
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  parentComment: CommentNullableScalarRelationFilter
+  parentCommentId: StringNullableFilter
+  replies: CommentListRelationFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -23,19 +210,337 @@ input DateTimeFilter {
   notIn: [DateTime!]
 }
 
-type FileUploadResult {
-  url: String!
+input EnumReactionTypeFilter {
+  equals: ReactionType
+  in: [ReactionType!]
+  not: NestedEnumReactionTypeFilter
+  notIn: [ReactionType!]
 }
 
-input FloatFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatFilter
-  notIn: [Float!]
+input EnumToneFilter {
+  equals: Tone
+  in: [Tone!]
+  not: NestedEnumToneFilter
+  notIn: [Tone!]
+}
+
+type ExitPage {
+  _count: ExitPageCount!
+  author: User
+  authorId: String
+  comments: [Comment!]
+  createdAt: DateTime!
+  data: JSON!
+  id: ID!
+  isHallOfFame: Boolean!
+  reactions: [Reaction!]
+  shares: [PageShare!]
+  slug: String!
+  tags: [Tag!]
+  template: Template!
+  templateId: String!
+  tone: Tone!
+  updatedAt: DateTime!
+  versions: [PageVersion!]
+  views: [PageView!]
+  votes: [Vote!]
+}
+
+type ExitPageCount {
+  comments: Int!
+  reactions: Int!
+  shares: Int!
+  tags: Int!
+  versions: Int!
+  views: Int!
+  votes: Int!
+}
+
+input ExitPageCreateManyAuthorInput {
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  slug: String!
+  templateId: String!
+  tone: Tone!
+  updatedAt: DateTime
+}
+
+input ExitPageCreateManyAuthorInputEnvelope {
+  data: [ExitPageCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input ExitPageCreateNestedManyWithoutAuthorInput {
+  connect: [ExitPageWhereUniqueInput!]
+  connectOrCreate: [ExitPageCreateOrConnectWithoutAuthorInput!]
+  create: [ExitPageCreateWithoutAuthorInput!]
+  createMany: ExitPageCreateManyAuthorInputEnvelope
+}
+
+input ExitPageCreateNestedOneWithoutCommentsInput {
+  connect: ExitPageWhereUniqueInput
+  connectOrCreate: ExitPageCreateOrConnectWithoutCommentsInput
+  create: ExitPageCreateWithoutCommentsInput
+}
+
+input ExitPageCreateNestedOneWithoutReactionsInput {
+  connect: ExitPageWhereUniqueInput
+  connectOrCreate: ExitPageCreateOrConnectWithoutReactionsInput
+  create: ExitPageCreateWithoutReactionsInput
+}
+
+input ExitPageCreateNestedOneWithoutSharesInput {
+  connect: ExitPageWhereUniqueInput
+  connectOrCreate: ExitPageCreateOrConnectWithoutSharesInput
+  create: ExitPageCreateWithoutSharesInput
+}
+
+input ExitPageCreateNestedOneWithoutVersionsInput {
+  connect: ExitPageWhereUniqueInput
+  connectOrCreate: ExitPageCreateOrConnectWithoutVersionsInput
+  create: ExitPageCreateWithoutVersionsInput
+}
+
+input ExitPageCreateNestedOneWithoutViewsInput {
+  connect: ExitPageWhereUniqueInput
+  connectOrCreate: ExitPageCreateOrConnectWithoutViewsInput
+  create: ExitPageCreateWithoutViewsInput
+}
+
+input ExitPageCreateNestedOneWithoutVotesInput {
+  connect: ExitPageWhereUniqueInput
+  connectOrCreate: ExitPageCreateOrConnectWithoutVotesInput
+  create: ExitPageCreateWithoutVotesInput
+}
+
+input ExitPageCreateOrConnectWithoutAuthorInput {
+  create: ExitPageCreateWithoutAuthorInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutCommentsInput {
+  create: ExitPageCreateWithoutCommentsInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutReactionsInput {
+  create: ExitPageCreateWithoutReactionsInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutSharesInput {
+  create: ExitPageCreateWithoutSharesInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutVersionsInput {
+  create: ExitPageCreateWithoutVersionsInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutViewsInput {
+  create: ExitPageCreateWithoutViewsInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateOrConnectWithoutVotesInput {
+  create: ExitPageCreateWithoutVotesInput!
+  where: ExitPageWhereUniqueInput!
+}
+
+input ExitPageCreateWithoutAuthorInput {
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutCommentsInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutReactionsInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutSharesInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutVersionsInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutViewsInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateWithoutVotesInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+}
+
+input ExitPageListRelationFilter {
+  every: ExitPageWhereInput
+  none: ExitPageWhereInput
+  some: ExitPageWhereInput
+}
+
+input ExitPageOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ExitPageScalarRelationFilter {
+  is: ExitPageWhereInput
+  isNot: ExitPageWhereInput
+}
+
+input ExitPageWhereInput {
+  AND: [ExitPageWhereInput!]
+  NOT: [ExitPageWhereInput!]
+  OR: [ExitPageWhereInput!]
+  author: UserNullableScalarRelationFilter
+  authorId: StringNullableFilter
+  comments: CommentListRelationFilter
+  createdAt: DateTimeFilter
+  data: JsonFilter
+  id: StringFilter
+  isHallOfFame: BoolFilter
+  reactions: ReactionListRelationFilter
+  shares: PageShareListRelationFilter
+  slug: StringFilter
+  tags: TagListRelationFilter
+  template: TemplateScalarRelationFilter
+  templateId: StringFilter
+  tone: EnumToneFilter
+  updatedAt: DateTimeFilter
+  versions: PageVersionListRelationFilter
+  views: PageViewListRelationFilter
+  votes: VoteListRelationFilter
+}
+
+input ExitPageWhereUniqueInput {
+  AND: [ExitPageWhereInput!]
+  NOT: [ExitPageWhereInput!]
+  OR: [ExitPageWhereInput!]
+  author: UserNullableScalarRelationFilter
+  authorId: StringNullableFilter
+  comments: CommentListRelationFilter
+  createdAt: DateTimeFilter
+  data: JsonFilter
+  id: String
+  isHallOfFame: BoolFilter
+  reactions: ReactionListRelationFilter
+  shares: PageShareListRelationFilter
+  slug: String
+  tags: TagListRelationFilter
+  template: TemplateScalarRelationFilter
+  templateId: StringFilter
+  tone: EnumToneFilter
+  updatedAt: DateTimeFilter
+  versions: PageVersionListRelationFilter
+  views: PageViewListRelationFilter
+  votes: VoteListRelationFilter
+}
+
+type FileUploadResult {
+  url: String!
 }
 
 input IntFilter {
@@ -47,6 +552,28 @@ input IntFilter {
   lte: Int
   not: NestedIntFilter
   notIn: [Int!]
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input JsonFilter {
+  array_contains: JSON
+  array_ends_with: JSON
+  array_starts_with: JSON
+  equals: JSON
+  gt: JSON
+  gte: JSON
+  lt: JSON
+  lte: JSON
+  mode: QueryMode
+  not: JSON
+  path: String
+  string_contains: String
+  string_ends_with: String
+  string_starts_with: String
 }
 
 input LoginInput {
@@ -83,15 +610,18 @@ input NestedDateTimeFilter {
   notIn: [DateTime!]
 }
 
-input NestedFloatFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatFilter
-  notIn: [Float!]
+input NestedEnumReactionTypeFilter {
+  equals: ReactionType
+  in: [ReactionType!]
+  not: NestedEnumReactionTypeFilter
+  notIn: [ReactionType!]
+}
+
+input NestedEnumToneFilter {
+  equals: Tone
+  in: [Tone!]
+  not: NestedEnumToneFilter
+  notIn: [Tone!]
 }
 
 input NestedIntFilter {
@@ -140,234 +670,468 @@ enum NullsOrder {
   last
 }
 
-type Payment {
-  amount: Float!
+type PageShare {
   createdAt: DateTime!
   id: ID!
-  method: String!
-  reservation: Reservation!
-  reservationId: String!
-  status: String!
-  user: User!
-  userId: String!
+  page: ExitPage!
+  pageId: String!
+  platform: String!
+  user: User
+  userId: String
 }
 
-input PaymentCreateManyUserInput {
-  amount: Float!
+input PageShareCreateManyPageInput {
   createdAt: DateTime
   id: String
-  method: String!
-  reservationId: String!
-  status: String!
+  platform: String!
+  userId: String
 }
 
-input PaymentCreateManyUserInputEnvelope {
-  data: [PaymentCreateManyUserInput!]!
+input PageShareCreateManyPageInputEnvelope {
+  data: [PageShareCreateManyPageInput!]!
   skipDuplicates: Boolean
 }
 
-input PaymentCreateNestedManyWithoutUserInput {
-  connect: [PaymentWhereUniqueInput!]
-  connectOrCreate: [PaymentCreateOrConnectWithoutUserInput!]
-  create: [PaymentCreateWithoutUserInput!]
-  createMany: PaymentCreateManyUserInputEnvelope
-}
-
-input PaymentCreateNestedOneWithoutReservationInput {
-  connect: PaymentWhereUniqueInput
-  connectOrCreate: PaymentCreateOrConnectWithoutReservationInput
-  create: PaymentCreateWithoutReservationInput
-}
-
-input PaymentCreateOrConnectWithoutReservationInput {
-  create: PaymentCreateWithoutReservationInput!
-  where: PaymentWhereUniqueInput!
-}
-
-input PaymentCreateOrConnectWithoutUserInput {
-  create: PaymentCreateWithoutUserInput!
-  where: PaymentWhereUniqueInput!
-}
-
-input PaymentCreateWithoutReservationInput {
-  amount: Float!
+input PageShareCreateManyUserInput {
   createdAt: DateTime
   id: String
-  method: String!
-  status: String!
-  user: UserCreateNestedOneWithoutPaymentInput!
+  pageId: String!
+  platform: String!
 }
 
-input PaymentCreateWithoutUserInput {
-  amount: Float!
+input PageShareCreateManyUserInputEnvelope {
+  data: [PageShareCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input PageShareCreateNestedManyWithoutPageInput {
+  connect: [PageShareWhereUniqueInput!]
+  connectOrCreate: [PageShareCreateOrConnectWithoutPageInput!]
+  create: [PageShareCreateWithoutPageInput!]
+  createMany: PageShareCreateManyPageInputEnvelope
+}
+
+input PageShareCreateNestedManyWithoutUserInput {
+  connect: [PageShareWhereUniqueInput!]
+  connectOrCreate: [PageShareCreateOrConnectWithoutUserInput!]
+  create: [PageShareCreateWithoutUserInput!]
+  createMany: PageShareCreateManyUserInputEnvelope
+}
+
+input PageShareCreateOrConnectWithoutPageInput {
+  create: PageShareCreateWithoutPageInput!
+  where: PageShareWhereUniqueInput!
+}
+
+input PageShareCreateOrConnectWithoutUserInput {
+  create: PageShareCreateWithoutUserInput!
+  where: PageShareWhereUniqueInput!
+}
+
+input PageShareCreateWithoutPageInput {
   createdAt: DateTime
   id: String
-  method: String!
-  reservation: ReservationCreateNestedOneWithoutPaymentInput!
-  status: String!
+  platform: String!
+  user: UserCreateNestedOneWithoutSharesInput
 }
 
-input PaymentListRelationFilter {
-  every: PaymentWhereInput
-  none: PaymentWhereInput
-  some: PaymentWhereInput
+input PageShareCreateWithoutUserInput {
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutSharesInput!
+  platform: String!
 }
 
-input PaymentNullableScalarRelationFilter {
-  is: PaymentWhereInput
-  isNot: PaymentWhereInput
+input PageShareListRelationFilter {
+  every: PageShareWhereInput
+  none: PageShareWhereInput
+  some: PageShareWhereInput
 }
 
-input PaymentOrderByRelationAggregateInput {
+input PageShareOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input PaymentWhereInput {
-  AND: [PaymentWhereInput!]
-  NOT: [PaymentWhereInput!]
-  OR: [PaymentWhereInput!]
-  amount: FloatFilter
+input PageShareWhereInput {
+  AND: [PageShareWhereInput!]
+  NOT: [PageShareWhereInput!]
+  OR: [PageShareWhereInput!]
   createdAt: DateTimeFilter
   id: StringFilter
-  method: StringFilter
-  reservation: ReservationScalarRelationFilter
-  reservationId: StringFilter
-  status: StringFilter
-  user: UserScalarRelationFilter
-  userId: StringFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  platform: StringFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
 }
 
-input PaymentWhereUniqueInput {
-  AND: [PaymentWhereInput!]
-  NOT: [PaymentWhereInput!]
-  OR: [PaymentWhereInput!]
-  amount: FloatFilter
+input PageShareWhereUniqueInput {
+  AND: [PageShareWhereInput!]
+  NOT: [PageShareWhereInput!]
+  OR: [PageShareWhereInput!]
   createdAt: DateTimeFilter
   id: String
-  method: StringFilter
-  reservation: ReservationScalarRelationFilter
-  reservationId: String
-  status: StringFilter
-  user: UserScalarRelationFilter
-  userId: StringFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  platform: StringFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
 }
 
-type Place {
-  _count: PlaceCount!
-  category: String!
+type PageVersion {
   createdAt: DateTime!
-  description: String!
+  data: JSON!
   id: ID!
-  images: [PlaceImage!]
-  name: String!
-  price: Float!
-  provider: User!
-  providerId: String!
-  reservations: [Reservation!]
-  reviews: [Review!]
-  tags: [Tag!]
-  updatedAt: DateTime!
+  page: ExitPage!
+  pageId: String!
+  updatedBy: User
+  updatedById: String
+  version: Int!
 }
 
-type PlaceCount {
-  images: Int!
-  reservations: Int!
-  reviews: Int!
-  tags: Int!
+input PageVersionCreateManyPageInput {
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  updatedById: String
+  version: Int!
 }
 
-input PlaceCreateNestedManyWithoutProviderInput {
-  connect: [PlaceWhereUniqueInput!]
+input PageVersionCreateManyPageInputEnvelope {
+  data: [PageVersionCreateManyPageInput!]!
+  skipDuplicates: Boolean
 }
 
-input PlaceCreateNestedOneWithoutReservationsInput {
-  connect: PlaceWhereUniqueInput
+input PageVersionCreateManyUpdatedByInput {
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  pageId: String!
+  version: Int!
 }
 
-input PlaceCreateNestedOneWithoutReviewsInput {
-  connect: PlaceWhereUniqueInput
+input PageVersionCreateManyUpdatedByInputEnvelope {
+  data: [PageVersionCreateManyUpdatedByInput!]!
+  skipDuplicates: Boolean
 }
 
-type PlaceImage {
-  id: ID!
-  place: Place!
-  placeId: String!
-  url: String!
+input PageVersionCreateNestedManyWithoutPageInput {
+  connect: [PageVersionWhereUniqueInput!]
+  connectOrCreate: [PageVersionCreateOrConnectWithoutPageInput!]
+  create: [PageVersionCreateWithoutPageInput!]
+  createMany: PageVersionCreateManyPageInputEnvelope
 }
 
-input PlaceImageListRelationFilter {
-  every: PlaceImageWhereInput
-  none: PlaceImageWhereInput
-  some: PlaceImageWhereInput
+input PageVersionCreateNestedManyWithoutUpdatedByInput {
+  connect: [PageVersionWhereUniqueInput!]
+  connectOrCreate: [PageVersionCreateOrConnectWithoutUpdatedByInput!]
+  create: [PageVersionCreateWithoutUpdatedByInput!]
+  createMany: PageVersionCreateManyUpdatedByInputEnvelope
 }
 
-input PlaceImageWhereInput {
-  AND: [PlaceImageWhereInput!]
-  NOT: [PlaceImageWhereInput!]
-  OR: [PlaceImageWhereInput!]
-  id: StringFilter
-  place: PlaceScalarRelationFilter
-  placeId: StringFilter
-  url: StringFilter
+input PageVersionCreateOrConnectWithoutPageInput {
+  create: PageVersionCreateWithoutPageInput!
+  where: PageVersionWhereUniqueInput!
 }
 
-input PlaceListRelationFilter {
-  every: PlaceWhereInput
-  none: PlaceWhereInput
-  some: PlaceWhereInput
+input PageVersionCreateOrConnectWithoutUpdatedByInput {
+  create: PageVersionCreateWithoutUpdatedByInput!
+  where: PageVersionWhereUniqueInput!
 }
 
-input PlaceOrderByRelationAggregateInput {
+input PageVersionCreateWithoutPageInput {
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  updatedBy: UserCreateNestedOneWithoutVersionsInput
+  version: Int!
+}
+
+input PageVersionCreateWithoutUpdatedByInput {
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  page: ExitPageCreateNestedOneWithoutVersionsInput!
+  version: Int!
+}
+
+input PageVersionListRelationFilter {
+  every: PageVersionWhereInput
+  none: PageVersionWhereInput
+  some: PageVersionWhereInput
+}
+
+input PageVersionOne_version_per_pageCompoundUniqueInput {
+  pageId: String!
+  version: Int!
+}
+
+input PageVersionOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input PlaceScalarRelationFilter {
-  is: PlaceWhereInput
-  isNot: PlaceWhereInput
-}
-
-input PlaceWhereInput {
-  AND: [PlaceWhereInput!]
-  NOT: [PlaceWhereInput!]
-  OR: [PlaceWhereInput!]
-  category: StringFilter
+input PageVersionWhereInput {
+  AND: [PageVersionWhereInput!]
+  NOT: [PageVersionWhereInput!]
+  OR: [PageVersionWhereInput!]
   createdAt: DateTimeFilter
-  description: StringFilter
+  data: JsonFilter
   id: StringFilter
-  images: PlaceImageListRelationFilter
-  name: StringFilter
-  price: FloatFilter
-  provider: UserScalarRelationFilter
-  providerId: StringFilter
-  reservations: ReservationListRelationFilter
-  reviews: ReviewListRelationFilter
-  tags: TagListRelationFilter
-  updatedAt: DateTimeFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  updatedBy: UserNullableScalarRelationFilter
+  updatedById: StringNullableFilter
+  version: IntFilter
 }
 
-input PlaceWhereUniqueInput {
-  AND: [PlaceWhereInput!]
-  NOT: [PlaceWhereInput!]
-  OR: [PlaceWhereInput!]
-  category: StringFilter
+input PageVersionWhereUniqueInput {
+  AND: [PageVersionWhereInput!]
+  NOT: [PageVersionWhereInput!]
+  OR: [PageVersionWhereInput!]
   createdAt: DateTimeFilter
-  description: StringFilter
+  data: JsonFilter
   id: String
-  images: PlaceImageListRelationFilter
-  name: StringFilter
-  price: FloatFilter
-  provider: UserScalarRelationFilter
-  providerId: StringFilter
-  reservations: ReservationListRelationFilter
-  reviews: ReviewListRelationFilter
-  tags: TagListRelationFilter
-  updatedAt: DateTimeFilter
+  one_version_per_page: PageVersionOne_version_per_pageCompoundUniqueInput
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  updatedBy: UserNullableScalarRelationFilter
+  updatedById: StringNullableFilter
+  version: IntFilter
+}
+
+type PageView {
+  createdAt: DateTime!
+  id: ID!
+  page: ExitPage!
+  pageId: String!
+  sessionId: String
+  user: User
+  userId: String
+}
+
+input PageViewCreateManyPageInput {
+  createdAt: DateTime
+  id: String
+  sessionId: String
+  userId: String
+}
+
+input PageViewCreateManyPageInputEnvelope {
+  data: [PageViewCreateManyPageInput!]!
+  skipDuplicates: Boolean
+}
+
+input PageViewCreateManyUserInput {
+  createdAt: DateTime
+  id: String
+  pageId: String!
+  sessionId: String
+}
+
+input PageViewCreateManyUserInputEnvelope {
+  data: [PageViewCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input PageViewCreateNestedManyWithoutPageInput {
+  connect: [PageViewWhereUniqueInput!]
+  connectOrCreate: [PageViewCreateOrConnectWithoutPageInput!]
+  create: [PageViewCreateWithoutPageInput!]
+  createMany: PageViewCreateManyPageInputEnvelope
+}
+
+input PageViewCreateNestedManyWithoutUserInput {
+  connect: [PageViewWhereUniqueInput!]
+  connectOrCreate: [PageViewCreateOrConnectWithoutUserInput!]
+  create: [PageViewCreateWithoutUserInput!]
+  createMany: PageViewCreateManyUserInputEnvelope
+}
+
+input PageViewCreateOrConnectWithoutPageInput {
+  create: PageViewCreateWithoutPageInput!
+  where: PageViewWhereUniqueInput!
+}
+
+input PageViewCreateOrConnectWithoutUserInput {
+  create: PageViewCreateWithoutUserInput!
+  where: PageViewWhereUniqueInput!
+}
+
+input PageViewCreateWithoutPageInput {
+  createdAt: DateTime
+  id: String
+  sessionId: String
+  user: UserCreateNestedOneWithoutViewsInput
+}
+
+input PageViewCreateWithoutUserInput {
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutViewsInput!
+  sessionId: String
+}
+
+input PageViewListRelationFilter {
+  every: PageViewWhereInput
+  none: PageViewWhereInput
+  some: PageViewWhereInput
+}
+
+input PageViewOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PageViewWhereInput {
+  AND: [PageViewWhereInput!]
+  NOT: [PageViewWhereInput!]
+  OR: [PageViewWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  sessionId: StringNullableFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
+input PageViewWhereUniqueInput {
+  AND: [PageViewWhereInput!]
+  NOT: [PageViewWhereInput!]
+  OR: [PageViewWhereInput!]
+  createdAt: DateTimeFilter
+  id: String
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  sessionId: StringNullableFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
 }
 
 type Query {
   me: User!
   user(id: String!): User!
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+type Reaction {
+  createdAt: DateTime!
+  id: ID!
+  page: ExitPage!
+  pageId: String!
+  type: ReactionType!
+  user: User
+  userId: String
+}
+
+input ReactionCreateManyPageInput {
+  createdAt: DateTime
+  id: String
+  type: ReactionType!
+  userId: String
+}
+
+input ReactionCreateManyPageInputEnvelope {
+  data: [ReactionCreateManyPageInput!]!
+  skipDuplicates: Boolean
+}
+
+input ReactionCreateManyUserInput {
+  createdAt: DateTime
+  id: String
+  pageId: String!
+  type: ReactionType!
+}
+
+input ReactionCreateManyUserInputEnvelope {
+  data: [ReactionCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input ReactionCreateNestedManyWithoutPageInput {
+  connect: [ReactionWhereUniqueInput!]
+  connectOrCreate: [ReactionCreateOrConnectWithoutPageInput!]
+  create: [ReactionCreateWithoutPageInput!]
+  createMany: ReactionCreateManyPageInputEnvelope
+}
+
+input ReactionCreateNestedManyWithoutUserInput {
+  connect: [ReactionWhereUniqueInput!]
+  connectOrCreate: [ReactionCreateOrConnectWithoutUserInput!]
+  create: [ReactionCreateWithoutUserInput!]
+  createMany: ReactionCreateManyUserInputEnvelope
+}
+
+input ReactionCreateOrConnectWithoutPageInput {
+  create: ReactionCreateWithoutPageInput!
+  where: ReactionWhereUniqueInput!
+}
+
+input ReactionCreateOrConnectWithoutUserInput {
+  create: ReactionCreateWithoutUserInput!
+  where: ReactionWhereUniqueInput!
+}
+
+input ReactionCreateWithoutPageInput {
+  createdAt: DateTime
+  id: String
+  type: ReactionType!
+  user: UserCreateNestedOneWithoutReactionsInput
+}
+
+input ReactionCreateWithoutUserInput {
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutReactionsInput!
+  type: ReactionType!
+}
+
+input ReactionListRelationFilter {
+  every: ReactionWhereInput
+  none: ReactionWhereInput
+  some: ReactionWhereInput
+}
+
+input ReactionOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+enum ReactionType {
+  ANGRY
+  HAHA
+  LIKE
+  LOVE
+  SAD
+}
+
+input ReactionWhereInput {
+  AND: [ReactionWhereInput!]
+  NOT: [ReactionWhereInput!]
+  OR: [ReactionWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  type: EnumReactionTypeFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
+input ReactionWhereUniqueInput {
+  AND: [ReactionWhereInput!]
+  NOT: [ReactionWhereInput!]
+  OR: [ReactionWhereInput!]
+  createdAt: DateTimeFilter
+  id: String
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  type: EnumReactionTypeFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
 }
 
 type RefreshToken {
@@ -449,205 +1213,6 @@ input RegisterInput {
   firstName: String!
   password: String!
   username: String!
-}
-
-type Reservation {
-  createdAt: DateTime!
-  date: DateTime!
-  id: ID!
-  payment: Payment
-  place: Place!
-  placeId: String!
-  status: String!
-  updatedAt: DateTime!
-  user: User!
-  userId: String!
-}
-
-input ReservationCreateManyUserInput {
-  createdAt: DateTime
-  date: DateTime!
-  id: String
-  placeId: String!
-  status: String!
-  updatedAt: DateTime
-}
-
-input ReservationCreateManyUserInputEnvelope {
-  data: [ReservationCreateManyUserInput!]!
-  skipDuplicates: Boolean
-}
-
-input ReservationCreateNestedManyWithoutUserInput {
-  connect: [ReservationWhereUniqueInput!]
-  connectOrCreate: [ReservationCreateOrConnectWithoutUserInput!]
-  create: [ReservationCreateWithoutUserInput!]
-  createMany: ReservationCreateManyUserInputEnvelope
-}
-
-input ReservationCreateNestedOneWithoutPaymentInput {
-  connect: ReservationWhereUniqueInput
-  connectOrCreate: ReservationCreateOrConnectWithoutPaymentInput
-  create: ReservationCreateWithoutPaymentInput
-}
-
-input ReservationCreateOrConnectWithoutPaymentInput {
-  create: ReservationCreateWithoutPaymentInput!
-  where: ReservationWhereUniqueInput!
-}
-
-input ReservationCreateOrConnectWithoutUserInput {
-  create: ReservationCreateWithoutUserInput!
-  where: ReservationWhereUniqueInput!
-}
-
-input ReservationCreateWithoutPaymentInput {
-  createdAt: DateTime
-  date: DateTime!
-  id: String
-  place: PlaceCreateNestedOneWithoutReservationsInput!
-  status: String!
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutReservationsInput!
-}
-
-input ReservationCreateWithoutUserInput {
-  createdAt: DateTime
-  date: DateTime!
-  id: String
-  payment: PaymentCreateNestedOneWithoutReservationInput
-  place: PlaceCreateNestedOneWithoutReservationsInput!
-  status: String!
-  updatedAt: DateTime
-}
-
-input ReservationListRelationFilter {
-  every: ReservationWhereInput
-  none: ReservationWhereInput
-  some: ReservationWhereInput
-}
-
-input ReservationOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input ReservationScalarRelationFilter {
-  is: ReservationWhereInput
-  isNot: ReservationWhereInput
-}
-
-input ReservationWhereInput {
-  AND: [ReservationWhereInput!]
-  NOT: [ReservationWhereInput!]
-  OR: [ReservationWhereInput!]
-  createdAt: DateTimeFilter
-  date: DateTimeFilter
-  id: StringFilter
-  payment: PaymentNullableScalarRelationFilter
-  place: PlaceScalarRelationFilter
-  placeId: StringFilter
-  status: StringFilter
-  updatedAt: DateTimeFilter
-  user: UserScalarRelationFilter
-  userId: StringFilter
-}
-
-input ReservationWhereUniqueInput {
-  AND: [ReservationWhereInput!]
-  NOT: [ReservationWhereInput!]
-  OR: [ReservationWhereInput!]
-  createdAt: DateTimeFilter
-  date: DateTimeFilter
-  id: String
-  payment: PaymentNullableScalarRelationFilter
-  place: PlaceScalarRelationFilter
-  placeId: StringFilter
-  status: StringFilter
-  updatedAt: DateTimeFilter
-  user: UserScalarRelationFilter
-  userId: StringFilter
-}
-
-type Review {
-  comment: String!
-  createdAt: DateTime!
-  id: ID!
-  place: Place!
-  placeId: String!
-  rating: Int!
-  user: User!
-  userId: String!
-}
-
-input ReviewCreateManyUserInput {
-  comment: String!
-  createdAt: DateTime
-  id: String
-  placeId: String!
-  rating: Int!
-}
-
-input ReviewCreateManyUserInputEnvelope {
-  data: [ReviewCreateManyUserInput!]!
-  skipDuplicates: Boolean
-}
-
-input ReviewCreateNestedManyWithoutUserInput {
-  connect: [ReviewWhereUniqueInput!]
-  connectOrCreate: [ReviewCreateOrConnectWithoutUserInput!]
-  create: [ReviewCreateWithoutUserInput!]
-  createMany: ReviewCreateManyUserInputEnvelope
-}
-
-input ReviewCreateOrConnectWithoutUserInput {
-  create: ReviewCreateWithoutUserInput!
-  where: ReviewWhereUniqueInput!
-}
-
-input ReviewCreateWithoutUserInput {
-  comment: String!
-  createdAt: DateTime
-  id: String
-  place: PlaceCreateNestedOneWithoutReviewsInput!
-  rating: Int!
-}
-
-input ReviewListRelationFilter {
-  every: ReviewWhereInput
-  none: ReviewWhereInput
-  some: ReviewWhereInput
-}
-
-input ReviewOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input ReviewWhereInput {
-  AND: [ReviewWhereInput!]
-  NOT: [ReviewWhereInput!]
-  OR: [ReviewWhereInput!]
-  comment: StringFilter
-  createdAt: DateTimeFilter
-  id: StringFilter
-  place: PlaceScalarRelationFilter
-  placeId: StringFilter
-  rating: IntFilter
-  user: UserScalarRelationFilter
-  userId: StringFilter
-}
-
-input ReviewWhereUniqueInput {
-  AND: [ReviewWhereInput!]
-  NOT: [ReviewWhereInput!]
-  OR: [ReviewWhereInput!]
-  comment: StringFilter
-  createdAt: DateTimeFilter
-  id: String
-  place: PlaceScalarRelationFilter
-  placeId: StringFilter
-  rating: IntFilter
-  user: UserScalarRelationFilter
-  userId: StringFilter
 }
 
 type Role {
@@ -746,10 +1311,32 @@ input StringNullableFilter {
 }
 
 type Tag {
+  ExitPage: [ExitPage!]
+  _count: TagCount!
   id: ID!
   name: String!
-  place: Place!
-  placeId: String!
+  pageId: String!
+}
+
+type TagCount {
+  ExitPage: Int!
+}
+
+input TagCreateNestedManyWithoutExitPageInput {
+  connect: [TagWhereUniqueInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutExitPageInput!]
+  create: [TagCreateWithoutExitPageInput!]
+}
+
+input TagCreateOrConnectWithoutExitPageInput {
+  create: TagCreateWithoutExitPageInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagCreateWithoutExitPageInput {
+  id: String
+  name: String!
+  pageId: String!
 }
 
 input TagListRelationFilter {
@@ -760,22 +1347,108 @@ input TagListRelationFilter {
 
 input TagWhereInput {
   AND: [TagWhereInput!]
+  ExitPage: ExitPageListRelationFilter
   NOT: [TagWhereInput!]
   OR: [TagWhereInput!]
   id: StringFilter
   name: StringFilter
-  place: PlaceScalarRelationFilter
-  placeId: StringFilter
+  pageId: StringFilter
+}
+
+input TagWhereUniqueInput {
+  AND: [TagWhereInput!]
+  ExitPage: ExitPageListRelationFilter
+  NOT: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  id: String
+  name: StringFilter
+  pageId: StringFilter
+}
+
+type Template {
+  _count: TemplateCount!
+  content: String!
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  name: String!
+  pages: [ExitPage!]
+  placeholders: JSON!
+}
+
+type TemplateCount {
+  pages: Int!
+}
+
+input TemplateCreateNestedOneWithoutPagesInput {
+  connect: TemplateWhereUniqueInput
+  connectOrCreate: TemplateCreateOrConnectWithoutPagesInput
+  create: TemplateCreateWithoutPagesInput
+}
+
+input TemplateCreateOrConnectWithoutPagesInput {
+  create: TemplateCreateWithoutPagesInput!
+  where: TemplateWhereUniqueInput!
+}
+
+input TemplateCreateWithoutPagesInput {
+  content: String!
+  createdAt: DateTime
+  description: String!
+  id: String
+  name: String!
+  placeholders: JSON!
+}
+
+input TemplateScalarRelationFilter {
+  is: TemplateWhereInput
+  isNot: TemplateWhereInput
+}
+
+input TemplateWhereInput {
+  AND: [TemplateWhereInput!]
+  NOT: [TemplateWhereInput!]
+  OR: [TemplateWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: StringFilter
+  name: StringFilter
+  pages: ExitPageListRelationFilter
+  placeholders: JsonFilter
+}
+
+input TemplateWhereUniqueInput {
+  AND: [TemplateWhereInput!]
+  NOT: [TemplateWhereInput!]
+  OR: [TemplateWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  description: StringFilter
+  id: String
+  name: StringFilter
+  pages: ExitPageListRelationFilter
+  placeholders: JsonFilter
+}
+
+enum Tone {
+  ABSURD
+  CLASSY
+  CRINGE
+  DRAMATIC
+  HONEST
+  IRONIC
+  PASSIVE_AGGRESSIVE
+  TOUCHING
 }
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
 
 type User {
-  Payment: [Payment!]
-  Place: [Place!]
   Role: [Role!]
   _count: UserCount!
+  comments: [Comment!]
   createdAt: DateTime!
   email: String!
   firstName: String!
@@ -783,29 +1456,35 @@ type User {
   images: [UserImage!]
   isVerified: Boolean!
   lastName: String
+  pages: [ExitPage!]
   password: String!
   phone: String
-  reservations: [Reservation!]
-  reviews: [Review!]
+  reactions: [Reaction!]
+  shares: [PageShare!]
   tokens: [RefreshToken!]
   updatedAt: DateTime!
   username: String!
+  versions: [PageVersion!]
+  views: [PageView!]
+  votes: [Vote!]
 }
 
 type UserCount {
-  Payment: Int!
-  Place: Int!
   Role: Int!
+  comments: Int!
   images: Int!
-  reservations: Int!
-  reviews: Int!
+  pages: Int!
+  reactions: Int!
+  shares: Int!
   tokens: Int!
+  versions: Int!
+  views: Int!
+  votes: Int!
 }
 
 input UserCreateInput {
-  Payment: PaymentCreateNestedManyWithoutUserInput
-  Place: PlaceCreateNestedManyWithoutProviderInput
   Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
   firstName: String!
@@ -813,60 +1492,121 @@ input UserCreateInput {
   images: UserImageCreateNestedManyWithoutUserInput
   isVerified: Boolean
   lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
   password: String!
   phone: String
-  reservations: ReservationCreateNestedManyWithoutUserInput
-  reviews: ReviewCreateNestedManyWithoutUserInput
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
   tokens: RefreshTokenCreateNestedManyWithoutUserInput
   updatedAt: DateTime
   username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
 }
 
-input UserCreateNestedOneWithoutPaymentInput {
+input UserCreateNestedOneWithoutCommentsInput {
   connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPaymentInput
-  create: UserCreateWithoutPaymentInput
+  connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+  create: UserCreateWithoutCommentsInput
 }
 
-input UserCreateNestedOneWithoutReservationsInput {
+input UserCreateNestedOneWithoutPagesInput {
   connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutReservationsInput
-  create: UserCreateWithoutReservationsInput
+  connectOrCreate: UserCreateOrConnectWithoutPagesInput
+  create: UserCreateWithoutPagesInput
 }
 
-input UserCreateOrConnectWithoutPaymentInput {
-  create: UserCreateWithoutPaymentInput!
+input UserCreateNestedOneWithoutReactionsInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutReactionsInput
+  create: UserCreateWithoutReactionsInput
+}
+
+input UserCreateNestedOneWithoutSharesInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutSharesInput
+  create: UserCreateWithoutSharesInput
+}
+
+input UserCreateNestedOneWithoutVersionsInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutVersionsInput
+  create: UserCreateWithoutVersionsInput
+}
+
+input UserCreateNestedOneWithoutViewsInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutViewsInput
+  create: UserCreateWithoutViewsInput
+}
+
+input UserCreateNestedOneWithoutVotesInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutVotesInput
+  create: UserCreateWithoutVotesInput
+}
+
+input UserCreateOrConnectWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput!
   where: UserWhereUniqueInput!
 }
 
-input UserCreateOrConnectWithoutReservationsInput {
-  create: UserCreateWithoutReservationsInput!
+input UserCreateOrConnectWithoutPagesInput {
+  create: UserCreateWithoutPagesInput!
   where: UserWhereUniqueInput!
 }
 
-input UserCreateWithoutPaymentInput {
-  Place: PlaceCreateNestedManyWithoutProviderInput
-  Role: RoleCreateNestedManyWithoutUsersInput
-  createdAt: DateTime
-  email: String!
-  firstName: String!
-  id: String
-  images: UserImageCreateNestedManyWithoutUserInput
-  isVerified: Boolean
-  lastName: String
-  password: String!
-  phone: String
-  reservations: ReservationCreateNestedManyWithoutUserInput
-  reviews: ReviewCreateNestedManyWithoutUserInput
-  tokens: RefreshTokenCreateNestedManyWithoutUserInput
-  updatedAt: DateTime
-  username: String!
+input UserCreateOrConnectWithoutReactionsInput {
+  create: UserCreateWithoutReactionsInput!
+  where: UserWhereUniqueInput!
 }
 
-input UserCreateWithoutReservationsInput {
-  Payment: PaymentCreateNestedManyWithoutUserInput
-  Place: PlaceCreateNestedManyWithoutProviderInput
+input UserCreateOrConnectWithoutSharesInput {
+  create: UserCreateWithoutSharesInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutVersionsInput {
+  create: UserCreateWithoutVersionsInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutViewsInput {
+  create: UserCreateWithoutViewsInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutVotesInput {
+  create: UserCreateWithoutVotesInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutCommentsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutPagesInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
   firstName: String!
@@ -876,10 +1616,124 @@ input UserCreateWithoutReservationsInput {
   lastName: String
   password: String!
   phone: String
-  reviews: ReviewCreateNestedManyWithoutUserInput
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
   tokens: RefreshTokenCreateNestedManyWithoutUserInput
   updatedAt: DateTime
   username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutReactionsInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutSharesInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutVersionsInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutViewsInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutVotesInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
 }
 
 type UserImage {
@@ -957,6 +1811,11 @@ input UserListRelationFilter {
   some: UserWhereInput
 }
 
+input UserNullableScalarRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
 enum UserOrderByRelevanceFieldEnum {
   email
   firstName
@@ -974,10 +1833,9 @@ input UserOrderByRelevanceInput {
 }
 
 input UserOrderByWithRelationInput {
-  Payment: PaymentOrderByRelationAggregateInput
-  Place: PlaceOrderByRelationAggregateInput
   Role: RoleOrderByRelationAggregateInput
   _relevance: UserOrderByRelevanceInput
+  comments: CommentOrderByRelationAggregateInput
   createdAt: SortOrder
   email: SortOrder
   firstName: SortOrder
@@ -985,13 +1843,17 @@ input UserOrderByWithRelationInput {
   images: UserImageOrderByRelationAggregateInput
   isVerified: SortOrder
   lastName: SortOrderInput
+  pages: ExitPageOrderByRelationAggregateInput
   password: SortOrder
   phone: SortOrderInput
-  reservations: ReservationOrderByRelationAggregateInput
-  reviews: ReviewOrderByRelationAggregateInput
+  reactions: ReactionOrderByRelationAggregateInput
+  shares: PageShareOrderByRelationAggregateInput
   tokens: RefreshTokenOrderByRelationAggregateInput
   updatedAt: SortOrder
   username: SortOrder
+  versions: PageVersionOrderByRelationAggregateInput
+  views: PageViewOrderByRelationAggregateInput
+  votes: VoteOrderByRelationAggregateInput
 }
 
 enum UserScalarFieldEnum {
@@ -1016,9 +1878,8 @@ input UserWhereInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  Payment: PaymentListRelationFilter
-  Place: PlaceListRelationFilter
   Role: RoleListRelationFilter
+  comments: CommentListRelationFilter
   createdAt: DateTimeFilter
   email: StringFilter
   firstName: StringFilter
@@ -1026,22 +1887,25 @@ input UserWhereInput {
   images: UserImageListRelationFilter
   isVerified: BoolFilter
   lastName: StringNullableFilter
+  pages: ExitPageListRelationFilter
   password: StringFilter
   phone: StringNullableFilter
-  reservations: ReservationListRelationFilter
-  reviews: ReviewListRelationFilter
+  reactions: ReactionListRelationFilter
+  shares: PageShareListRelationFilter
   tokens: RefreshTokenListRelationFilter
   updatedAt: DateTimeFilter
   username: StringFilter
+  versions: PageVersionListRelationFilter
+  views: PageViewListRelationFilter
+  votes: VoteListRelationFilter
 }
 
 input UserWhereUniqueInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  Payment: PaymentListRelationFilter
-  Place: PlaceListRelationFilter
   Role: RoleListRelationFilter
+  comments: CommentListRelationFilter
   createdAt: DateTimeFilter
   email: String
   firstName: StringFilter
@@ -1049,11 +1913,122 @@ input UserWhereUniqueInput {
   images: UserImageListRelationFilter
   isVerified: BoolFilter
   lastName: StringNullableFilter
+  pages: ExitPageListRelationFilter
   password: StringFilter
   phone: StringNullableFilter
-  reservations: ReservationListRelationFilter
-  reviews: ReviewListRelationFilter
+  reactions: ReactionListRelationFilter
+  shares: PageShareListRelationFilter
   tokens: RefreshTokenListRelationFilter
   updatedAt: DateTimeFilter
   username: String
+  versions: PageVersionListRelationFilter
+  views: PageViewListRelationFilter
+  votes: VoteListRelationFilter
+}
+
+type Vote {
+  createdAt: DateTime!
+  id: ID!
+  page: ExitPage!
+  pageId: String!
+  user: User
+  userId: String
+}
+
+input VoteCreateManyPageInput {
+  createdAt: DateTime
+  id: String
+  userId: String
+}
+
+input VoteCreateManyPageInputEnvelope {
+  data: [VoteCreateManyPageInput!]!
+  skipDuplicates: Boolean
+}
+
+input VoteCreateManyUserInput {
+  createdAt: DateTime
+  id: String
+  pageId: String!
+}
+
+input VoteCreateManyUserInputEnvelope {
+  data: [VoteCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input VoteCreateNestedManyWithoutPageInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutPageInput!]
+  create: [VoteCreateWithoutPageInput!]
+  createMany: VoteCreateManyPageInputEnvelope
+}
+
+input VoteCreateNestedManyWithoutUserInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutUserInput!]
+  create: [VoteCreateWithoutUserInput!]
+  createMany: VoteCreateManyUserInputEnvelope
+}
+
+input VoteCreateOrConnectWithoutPageInput {
+  create: VoteCreateWithoutPageInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteCreateOrConnectWithoutUserInput {
+  create: VoteCreateWithoutUserInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteCreateWithoutPageInput {
+  createdAt: DateTime
+  id: String
+  user: UserCreateNestedOneWithoutVotesInput
+}
+
+input VoteCreateWithoutUserInput {
+  createdAt: DateTime
+  id: String
+  page: ExitPageCreateNestedOneWithoutVotesInput!
+}
+
+input VoteListRelationFilter {
+  every: VoteWhereInput
+  none: VoteWhereInput
+  some: VoteWhereInput
+}
+
+input VoteOne_vote_per_user_pageCompoundUniqueInput {
+  pageId: String!
+  userId: String!
+}
+
+input VoteOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input VoteWhereInput {
+  AND: [VoteWhereInput!]
+  NOT: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
+input VoteWhereUniqueInput {
+  AND: [VoteWhereInput!]
+  NOT: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  createdAt: DateTimeFilter
+  id: String
+  one_vote_per_user_page: VoteOne_vote_per_user_pageCompoundUniqueInput
+  page: ExitPageScalarRelationFilter
+  pageId: StringFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
 }

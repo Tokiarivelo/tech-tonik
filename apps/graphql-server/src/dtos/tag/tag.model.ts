@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Place } from '../place/place.model';
+import { ExitPage } from '../exit-page/exit-page.model';
+import { TagCount } from './tag-count.output';
 
 @ObjectType()
 export class Tag {
@@ -13,8 +14,11 @@ export class Tag {
     name!: string;
 
     @Field(() => String, {nullable:false})
-    placeId!: string;
+    pageId!: string;
 
-    @Field(() => Place, {nullable:false})
-    place?: Place;
+    @Field(() => [ExitPage], {nullable:true})
+    ExitPage?: Array<ExitPage>;
+
+    @Field(() => TagCount, {nullable:false})
+    _count?: TagCount;
 }

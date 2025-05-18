@@ -11,7 +11,7 @@ export class TagCountAggregateInput {
     name?: true;
 
     @Field(() => Boolean, {nullable:true})
-    placeId?: true;
+    pageId?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

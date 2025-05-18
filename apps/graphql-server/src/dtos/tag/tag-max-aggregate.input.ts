@@ -11,5 +11,5 @@ export class TagMaxAggregateInput {
     name?: true;
 
     @Field(() => Boolean, {nullable:true})
-    placeId?: true;
+    pageId?: true;
 }

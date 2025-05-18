@@ -11,5 +11,5 @@ export class TagMinAggregate {
     name?: string;
 
     @Field(() => String, {nullable:true})
-    placeId?: string;
+    pageId?: string;
 }

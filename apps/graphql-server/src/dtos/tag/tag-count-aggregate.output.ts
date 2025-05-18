@@ -12,7 +12,7 @@ export class TagCountAggregate {
     name!: number;
 
     @Field(() => Int, {nullable:false})
-    placeId!: number;
+    pageId!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

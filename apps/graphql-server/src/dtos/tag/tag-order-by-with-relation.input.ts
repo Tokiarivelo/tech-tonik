@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { PlaceOrderByWithRelationInput } from '../place/place-order-by-with-relation.input';
+import { ExitPageOrderByRelationAggregateInput } from '../exit-page/exit-page-order-by-relation-aggregate.input';
 import { TagOrderByRelevanceInput } from './tag-order-by-relevance.input';
 
 @InputType()
@@ -14,10 +14,10 @@ export class TagOrderByWithRelationInput {
     name?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    placeId?: `${SortOrder}`;
+    pageId?: `${SortOrder}`;
 
-    @Field(() => PlaceOrderByWithRelationInput, {nullable:true})
-    place?: PlaceOrderByWithRelationInput;
+    @Field(() => ExitPageOrderByRelationAggregateInput, {nullable:true})
+    ExitPage?: ExitPageOrderByRelationAggregateInput;
 
     @Field(() => TagOrderByRelevanceInput, {nullable:true})
     _relevance?: TagOrderByRelevanceInput;

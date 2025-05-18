@@ -10,4 +10,7 @@ export class TagUpdateManyMutationInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    pageId?: StringFieldUpdateOperationsInput;
 }

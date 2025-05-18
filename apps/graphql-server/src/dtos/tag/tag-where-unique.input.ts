@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { TagWhereInput } from './tag-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { PlaceScalarRelationFilter } from '../place/place-scalar-relation-filter.input';
+import { ExitPageListRelationFilter } from '../exit-page/exit-page-list-relation-filter.input';
 
 @InputType()
 export class TagWhereUniqueInput {
@@ -23,8 +23,8 @@ export class TagWhereUniqueInput {
     name?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    placeId?: StringFilter;
+    pageId?: StringFilter;
 
-    @Field(() => PlaceScalarRelationFilter, {nullable:true})
-    place?: PlaceScalarRelationFilter;
+    @Field(() => ExitPageListRelationFilter, {nullable:true})
+    ExitPage?: ExitPageListRelationFilter;
 }

@@ -11,5 +11,5 @@ export class TagCreateManyInput {
     name!: string;
 
     @Field(() => String, {nullable:false})
-    placeId!: string;
+    pageId!: string;
 }

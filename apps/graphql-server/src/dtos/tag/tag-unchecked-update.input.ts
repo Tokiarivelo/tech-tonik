@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { ExitPageUncheckedUpdateManyWithoutTagsNestedInput } from '../exit-page/exit-page-unchecked-update-many-without-tags-nested.input';
 
 @InputType()
 export class TagUncheckedUpdateInput {
@@ -12,5 +13,8 @@ export class TagUncheckedUpdateInput {
     name?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    placeId?: StringFieldUpdateOperationsInput;
+    pageId?: StringFieldUpdateOperationsInput;
+
+    @Field(() => ExitPageUncheckedUpdateManyWithoutTagsNestedInput, {nullable:true})
+    ExitPage?: ExitPageUncheckedUpdateManyWithoutTagsNestedInput;
 }
