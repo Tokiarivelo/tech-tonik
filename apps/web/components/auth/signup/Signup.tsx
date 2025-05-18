@@ -20,12 +20,12 @@ export const Register = () => {
   const { form, loading, showPassword, register, handleShowPassword } = useRegister();
 
   return (
-    <div className="min-h-screen min-w-[50%]   shadow-xl/30 bg-gray-900 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen min-w-[50%]   flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden"
+        className="w-full max-w-md bg-white rounded-[13px] shadow-xl overflow-hidden"
       >
         {/* En-tête avec dégradé */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-5 text-center">

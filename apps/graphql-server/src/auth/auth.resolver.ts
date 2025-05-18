@@ -16,7 +16,7 @@ export class AuthResolver {
     private tokensService: TokensService,
   ) {}
 
-  @Mutation(() => LoginOutput, { nullable: true })
+  @Mutation(() => LoginOutput, { nullable: true, name: 'login' })
   async login(@Args('data') data: LoginInput) {
     const result = await this.authService.login(data);
     if (!result || !result.accessToken || !result.user) {
@@ -29,12 +29,12 @@ export class AuthResolver {
     };
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { name: 'register' })
   async register(@Args('data') data: RegisterInput) {
     return this.authService.register(data);
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Boolean, { name: 'logout' })
   @UseGuards(JwtAuthGuard)
   async logout(@Context() { req }: any): Promise<boolean> {
     await this.tokensService.revoke(req.user.userId);

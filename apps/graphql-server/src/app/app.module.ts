@@ -29,7 +29,7 @@ import { PageVersionModule } from 'src/page-version/page-version.module';
         'graphql-ws': true,
       },
 
-      context: ({ req }: any) => ({ req }),
+      context: ({ req, res }: any) => ({ req, res }),
     }),
     UsersModule,
     AuthModule,

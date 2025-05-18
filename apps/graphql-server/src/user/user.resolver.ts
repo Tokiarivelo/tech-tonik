@@ -18,12 +18,13 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: 'user' })
+  @UseGuards(JwtAuthGuard) // 👈 protège la route
   async getOne(@Args('id') id: string): Promise<User> {
     return this.usersService.findById(id);
   }
 
-  @Query(() => User)
   @UseGuards(JwtAuthGuard) // 👈 protège la route
+  @Query(() => User, { name: 'me' })
   me(@CurrentUser() user: User) {
     return this.usersService.findById(user.id);
   }
