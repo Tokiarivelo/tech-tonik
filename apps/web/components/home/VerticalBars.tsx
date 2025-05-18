@@ -37,7 +37,7 @@ const VerticalBars: React.FC<VerticalBarsProps> = ({ activeIndex }) => {
   }, [activeIndex]);
 
   return (
-    <div className="fixed right-30 sm:right-10 md:right-20 top-1/2 -translate-y-1/2 flex flex-row items-center gap-4 z-20">
+    <div className="absolute right-30 sm:right-10 md:right-20 top-1/2 -translate-y-1/2 flex flex-row items-center gap-4 z-20">
       {heightSets[activeIndex].map((height, i) => (
         <div
           key={i}

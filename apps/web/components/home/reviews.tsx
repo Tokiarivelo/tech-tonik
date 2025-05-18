@@ -17,7 +17,7 @@ type PreviewData = {
   itemIndex: number;
 };
 
-const Page = () => {
+const Reviews = () => {
   const swiperRef = useRef<any>(null);
   const [activePreview, setActivePreview] = useState<PreviewData | null>(null);
 
@@ -55,7 +55,7 @@ const Page = () => {
   };
 
   return (
-    <div className="relative bg-primary h-screen">
+    <div className="relative  h-screen">
       <div className="absolute inset-0">
         <Swiper
           modules={[Autoplay, Navigation]}
@@ -83,14 +83,14 @@ const Page = () => {
           className="swiper-button-prev absolute left-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
           aria-label="Previous slide"
         >
-          <ArrowLeft className="text-gray-800 w-6 h-6" />
+          <ArrowLeft className="text-gray-800 size-10" />
         </button>
 
         <button
           className="swiper-button-next absolute right-4 z-20 top-1/2 -translate-y-1/2 bg-white/80 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
           aria-label="Next slide"
         >
-          <ArrowRight className="text-gray-800 w-6 h-6" />
+          <ArrowRight className="text-gray-800 size-10" />
         </button>
 
         {/* Modal Preview */}
@@ -127,23 +127,23 @@ const Page = () => {
               <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4">
                 <button
                   onClick={() => navigatePreview('prev')}
-                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full transition-colors flex items-center justify-center gap-2"
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="size-15" />
                   Précédent
                 </button>
                 <button
                   onClick={closePreview}
-                  className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                  className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors"
                 >
                   Fermer
                 </button>
                 <button
                   onClick={() => navigatePreview('next')}
-                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full transition-colors flex items-center justify-center gap-2"
                 >
                   Suivant
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="size-15" />
                 </button>
               </div>
             </div>
@@ -154,4 +154,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Reviews;

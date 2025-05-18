@@ -113,14 +113,14 @@ const Suggestion = ({ onImageClick }: SuggestionProps) => {
             className="p-3 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
             aria-label="Previous slide"
           >
-            <ArrowLeft size={20} className="text-gray-700" />
+            <ArrowLeft size={15} className="text-gray-700" />
           </button>
           <button
             onClick={() => navigateSlide('next')}
             className="p-3 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
             aria-label="Next slide"
           >
-            <ArrowRight size={20} className="text-gray-700" />
+            <ArrowRight size={15} className="text-gray-700" />
           </button>
         </div>
       </div>
