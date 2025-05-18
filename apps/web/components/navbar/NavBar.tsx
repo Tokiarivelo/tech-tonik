@@ -4,7 +4,7 @@ import Logo from './Logo'
 
 const NavBar = () => {
     return (
-        <nav>
+        <nav className='bg-transparent'>
             <div className=".container flex flex-col sm:flex-row sm:items-center sm:justify-between flex-wrap py-6">
                 <Logo />
                 <MyButton />
