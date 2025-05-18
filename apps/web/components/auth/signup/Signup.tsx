@@ -236,7 +236,7 @@ export const Register = () => {
 
           {/* Lien vers login */}
           <p className="text-center text-xs text-gray-500 mt-3">
-            Vous avez déjà un compte?{' '}
+            Vous avez déjà un compte?
             <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
               Se connecter
             </Link>

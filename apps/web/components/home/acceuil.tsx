@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
-import image1 from '@/public/images/colere.png'
-import image2 from '@/public/images/absurde.png'
-import image3 from '@/public/images/dramatique.png'
-import image4 from '@/public/images/elegant.png'
-import image5 from '@/public/images/triste.png'
+import image1 from '@/public/images/colere.png';
+import image2 from '@/public/images/absurde.png';
+import image3 from '@/public/images/dramatique.png';
+import image4 from '@/public/images/elegant.png';
+import image5 from '@/public/images/triste.png';
 import Description from './description';
 import VerticalBars from './VerticalBars';
 import ImageScroll from './ImageScroll';
@@ -22,15 +22,15 @@ export default function Acceuil() {
 
   const handleWheel = (e: WheelEvent) => {
     e.preventDefault();
-    
+
     if (wheelTimeout.current) {
       clearTimeout(wheelTimeout.current);
     }
-    
+
     wheelTimeout.current = setTimeout(() => {
       const direction = e.deltaY > 0 ? 1 : -1;
       const newIndex = Math.min(Math.max(activeIndex + direction, 0), images.length - 1);
-      
+
       if (newIndex !== activeIndex) {
         gsap.fromTo(
           '.background-image',
@@ -38,15 +38,14 @@ export default function Acceuil() {
           {
             scale: 1.1,
             duration: 1,
-            ease: 'power2.out'
-          }
+            ease: 'power2.out',
+          },
         );
-        
+
         setActiveIndex(newIndex);
       }
     }, 100);
   };
-
 
   const handleTouchStart = (e: TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
@@ -55,11 +54,11 @@ export default function Acceuil() {
   const handleTouchMove = (e: TouchEvent) => {
     const touchY = e.touches[0].clientY;
     const diff = touchStartY.current - touchY;
-    
+
     if (Math.abs(diff) > 50) {
       const direction = diff > 0 ? 1 : -1;
       const newIndex = Math.min(Math.max(activeIndex + direction, 0), images.length - 1);
-      
+
       if (newIndex !== activeIndex) {
         gsap.fromTo(
           '.background-image',
@@ -67,32 +66,29 @@ export default function Acceuil() {
           {
             scale: 1.1,
             duration: 1,
-            ease: 'power2.out'
-          }
+            ease: 'power2.out',
+          },
         );
-        
+
         setActiveIndex(newIndex);
         touchStartY.current = touchY;
       }
     }
   };
 
-  
   useEffect(() => {
-
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart);
     window.addEventListener('touchmove', handleTouchMove);
-    
-  
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-        setActiveIndex((prev) => Math.max(prev - 1, 0));
+        setActiveIndex(prev => Math.max(prev - 1, 0));
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-        setActiveIndex((prev) => Math.min(prev + 1, images.length - 1));
+        setActiveIndex(prev => Math.min(prev + 1, images.length - 1));
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
@@ -100,20 +96,16 @@ export default function Acceuil() {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('keydown', handleKeyDown);
-      
+
       if (wheelTimeout.current) {
         clearTimeout(wheelTimeout.current);
       }
     };
-  }, [activeIndex]);
+  }, [activeIndex, handleTouchMove]);
 
   return (
     <div ref={containerRef} className="flex w-full min-h-screen overflow-hidden relative">
-      <ImageScroll 
-        images={images} 
-        activeIndex={activeIndex} 
-        setActiveIndex={setActiveIndex} 
-      />
+      <ImageScroll images={images} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
       <div className="absolute inset-0 z-0">
         <Image
           src={images[activeIndex]}

@@ -1,16 +1,16 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import ImageCard from "./ImageCard";
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import ImageCard from './ImageCard';
 
 const mockPages = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   src: `/images/${(i % 4) + 1}.jpg`,
-  date: i < 2 ? "Aujourd'hui" : i < 4 ? "Hier" : `Il y a ${i} jours`,
+  date: i < 2 ? "Aujourd'hui" : i < 4 ? 'Hier' : `Il y a ${i} jours`,
   description:
     i % 2 === 0
-      ? "Page personnalisée avec design moderne et responsive"
-      : "Template premium avec animations fluides",
+      ? 'Page personnalisée avec design moderne et responsive'
+      : 'Template premium avec animations fluides',
 }));
 
 const ITEMS_PER_PAGE = 4;
@@ -28,11 +28,11 @@ export default function PageGallery() {
 
   // Fonction pour obtenir 4 pages aléatoires
   function getRandomPages() {
-    if (typeof window === "undefined") return getInitialPages();
+    if (typeof window === 'undefined') return getInitialPages();
     const shuffled = [...mockPages].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, ITEMS_PER_PAGE).map(page => ({
       ...page,
-      uniqueKey: `${page.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+      uniqueKey: `${page.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     }));
   }
 
@@ -41,12 +41,12 @@ export default function PageGallery() {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
     animationIdRef.current += 1;
-    
+
     const newPages = getRandomPages();
     const tl = gsap.timeline({
       onComplete: () => {
         isAnimatingRef.current = false;
-      }
+      },
     });
 
     const indices = [0, 1, 2, 3].sort(() => 0.5 - Math.random());
@@ -58,28 +58,31 @@ export default function PageGallery() {
       tl.to(el, {
         rotateY: 180,
         duration: 1,
-        ease: "power2.in",
+        ease: 'power2.in',
         delay: idx * 0.3,
         onComplete: () => {
-          setDisplayedPages((prev) => {
+          setDisplayedPages(prev => {
             const updated = [...prev];
             updated[i] = newPages[i];
             return updated;
           });
-        }
-      })
-      .to(el, {
-        rotateY: 360,
-        duration: 1,
-        ease: "power2.out",
-      }, `-=${0.15}`);
+        },
+      }).to(
+        el,
+        {
+          rotateY: 360,
+          duration: 1,
+          ease: 'power2.out',
+        },
+        `-=${0.15}`,
+      );
     });
   };
 
   useEffect(() => {
     const timer = setInterval(animateCardChange, 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [animateCardChange]);
 
   return (
     <div className="py-1">
@@ -97,7 +100,7 @@ export default function PageGallery() {
         {displayedPages.map((page, i) => (
           <div
             key={`${page.id}-${i}`} // Utilisation de la clé unique
-            ref={(el) => {
+            ref={el => {
               if (el) cardsRef.current[i] = el;
             }}
             className="transform-gpu preserve-3d"
