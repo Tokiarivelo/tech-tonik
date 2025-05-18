@@ -256,6 +256,25 @@ type ExitPageCount {
   votes: Int!
 }
 
+input ExitPageCreateInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
 input ExitPageCreateManyAuthorInput {
   createdAt: DateTime
   data: JSON!
@@ -532,6 +551,53 @@ input ExitPageOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
+enum ExitPageOrderByRelevanceFieldEnum {
+  authorId
+  id
+  slug
+  templateId
+}
+
+input ExitPageOrderByRelevanceInput {
+  fields: [ExitPageOrderByRelevanceFieldEnum!]!
+  search: String!
+  sort: SortOrder!
+}
+
+input ExitPageOrderByWithRelationInput {
+  _relevance: ExitPageOrderByRelevanceInput
+  author: UserOrderByWithRelationInput
+  authorId: SortOrderInput
+  comments: CommentOrderByRelationAggregateInput
+  createdAt: SortOrder
+  data: SortOrder
+  id: SortOrder
+  isHallOfFame: SortOrder
+  reactions: ReactionOrderByRelationAggregateInput
+  shares: PageShareOrderByRelationAggregateInput
+  slug: SortOrder
+  tags: TagOrderByRelationAggregateInput
+  template: TemplateOrderByWithRelationInput
+  templateId: SortOrder
+  tone: SortOrder
+  updatedAt: SortOrder
+  versions: PageVersionOrderByRelationAggregateInput
+  views: PageViewOrderByRelationAggregateInput
+  votes: VoteOrderByRelationAggregateInput
+}
+
+enum ExitPageScalarFieldEnum {
+  authorId
+  createdAt
+  data
+  id
+  isHallOfFame
+  slug
+  templateId
+  tone
+  updatedAt
+}
+
 input ExitPageScalarRelationFilter {
   is: ExitPageWhereInput
   isNot: ExitPageWhereInput
@@ -633,11 +699,13 @@ type LoginOutput {
 }
 
 type Mutation {
+  createExitPage(input: ExitPageCreateInput!): ExitPage!
   createTemplate(input: TemplateCreateInput!): Template!
   createUser(input: UserCreateInput!): User!
   login(data: LoginInput!): LoginOutput
   logout: Boolean!
   register(data: RegisterInput!): User!
+  updateExitPage(id: String!, input: ExitPageCreateInput!): ExitPage!
   updateTemplate(id: String!, input: TemplateCreateInput!): Template!
   uploadFile(file: Upload!, path: String): FileUploadResult!
 }
@@ -1056,6 +1124,8 @@ input PageViewWhereUniqueInput {
 }
 
 type Query {
+  exitPage(id: String!): ExitPage!
+  exitPages(cursor: ExitPageWhereUniqueInput, distinct: [ExitPageScalarFieldEnum!], orderBy: [ExitPageOrderByWithRelationInput!], skip: Int, take: Int, where: ExitPageWhereInput): [ExitPage!]!
   me: User!
   template(id: String!): Template!
   templates(cursor: TemplateWhereUniqueInput, distinct: [TemplateScalarFieldEnum!], orderBy: [TemplateOrderByWithRelationInput!], skip: Int, take: Int, where: TemplateWhereInput): [Template!]!
@@ -1393,6 +1463,10 @@ input TagListRelationFilter {
   every: TagWhereInput
   none: TagWhereInput
   some: TagWhereInput
+}
+
+input TagOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input TagWhereInput {
