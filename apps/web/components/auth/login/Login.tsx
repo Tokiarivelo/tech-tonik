@@ -93,6 +93,7 @@ export const Login = () => {
             className="cursor-pointer w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500"
             type="submit"
             disabled={loading}
+            variant={'destructive'}
             onClick={form.handleSubmit(login)}
           >
             {loading ? 'Connexion...' : 'Se connecter'}
