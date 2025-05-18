@@ -1,35 +1,35 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { TemplateService } from './comment.service';
-import { Template } from 'src/dtos/template/template.model';
-import { FindManyTemplateArgs } from 'src/dtos/template/find-many-template.args';
-import { TemplateCreateInput } from 'src/dtos/template/template-create.input';
+import { CommentService } from './comment.service';
+import { Comment } from 'src/dtos/comment/comment.model';
+import { FindManyCommentArgs } from 'src/dtos/comment/find-many-comment.args';
+import { CommentCreateInput } from 'src/dtos/comment/comment-create.input';
 
-@Resolver(() => Template)
-export class TemplateResolver {
-  constructor(private readonly templateService: TemplateService) {}
+@Resolver(() => Comment)
+export class CommentResolver {
+  constructor(private readonly commentService: CommentService) {}
 
-  @Query(() => [Template], { name: 'templates' })
+  @Query(() => [Comment], { name: 'comments' })
   async getAll(
-    @Args() manyTemplateArgs: FindManyTemplateArgs,
-  ): Promise<Template[] | null> {
-    return this.templateService.findAll(manyTemplateArgs);
+    @Args() manyCommentArgs: FindManyCommentArgs,
+  ): Promise<Comment[] | null> {
+    return this.commentService.findAll(manyCommentArgs);
   }
 
-  @Query(() => Template, { name: 'template' })
-  async getOne(@Args('id') id: string): Promise<Template> {
-    return this.templateService.findById(id);
+  @Query(() => Comment, { name: 'comment' })
+  async getOne(@Args('id') id: string): Promise<Comment> {
+    return this.commentService.findById(id);
   }
 
-  @Mutation(() => Template, { name: 'createTemplate' })
-  async create(@Args('input') input: TemplateCreateInput): Promise<Template> {
-    return this.templateService.create(input);
+  @Mutation(() => Comment, { name: 'createComment' })
+  async create(@Args('input') input: CommentCreateInput): Promise<Comment> {
+    return this.commentService.create(input);
   }
 
-  @Mutation(() => Template, { name: 'updateTemplate' })
+  @Mutation(() => Comment, { name: 'updateComment' })
   async update(
     @Args('id') id: string,
-    @Args('input') input: TemplateCreateInput,
-  ): Promise<Template> {
-    return this.templateService.updateTemplate(id, input);
+    @Args('input') input: CommentCreateInput,
+  ): Promise<Comment> {
+    return this.commentService.updateComment(id, input);
   }
 }

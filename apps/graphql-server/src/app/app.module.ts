@@ -11,6 +11,7 @@ import { ExitPageModule } from 'src/exit-page/exitPage.module';
 import { ReactionModule } from 'src/reaction/reaction.module';
 import { VoteModule } from 'src/vote/vote.module';
 import { CommentModule } from 'src/comment/comment.module';
+import { PageVersionModule } from 'src/page-version/page-version.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { CommentModule } from 'src/comment/comment.module';
     ReactionModule,
     VoteModule,
     CommentModule,
+    PageVersionModule,
   ],
 })
 export class AppModule {}

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TemplateService } from './comment.service';
-import { TemplateResolver } from './comment.resolver';
+import { CommentService } from './comment.service';
+import { CommentResolver } from './comment.resolver';
 import { PrismaModule } from 'src/prisma-module/prisma.module';
 @Module({
   imports: [PrismaModule],
-  providers: [TemplateService, TemplateResolver],
-  exports: [TemplateService],
+  providers: [CommentService, CommentResolver],
+  exports: [CommentService],
 })
-export class TemplateModule {}
+export class CommentModule {}

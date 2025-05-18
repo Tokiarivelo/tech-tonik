@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ReactionService } from './vote.service';
-import { ReactionResolver } from './vote.resolver';
+import { VoteService } from './vote.service';
+import { VoteResolver } from './vote.resolver';
 import { PrismaModule } from 'src/prisma-module/prisma.module';
 @Module({
   imports: [PrismaModule],
-  providers: [ReactionService, ReactionResolver],
-  exports: [ReactionService],
+  providers: [VoteService, VoteResolver],
+  exports: [VoteService],
 })
-export class ReactionModule {}
+export class VoteModule {}
