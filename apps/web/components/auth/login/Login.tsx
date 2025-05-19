@@ -20,12 +20,12 @@ export const Login = () => {
   const { form, loading, showPassword, login, handleShowPassword } = useLogin();
 
   return (
-    <div className="min-h-screen min-w-[50%]   shadow-xl/30 bg-gray-900 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen min-w-[50%] shadow-blue-400 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white rounded shadow-2xl overflow-hidden"
+        className="w-full max-w-md bg-white rounded-[13px]  overflow-hidden"
       >
         {/* En-tête avec dégradé */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-center">
@@ -172,7 +172,7 @@ export const Login = () => {
           {/* Lien d'inscription */}
           <p className="mt-6 text-center text-sm text-gray-500">
             Don't have an account?
-            <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
               S'inscrire
             </Link>
           </p>

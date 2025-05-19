@@ -274,4 +274,48 @@ Ce document détaille l'architecture de la base de données pour l'application *
 6. **Mise en Hall of Fame** : via un process asynchrone utilisant la table `Vote`.
 
 ---
----
+
+## 1. Passport
+
+### Utilité
+
+_*Passport*_ est une bibliothèque d'authentification pour Node.js. Dans NestJS, elle est intégrée via le module @nestjs/passport.
+
+➤ Rôle :
+Gérer différentes stratégies d’authentification (JWT, Local, OAuth, etc.)
+
+## Simplifier l’implémentation de ces stratégies via des classes Strategy
+
+# 2. Auth Guard
+
+➤ C’est quoi ?
+Un Guard est une classe spéciale dans NestJS qui intercepte une requête entrante pour décider si elle peut accéder à une route ou non.
+
+➤ Rôle :
+Vérifier l’authentification ou l’autorisation
+
+Agit avant qu’un resolver GraphQL ou un contrôleur ne s’exécute
+
+## 🔄 Workflow
+
+1. Passport gère la logique d’authentification avec différentes stratégies.
+
+2. Tu crées une Strategy (comme JwtStrategy) qui définit comment valider un utilisateur.
+
+3. Tu utilises un Auth Guard (comme GqlAuthGuard) pour protéger des routes (queries/mutations) et injecter les utilisateurs valides dans le contexte GraphQL.
+
+**🧠 Résumé visuel du flow**
+
+```css
+Client → [ Authorization: Bearer token ] → NestJS
+   ↓
+GqlAuthGuard (extends AuthGuard('jwt'))
+   ↓
+AuthGuard('jwt') appelle JwtStrategy.validate(payload)
+   ↓
+validate() → retourne un objet user → injecté dans req.user
+   ↓
+GqlExecutionContext → ctx.getContext().req.user
+   ↓
+@CurrentUser() → te donne l’objet user
+```

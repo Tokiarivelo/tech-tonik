@@ -3,3 +3,9 @@ query getUser($id: String!) {
     ...userFragment
   }
 }
+
+query me {
+  me {
+    ...userFragment
+  }
+}

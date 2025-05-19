@@ -1,6 +1,7 @@
 import ApolloWrapper from '@/lib/apollo/apollo-provider';
 import './global.css';
 import { Toaster } from '@/components/ui/sonner';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
   title: 'Welcome to client',
@@ -12,7 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <main>
-          <ApolloWrapper>{children}</ApolloWrapper>
+          <SessionProvider refetchOnWindowFocus={false}>
+            <ApolloWrapper>{children}</ApolloWrapper>
+          </SessionProvider>
           <Toaster position="top-right" richColors closeButton />
         </main>
       </body>
