@@ -26,7 +26,7 @@ export default function CreatePageButton() {
   return (
     <div ref={btnRef} className="fixed bottom-8 right-8 z-40">
       <button
-        className="group relative bg-gradient-to-br from-cyan-500 to-blue-600 p-5 rounded-full shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300"
+        className="cursor-pointer group relative bg-gradient-to-br from-cyan-500 to-blue-600 p-5 rounded-full shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300"
         title="Créer une nouvelle page"
       >
         <Plus size={28} className="text-white" />

@@ -11,12 +11,19 @@ export default function NavbarUser() {
 
   useEffect(() => {
     // Apparition de la navbar
-    gsap.from('.navbar', {
-      y: -80,
-      opacity: 0,
-      duration: 1.2,
-      ease: 'elastic.out(1, 0.5)',
-    });
+    // gsap.fromTo(
+    //   '.navbar',
+    //   {
+    //     y: -80,
+    //     opacity: 0,
+    //     duration: 1.2,
+    //   },
+    //   {
+    //     y: -80,
+    //     opacity: 1,
+    //     duration: 1.2,
+    //   },
+    // );
 
     // Rotation pièce 3D sur "TE"
     gsap.to(teRef.current, {

@@ -88,11 +88,11 @@ export default function PageGallery() {
     <div className="py-1">
       <div className="mb-8 text-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
-          Vos Créations
+          Vos Pages de fin
         </h1>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+        <p className="text-xl max-w-2xl mx-auto">
           Retrouvez ici toutes vos pages créées. Cliquez pour éditer ou créez-en de nouvelles pour
-          <span className="text-cyan-400 font-medium"> booster votre présence en ligne</span>.
+          <span className="text-cyan-700 font-medium"> booster votre page de fin</span>.
         </p>
       </div>
 
@@ -103,7 +103,7 @@ export default function PageGallery() {
             ref={el => {
               if (el) cardsRef.current[i] = el;
             }}
-            className="transform-gpu preserve-3d"
+            className="transform-gpu preserve-3d cursor-pointer"
             style={{ transformStyle: 'preserve-3d' }}
           >
             <ImageCard
@@ -119,7 +119,7 @@ export default function PageGallery() {
       <div className="mt-10 flex justify-center">
         <button
           onClick={animateCardChange}
-          className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:shadow-lg transition"
+          className="cursor-pointer px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:shadow-lg transition"
         >
           Suivant
         </button>
