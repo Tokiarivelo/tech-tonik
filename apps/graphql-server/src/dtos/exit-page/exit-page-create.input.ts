@@ -11,55 +11,75 @@ import { PageViewCreateNestedManyWithoutPageInput } from '../page-view/page-view
 import { PageShareCreateNestedManyWithoutPageInput } from '../page-share/page-share-create-nested-many-without-page.input';
 import { PageVersionCreateNestedManyWithoutPageInput } from '../page-version/page-version-create-nested-many-without-page.input';
 import { TagCreateNestedManyWithoutExitPageInput } from '../tag/tag-create-nested-many-without-exit-page.input';
+import { FileUpload, GraphQLUpload } from 'graphql-upload-ts';
 
 @InputType()
 export class ExitPageCreateInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => Tone, { nullable: false })
+  tone!: `${Tone}`;
 
-    @Field(() => Tone, {nullable:false})
-    tone!: `${Tone}`;
+  @Field(() => GraphQLJSON, { nullable: false })
+  data!: any;
 
-    @Field(() => GraphQLJSON, {nullable:false})
-    data!: any;
+  @Field(() => String, { nullable: false })
+  slug!: string;
 
-    @Field(() => String, {nullable:false})
-    slug!: string;
+  @Field(() => Boolean, { nullable: true })
+  isHallOfFame?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    isHallOfFame?: boolean;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => UserCreateNestedOneWithoutPagesInput, { nullable: true })
+  author?: UserCreateNestedOneWithoutPagesInput;
 
-    @Field(() => UserCreateNestedOneWithoutPagesInput, {nullable:true})
-    author?: UserCreateNestedOneWithoutPagesInput;
+  @Field(() => TemplateCreateNestedOneWithoutPagesInput, { nullable: false })
+  template!: TemplateCreateNestedOneWithoutPagesInput;
 
-    @Field(() => TemplateCreateNestedOneWithoutPagesInput, {nullable:false})
-    template!: TemplateCreateNestedOneWithoutPagesInput;
+  @Field(() => ReactionCreateNestedManyWithoutPageInput, { nullable: true })
+  reactions?: ReactionCreateNestedManyWithoutPageInput;
 
-    @Field(() => ReactionCreateNestedManyWithoutPageInput, {nullable:true})
-    reactions?: ReactionCreateNestedManyWithoutPageInput;
+  @Field(() => VoteCreateNestedManyWithoutPageInput, { nullable: true })
+  votes?: VoteCreateNestedManyWithoutPageInput;
 
-    @Field(() => VoteCreateNestedManyWithoutPageInput, {nullable:true})
-    votes?: VoteCreateNestedManyWithoutPageInput;
+  @Field(() => CommentCreateNestedManyWithoutPageInput, { nullable: true })
+  comments?: CommentCreateNestedManyWithoutPageInput;
 
-    @Field(() => CommentCreateNestedManyWithoutPageInput, {nullable:true})
-    comments?: CommentCreateNestedManyWithoutPageInput;
+  @Field(() => PageViewCreateNestedManyWithoutPageInput, { nullable: true })
+  views?: PageViewCreateNestedManyWithoutPageInput;
 
-    @Field(() => PageViewCreateNestedManyWithoutPageInput, {nullable:true})
-    views?: PageViewCreateNestedManyWithoutPageInput;
+  @Field(() => PageShareCreateNestedManyWithoutPageInput, { nullable: true })
+  shares?: PageShareCreateNestedManyWithoutPageInput;
 
-    @Field(() => PageShareCreateNestedManyWithoutPageInput, {nullable:true})
-    shares?: PageShareCreateNestedManyWithoutPageInput;
+  @Field(() => PageVersionCreateNestedManyWithoutPageInput, { nullable: true })
+  versions?: PageVersionCreateNestedManyWithoutPageInput;
 
-    @Field(() => PageVersionCreateNestedManyWithoutPageInput, {nullable:true})
-    versions?: PageVersionCreateNestedManyWithoutPageInput;
+  @Field(() => TagCreateNestedManyWithoutExitPageInput, { nullable: true })
+  tags?: TagCreateNestedManyWithoutExitPageInput;
 
-    @Field(() => TagCreateNestedManyWithoutExitPageInput, {nullable:true})
-    tags?: TagCreateNestedManyWithoutExitPageInput;
+  // Avant : data: any
+  // On décompose data pour gérer les fichiers
+  @Field(() => String)
+  openingLine: string;
+
+  @Field(() => [String], { nullable: true })
+  gifUrls?: string[];
+
+  @Field(() => [GraphQLUpload], { nullable: true })
+  images?: Promise<FileUpload>[];
+
+  @Field(() => [GraphQLUpload], { nullable: true })
+  videos?: Promise<FileUpload>[];
+
+  @Field(() => [GraphQLUpload], { nullable: true })
+  audios?: Promise<FileUpload>[];
+
+  @Field(() => String)
+  reactionDefault: string;
 }

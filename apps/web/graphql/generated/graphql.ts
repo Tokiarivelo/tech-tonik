@@ -2540,6 +2540,15 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'User', id: string, firstName: string, username: string } };
 
+export type CreateExitPageFragmentFragment = { __typename?: 'ExitPage', id: string, data: any, slug: string };
+
+export type CreateExitPageMutationVariables = Exact<{
+  input: ExitPageCreateInput;
+}>;
+
+
+export type CreateExitPageMutation = { __typename?: 'Mutation', createExitPage: { __typename?: 'ExitPage', id: string, data: any, slug: string } };
+
 export type ImageFragment = { __typename?: 'UserImage', id: string, url: string, type: string };
 
 export type UserFragmentFragment = { __typename?: 'User', id: string, firstName: string, lastName?: string | null, email: string, phone?: string | null, username: string, images?: Array<{ __typename?: 'UserImage', id: string, url: string, type: string }> | null };
@@ -2563,6 +2572,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, firstName: string, lastName?: string | null, email: string, phone?: string | null, username: string, images?: Array<{ __typename?: 'UserImage', id: string, url: string, type: string }> | null } };
 
+export const CreateExitPageFragmentFragmentDoc = gql`
+    fragment createExitPageFragment on ExitPage {
+  id
+  data
+  slug
+}
+    `;
 export const ImageFragmentDoc = gql`
     fragment Image on UserImage {
   id
@@ -2659,6 +2675,39 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const CreateExitPageDocument = gql`
+    mutation CreateExitPage($input: ExitPageCreateInput!) {
+  createExitPage(input: $input) {
+    ...createExitPageFragment
+  }
+}
+    ${CreateExitPageFragmentFragmentDoc}`;
+export type CreateExitPageMutationFn = Apollo.MutationFunction<CreateExitPageMutation, CreateExitPageMutationVariables>;
+
+/**
+ * __useCreateExitPageMutation__
+ *
+ * To run a mutation, you first call `useCreateExitPageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateExitPageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createExitPageMutation, { data, loading, error }] = useCreateExitPageMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateExitPageMutation(baseOptions?: Apollo.MutationHookOptions<CreateExitPageMutation, CreateExitPageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateExitPageMutation, CreateExitPageMutationVariables>(CreateExitPageDocument, options);
+      }
+export type CreateExitPageMutationHookResult = ReturnType<typeof useCreateExitPageMutation>;
+export type CreateExitPageMutationResult = Apollo.MutationResult<CreateExitPageMutation>;
+export type CreateExitPageMutationOptions = Apollo.BaseMutationOptions<CreateExitPageMutation, CreateExitPageMutationVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($input: UserCreateInput!) {
   createUser(input: $input) {

@@ -304,12 +304,17 @@ type ExitPageCount {
 }
 
 input ExitPageCreateInput {
+  audios: [Upload!]
   author: UserCreateNestedOneWithoutPagesInput
   comments: CommentCreateNestedManyWithoutPageInput
   createdAt: DateTime
   data: JSON!
+  gifUrls: [String!]
   id: String
+  images: [Upload!]
   isHallOfFame: Boolean
+  openingLine: String!
+  reactionDefault: String!
   reactions: ReactionCreateNestedManyWithoutPageInput
   shares: PageShareCreateNestedManyWithoutPageInput
   slug: String!
@@ -318,6 +323,7 @@ input ExitPageCreateInput {
   tone: Tone!
   updatedAt: DateTime
   versions: PageVersionCreateNestedManyWithoutPageInput
+  videos: [Upload!]
   views: PageViewCreateNestedManyWithoutPageInput
   votes: VoteCreateNestedManyWithoutPageInput
 }

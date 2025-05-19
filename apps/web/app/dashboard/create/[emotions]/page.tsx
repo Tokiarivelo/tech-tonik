@@ -7,34 +7,32 @@ import TemplateDespair from '@/components/emotions/despair/TemplateDespair';
 import TemplateJoy from '@/components/emotions/joy/TemplateJoy';
 import TemplateSadness from '@/components/emotions/triste/TemplateSadness';
 
-
 import { notFound, useParams } from 'next/navigation';
-
 
 type EmotionPageProps = {
   params: { emotion: string };
 };
 
 export default function EmotionPage({ params }: EmotionPageProps) {
-  const routeparams =useParams<{ emotions: string; }>() ;
+  const routeparams = useParams<{ emotions: string }>();
   const emotion = routeparams.emotions.toLowerCase();
   const content = {
-   sadness: {
-      template: <TemplateSadness/>,
-      title: 'Understanding Sadness'
+    sadness: {
+      template: <TemplateSadness />,
+      title: 'Understanding Sadness',
     },
     joy: {
-      template: <TemplateJoy/>,
-      title: 'Celebrating Joy'
+      template: <TemplateSadness />,
+      title: 'Celebrating Joy',
     },
-   anger: {
-      template: <TemplateAnger/>,
-      title: 'Managing Anger'
+    anger: {
+      template: <TemplateSadness />,
+      title: 'Managing Anger',
     },
     despair: {
-      template: <TemplateDespair/>,
-      title: 'Overcoming Despair'
-    }
+      template: <TemplateSadness />,
+      title: 'Overcoming Despair',
+    },
   };
 
   if (!content[emotion as keyof typeof content]) {
@@ -54,11 +52,11 @@ export async function GenerateMetadata({ params }: EmotionPageProps) {
     sadness: 'Understanding Sadness',
     joy: 'Celebrating Joy',
     anger: 'Managing Anger',
-    despair: 'Overcoming Despair'
+    despair: 'Overcoming Despair',
   };
 
   return {
     title: titles[emotion as keyof typeof titles] || 'Emotion Exploration',
-    description: `Resources and coping strategies for ${params.emotion}`
+    description: `Resources and coping strategies for ${params.emotion}`,
   };
 }
