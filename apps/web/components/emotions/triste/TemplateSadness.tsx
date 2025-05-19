@@ -1,14 +1,13 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import ImageCard from "@/components/dashboard/GalleryUser/ImageCard";
-import { useRouter } from "next/navigation";
-
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import ImageCard from '@/components/dashboard/GalleryUser/ImageCard';
+import { useRouter } from 'next/navigation';
 
 const mockPages = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   src: `/images/templates/${(i % 4) + 1}.JPG`,
-  date: i < 2 ? "Aujourd'hui" : i < 4 ? "Hier" : `Il y a ${i} jours`,
+  date: i < 2 ? "Aujourd'hui" : i < 4 ? 'Hier' : `Il y a ${i} jours`,
 }));
 
 const ITEMS_PER_PAGE = 4;
@@ -27,11 +26,11 @@ export default function TemplateSadness() {
 
   // Fonction pour obtenir 4 pages aléatoires
   function getRandomPages() {
-    if (typeof window === "undefined") return getInitialPages();
+    if (typeof window === 'undefined') return getInitialPages();
     const shuffled = [...mockPages].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, ITEMS_PER_PAGE).map(page => ({
       ...page,
-      uniqueKey: `${page.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+      uniqueKey: `${page.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     }));
   }
 
@@ -40,12 +39,12 @@ export default function TemplateSadness() {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
     animationIdRef.current += 1;
-    
+
     const newPages = getRandomPages();
     const tl = gsap.timeline({
       onComplete: () => {
         isAnimatingRef.current = false;
-      }
+      },
     });
 
     const indices = [0, 1, 2, 3].sort(() => 0.5 - Math.random());
@@ -57,21 +56,24 @@ export default function TemplateSadness() {
       tl.to(el, {
         rotateY: 0,
         duration: 1,
-        ease: "power2.in",
+        ease: 'power2.in',
         delay: idx * 0.3,
         onComplete: () => {
-          setDisplayedPages((prev) => {
+          setDisplayedPages(prev => {
             const updated = [...prev];
             updated[i] = newPages[i];
             return updated;
           });
-        }
-      })
-      .to(el, {
-        rotateY: 0,
-        duration: 1,
-        ease: "power2.out",
-      }, `-=${0.15}`);
+        },
+      }).to(
+        el,
+        {
+          rotateY: 0,
+          duration: 1,
+          ease: 'power2.out',
+        },
+        `-=${0.15}`,
+      );
     });
   };
 
@@ -96,19 +98,14 @@ export default function TemplateSadness() {
         {displayedPages.map((page, i) => (
           <div
             key={`${page.id}-${i}`} // Utilisation de la clé unique
-            ref={(el) => {
+            ref={el => {
               if (el) cardsRef.current[i] = el;
             }}
-            className="transform-gpu preserve-3d"
+            className="transform-gpu preserve-3d cursor-pointer"
             style={{ transformStyle: 'preserve-3d' }}
-            onClick={() => route.push('/emotions/sadness/1')} // Redirection vers la page de l'émotion
+            onClick={() => route.push('/dashboard/create/sadness/1')} // Redirection vers la page de l'émotion
           >
-            <ImageCard
-              id={page.id}
-              src={page.src}
-              date={page.date}
-              description={""}
-            />
+            <ImageCard id={page.id} src={page.src} date={page.date} description={''} />
           </div>
         ))}
       </div>

@@ -13,25 +13,29 @@ export default function EmotionsPage() {
         </p>
 
         <div className="flex flex-wrap gap-6 justify-center">
-          <EmotionCard 
-            emotion="Sadness" 
-            color="blue" 
-            icon={<FaSadTear />} 
+          <EmotionCard
+            emotion="Sadness"
+            color="blue"
+            icon={<FaSadTear color="blue" />}
+            href="/dashboard/create/sadness"
           />
-          <EmotionCard 
-            emotion="Joy" 
-            color="yellow" 
-            icon={<FaLaughBeam />} 
+          <EmotionCard
+            emotion="Joy"
+            color="yellow"
+            icon={<FaLaughBeam color="yellow" />}
+            href="/dashboard/create/joy"
           />
-          <EmotionCard 
-            emotion="Anger" 
-            color="red" 
-            icon={<FaAngry />} 
+          <EmotionCard
+            emotion="Anger"
+            color="red"
+            icon={<FaAngry color="red" />}
+            href="/dashboard/create/anger"
           />
-          <EmotionCard 
-            emotion="Despair" 
-            color="purple" 
-            icon={<FaTired />} 
+          <EmotionCard
+            emotion="Despair"
+            color="purple"
+            icon={<FaTired color="purple" />}
+            href="/dashboard/create/despair"
           />
         </div>
       </div>
