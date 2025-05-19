@@ -2,9 +2,10 @@
 // components/TheEndAnimation.jsx
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import Link from 'next/link';
 
 export default function TheEndAnimation({ text = 'TheEnd.page' }) {
-  const containerRef = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLAnchorElement>(null);
 
   // utility: wrap each letter in a span
   const splitLetters = (str: string) =>
@@ -31,8 +32,12 @@ export default function TheEndAnimation({ text = 'TheEnd.page' }) {
   }, []);
 
   return (
-    <h1 ref={containerRef} className="font-bold tracking-tight flex flex-wrap justify-center">
+    <Link
+      href="/"
+      ref={containerRef}
+      className="cursor-pointer font-bold tracking-tight flex flex-wrap justify-center"
+    >
       {splitLetters(text)}
-    </h1>
+    </Link>
   );
 }
