@@ -34,4 +34,7 @@ export class UserCount {
 
     @Field(() => Int, {nullable:false})
     Role?: number;
+
+    @Field(() => Int, {nullable:false})
+    Template?: number;
 }

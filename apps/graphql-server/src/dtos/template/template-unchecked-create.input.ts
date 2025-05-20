@@ -10,6 +10,12 @@ export class TemplateUncheckedCreateInput {
     id?: string;
 
     @Field(() => String, {nullable:false})
+    uniqueKey!: string;
+
+    @Field(() => String, {nullable:true})
+    authorId?: string;
+
+    @Field(() => String, {nullable:false})
     name!: string;
 
     @Field(() => String, {nullable:false})
@@ -20,9 +26,6 @@ export class TemplateUncheckedCreateInput {
 
     @Field(() => String, {nullable:false})
     content!: string;
-
-    @Field(() => String, {nullable:false})
-    uniqueKey!: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

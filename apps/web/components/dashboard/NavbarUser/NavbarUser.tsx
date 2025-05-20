@@ -81,7 +81,7 @@ export default function NavbarUser() {
           </div>
 
           {/* Texte animé */}
-          <h1 className="text-2xl font-bold text-white theend-text flex space-x-0.5">
+          {/* <h1 className="text-2xl font-bold text-white theend-text flex space-x-0.5">
             {text.split('').map((char, i) => (
               <span
                 key={i}
@@ -92,7 +92,7 @@ export default function NavbarUser() {
                 {char}
               </span>
             ))}
-          </h1>
+          </h1> */}
         </div>
 
         <div className="flex items-center space-x-4">

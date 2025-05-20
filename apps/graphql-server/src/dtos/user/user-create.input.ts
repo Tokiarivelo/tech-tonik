@@ -10,6 +10,7 @@ import { PageViewCreateNestedManyWithoutUserInput } from '../page-view/page-view
 import { PageShareCreateNestedManyWithoutUserInput } from '../page-share/page-share-create-nested-many-without-user.input';
 import { PageVersionCreateNestedManyWithoutUpdatedByInput } from '../page-version/page-version-create-nested-many-without-updated-by.input';
 import { RoleCreateNestedManyWithoutUsersInput } from '../role/role-create-nested-many-without-users.input';
+import { TemplateCreateNestedManyWithoutAuthorInput } from '../template/template-create-nested-many-without-author.input';
 
 @InputType()
 export class UserCreateInput {
@@ -73,4 +74,7 @@ export class UserCreateInput {
 
     @Field(() => RoleCreateNestedManyWithoutUsersInput, {nullable:true})
     Role?: RoleCreateNestedManyWithoutUsersInput;
+
+    @Field(() => TemplateCreateNestedManyWithoutAuthorInput, {nullable:true})
+    Template?: TemplateCreateNestedManyWithoutAuthorInput;
 }

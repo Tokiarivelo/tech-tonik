@@ -13,6 +13,7 @@ import { CommentUncheckedUpdateManyWithoutUserNestedInput } from '../comment/com
 import { PageViewUncheckedUpdateManyWithoutUserNestedInput } from '../page-view/page-view-unchecked-update-many-without-user-nested.input';
 import { PageShareUncheckedUpdateManyWithoutUserNestedInput } from '../page-share/page-share-unchecked-update-many-without-user-nested.input';
 import { RoleUncheckedUpdateManyWithoutUsersNestedInput } from '../role/role-unchecked-update-many-without-users-nested.input';
+import { TemplateUncheckedUpdateManyWithoutAuthorNestedInput } from '../template/template-unchecked-update-many-without-author-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutVersionsInput {
@@ -73,4 +74,7 @@ export class UserUncheckedUpdateWithoutVersionsInput {
 
     @Field(() => RoleUncheckedUpdateManyWithoutUsersNestedInput, {nullable:true})
     Role?: RoleUncheckedUpdateManyWithoutUsersNestedInput;
+
+    @Field(() => TemplateUncheckedUpdateManyWithoutAuthorNestedInput, {nullable:true})
+    Template?: TemplateUncheckedUpdateManyWithoutAuthorNestedInput;
 }

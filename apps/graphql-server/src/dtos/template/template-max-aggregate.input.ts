@@ -8,6 +8,12 @@ export class TemplateMaxAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
+    uniqueKey?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    authorId?: true;
+
+    @Field(() => Boolean, {nullable:true})
     name?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -15,9 +21,6 @@ export class TemplateMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     content?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    uniqueKey?: true;
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;

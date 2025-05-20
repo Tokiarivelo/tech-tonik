@@ -1,12 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
+import { UserCreateNestedOneWithoutTemplateInput } from '../user/user-create-nested-one-without-template.input';
 
 @InputType()
 export class TemplateCreateWithoutPagesInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => String, {nullable:false})
+    uniqueKey!: string;
 
     @Field(() => String, {nullable:false})
     name!: string;
@@ -20,9 +24,9 @@ export class TemplateCreateWithoutPagesInput {
     @Field(() => String, {nullable:false})
     content!: string;
 
-    @Field(() => String, {nullable:false})
-    uniqueKey!: string;
-
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
+
+    @Field(() => UserCreateNestedOneWithoutTemplateInput, {nullable:true})
+    author?: UserCreateNestedOneWithoutTemplateInput;
 }

@@ -25,7 +25,7 @@ export class TemplateUpdateOneRequiredWithoutPagesNestedInput {
 
     @Field(() => TemplateWhereUniqueInput, {nullable:true})
     @Type(() => TemplateWhereUniqueInput)
-    connect?: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'uniqueKey'>;
+    connect?: Prisma.AtLeast<TemplateWhereUniqueInput, 'id' | 'no_duplicate_key_per_user'>;
 
     @Field(() => TemplateUpdateToOneWithWhereWithoutPagesInput, {nullable:true})
     @Type(() => TemplateUpdateToOneWithWhereWithoutPagesInput)

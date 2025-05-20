@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { UserUpdateOneWithoutTemplateNestedInput } from '../user/user-update-one-without-template-nested.input';
 import { ExitPageUpdateManyWithoutTemplateNestedInput } from '../exit-page/exit-page-update-many-without-template-nested.input';
 
 @InputType()
@@ -10,6 +11,9 @@ export class TemplateUpdateInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     id?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    uniqueKey?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: StringFieldUpdateOperationsInput;
@@ -23,11 +27,11 @@ export class TemplateUpdateInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     content?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    uniqueKey?: StringFieldUpdateOperationsInput;
-
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => UserUpdateOneWithoutTemplateNestedInput, {nullable:true})
+    author?: UserUpdateOneWithoutTemplateNestedInput;
 
     @Field(() => ExitPageUpdateManyWithoutTemplateNestedInput, {nullable:true})
     pages?: ExitPageUpdateManyWithoutTemplateNestedInput;

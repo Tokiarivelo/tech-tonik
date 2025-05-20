@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
+import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { JsonWithAggregatesFilter } from '../prisma/json-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 
@@ -20,6 +21,12 @@ export class TemplateScalarWhereWithAggregatesInput {
     id?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
+    uniqueKey?: StringWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    authorId?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
     name?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
@@ -30,9 +37,6 @@ export class TemplateScalarWhereWithAggregatesInput {
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     content?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    uniqueKey?: StringWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: DateTimeWithAggregatesFilter;

@@ -9,6 +9,7 @@ import { CommentUncheckedCreateNestedManyWithoutUserInput } from '../comment/com
 import { PageViewUncheckedCreateNestedManyWithoutUserInput } from '../page-view/page-view-unchecked-create-nested-many-without-user.input';
 import { PageShareUncheckedCreateNestedManyWithoutUserInput } from '../page-share/page-share-unchecked-create-nested-many-without-user.input';
 import { RoleUncheckedCreateNestedManyWithoutUsersInput } from '../role/role-unchecked-create-nested-many-without-users.input';
+import { TemplateUncheckedCreateNestedManyWithoutAuthorInput } from '../template/template-unchecked-create-nested-many-without-author.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutVersionsInput {
@@ -69,4 +70,7 @@ export class UserUncheckedCreateWithoutVersionsInput {
 
     @Field(() => RoleUncheckedCreateNestedManyWithoutUsersInput, {nullable:true})
     Role?: RoleUncheckedCreateNestedManyWithoutUsersInput;
+
+    @Field(() => TemplateUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    Template?: TemplateUncheckedCreateNestedManyWithoutAuthorInput;
 }

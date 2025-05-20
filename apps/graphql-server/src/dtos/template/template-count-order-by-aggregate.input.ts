@@ -9,6 +9,12 @@ export class TemplateCountOrderByAggregateInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    uniqueKey?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    authorId?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     name?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
@@ -19,9 +25,6 @@ export class TemplateCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     content?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    uniqueKey?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;

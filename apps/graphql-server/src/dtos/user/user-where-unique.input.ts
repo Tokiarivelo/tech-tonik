@@ -15,6 +15,7 @@ import { PageViewListRelationFilter } from '../page-view/page-view-list-relation
 import { PageShareListRelationFilter } from '../page-share/page-share-list-relation-filter.input';
 import { PageVersionListRelationFilter } from '../page-version/page-version-list-relation-filter.input';
 import { RoleListRelationFilter } from '../role/role-list-relation-filter.input';
+import { TemplateListRelationFilter } from '../template/template-list-relation-filter.input';
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -87,4 +88,7 @@ export class UserWhereUniqueInput {
 
     @Field(() => RoleListRelationFilter, {nullable:true})
     Role?: RoleListRelationFilter;
+
+    @Field(() => TemplateListRelationFilter, {nullable:true})
+    Template?: TemplateListRelationFilter;
 }

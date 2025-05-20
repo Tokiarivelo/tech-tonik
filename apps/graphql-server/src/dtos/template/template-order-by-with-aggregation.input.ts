@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import { SortOrderInput } from '../prisma/sort-order.input';
 import { TemplateCountOrderByAggregateInput } from './template-count-order-by-aggregate.input';
 import { TemplateMaxOrderByAggregateInput } from './template-max-order-by-aggregate.input';
 import { TemplateMinOrderByAggregateInput } from './template-min-order-by-aggregate.input';
@@ -10,6 +11,12 @@ export class TemplateOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
     id?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    uniqueKey?: `${SortOrder}`;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    authorId?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
     name?: `${SortOrder}`;
@@ -22,9 +29,6 @@ export class TemplateOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
     content?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    uniqueKey?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;

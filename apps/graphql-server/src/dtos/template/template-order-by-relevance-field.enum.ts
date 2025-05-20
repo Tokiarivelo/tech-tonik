@@ -2,10 +2,11 @@ import { registerEnumType } from '@nestjs/graphql';
 
 export enum TemplateOrderByRelevanceFieldEnum {
     id = "id",
+    uniqueKey = "uniqueKey",
+    authorId = "authorId",
     name = "name",
     description = "description",
-    content = "content",
-    uniqueKey = "uniqueKey"
+    content = "content"
 }
 
 

@@ -8,6 +8,12 @@ export class TemplateMaxAggregate {
     id?: string;
 
     @Field(() => String, {nullable:true})
+    uniqueKey?: string;
+
+    @Field(() => String, {nullable:true})
+    authorId?: string;
+
+    @Field(() => String, {nullable:true})
     name?: string;
 
     @Field(() => String, {nullable:true})
@@ -15,9 +21,6 @@ export class TemplateMaxAggregate {
 
     @Field(() => String, {nullable:true})
     content?: string;
-
-    @Field(() => String, {nullable:true})
-    uniqueKey?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

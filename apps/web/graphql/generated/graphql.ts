@@ -321,12 +321,17 @@ export type ExitPageCount = {
 };
 
 export type ExitPageCreateInput = {
+  audios?: InputMaybe<Array<Scalars['Upload']['input']>>;
   author?: InputMaybe<UserCreateNestedOneWithoutPagesInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutPageInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   data: Scalars['JSON']['input'];
+  gifUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<Array<Scalars['Upload']['input']>>;
   isHallOfFame?: InputMaybe<Scalars['Boolean']['input']>;
+  openingLine: Scalars['String']['input'];
+  reactionDefault: Scalars['String']['input'];
   reactions?: InputMaybe<ReactionCreateNestedManyWithoutPageInput>;
   shares?: InputMaybe<PageShareCreateNestedManyWithoutPageInput>;
   slug: Scalars['String']['input'];
@@ -335,6 +340,7 @@ export type ExitPageCreateInput = {
   tone: Tone;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   versions?: InputMaybe<PageVersionCreateNestedManyWithoutPageInput>;
+  videos?: InputMaybe<Array<Scalars['Upload']['input']>>;
   views?: InputMaybe<PageViewCreateNestedManyWithoutPageInput>;
   votes?: InputMaybe<VoteCreateNestedManyWithoutPageInput>;
 };
@@ -2551,6 +2557,15 @@ export type CreateExitPageMutation = { __typename?: 'Mutation', createExitPage: 
 
 export type ImageFragment = { __typename?: 'UserImage', id: string, url: string, type: string };
 
+export type CreateTemplateFragmentFragment = { __typename?: 'Template', id: string, name: string, uniqueKey: string };
+
+export type CreateTemplateMutationVariables = Exact<{
+  input: TemplateCreateInput;
+}>;
+
+
+export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string, name: string, uniqueKey: string } };
+
 export type UserFragmentFragment = { __typename?: 'User', id: string, firstName: string, lastName?: string | null, email: string, phone?: string | null, username: string, images?: Array<{ __typename?: 'UserImage', id: string, url: string, type: string }> | null };
 
 export type CreateUserMutationVariables = Exact<{
@@ -2577,6 +2592,13 @@ export const CreateExitPageFragmentFragmentDoc = gql`
   id
   data
   slug
+}
+    `;
+export const CreateTemplateFragmentFragmentDoc = gql`
+    fragment createTemplateFragment on Template {
+  id
+  name
+  uniqueKey
 }
     `;
 export const ImageFragmentDoc = gql`
@@ -2708,6 +2730,39 @@ export function useCreateExitPageMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateExitPageMutationHookResult = ReturnType<typeof useCreateExitPageMutation>;
 export type CreateExitPageMutationResult = Apollo.MutationResult<CreateExitPageMutation>;
 export type CreateExitPageMutationOptions = Apollo.BaseMutationOptions<CreateExitPageMutation, CreateExitPageMutationVariables>;
+export const CreateTemplateDocument = gql`
+    mutation CreateTemplate($input: TemplateCreateInput!) {
+  createTemplate(input: $input) {
+    ...createTemplateFragment
+  }
+}
+    ${CreateTemplateFragmentFragmentDoc}`;
+export type CreateTemplateMutationFn = Apollo.MutationFunction<CreateTemplateMutation, CreateTemplateMutationVariables>;
+
+/**
+ * __useCreateTemplateMutation__
+ *
+ * To run a mutation, you first call `useCreateTemplateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTemplateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTemplateMutation, { data, loading, error }] = useCreateTemplateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptions<CreateTemplateMutation, CreateTemplateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTemplateMutation, CreateTemplateMutationVariables>(CreateTemplateDocument, options);
+      }
+export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
+export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
+export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($input: UserCreateInput!) {
   createUser(input: $input) {

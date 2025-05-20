@@ -12,6 +12,7 @@ import { PageViewOrderByRelationAggregateInput } from '../page-view/page-view-or
 import { PageShareOrderByRelationAggregateInput } from '../page-share/page-share-order-by-relation-aggregate.input';
 import { PageVersionOrderByRelationAggregateInput } from '../page-version/page-version-order-by-relation-aggregate.input';
 import { RoleOrderByRelationAggregateInput } from '../role/role-order-by-relation-aggregate.input';
+import { TemplateOrderByRelationAggregateInput } from '../template/template-order-by-relation-aggregate.input';
 import { UserOrderByRelevanceInput } from './user-order-by-relevance.input';
 
 @InputType()
@@ -76,6 +77,9 @@ export class UserOrderByWithRelationInput {
 
     @Field(() => RoleOrderByRelationAggregateInput, {nullable:true})
     Role?: RoleOrderByRelationAggregateInput;
+
+    @Field(() => TemplateOrderByRelationAggregateInput, {nullable:true})
+    Template?: TemplateOrderByRelationAggregateInput;
 
     @Field(() => UserOrderByRelevanceInput, {nullable:true})
     _relevance?: UserOrderByRelevanceInput;

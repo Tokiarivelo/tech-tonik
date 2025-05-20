@@ -11,6 +11,7 @@ import { PageView } from '../page-view/page-view.model';
 import { PageShare } from '../page-share/page-share.model';
 import { PageVersion } from '../page-version/page-version.model';
 import { Role } from '../role/role.model';
+import { Template } from '../template/template.model';
 import { UserCount } from './user-count.output';
 
 @ObjectType()
@@ -75,6 +76,9 @@ export class User {
 
     @Field(() => [Role], {nullable:true})
     Role?: Array<Role>;
+
+    @Field(() => [Template], {nullable:true})
+    Template?: Array<Template>;
 
     @Field(() => UserCount, {nullable:false})
     _count?: UserCount;

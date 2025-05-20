@@ -13,6 +13,7 @@ import { CommentUpdateManyWithoutUserNestedInput } from '../comment/comment-upda
 import { PageShareUpdateManyWithoutUserNestedInput } from '../page-share/page-share-update-many-without-user-nested.input';
 import { PageVersionUpdateManyWithoutUpdatedByNestedInput } from '../page-version/page-version-update-many-without-updated-by-nested.input';
 import { RoleUpdateManyWithoutUsersNestedInput } from '../role/role-update-many-without-users-nested.input';
+import { TemplateUpdateManyWithoutAuthorNestedInput } from '../template/template-update-many-without-author-nested.input';
 
 @InputType()
 export class UserUpdateWithoutViewsInput {
@@ -73,4 +74,7 @@ export class UserUpdateWithoutViewsInput {
 
     @Field(() => RoleUpdateManyWithoutUsersNestedInput, {nullable:true})
     Role?: RoleUpdateManyWithoutUsersNestedInput;
+
+    @Field(() => TemplateUpdateManyWithoutAuthorNestedInput, {nullable:true})
+    Template?: TemplateUpdateManyWithoutAuthorNestedInput;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { ExitPageUncheckedUpdateManyWithoutTemplateNestedInput } from '../exit-page/exit-page-unchecked-update-many-without-template-nested.input';
@@ -10,6 +11,12 @@ export class TemplateUncheckedUpdateInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     id?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    uniqueKey?: StringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    authorId?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: StringFieldUpdateOperationsInput;
@@ -22,9 +29,6 @@ export class TemplateUncheckedUpdateInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     content?: StringFieldUpdateOperationsInput;
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    uniqueKey?: StringFieldUpdateOperationsInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;

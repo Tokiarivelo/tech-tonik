@@ -11,6 +11,9 @@ export class TemplateUpdateManyMutationInput {
     id?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    uniqueKey?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
@@ -21,9 +24,6 @@ export class TemplateUpdateManyMutationInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     content?: StringFieldUpdateOperationsInput;
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    uniqueKey?: StringFieldUpdateOperationsInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;

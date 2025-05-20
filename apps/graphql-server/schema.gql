@@ -1608,6 +1608,8 @@ input TagWhereUniqueInput {
 
 type Template {
   _count: TemplateCount!
+  author: User
+  authorId: String
   content: String!
   createdAt: DateTime!
   description: String!
@@ -1623,6 +1625,7 @@ type TemplateCount {
 }
 
 input TemplateCreateInput {
+  author: UserCreateNestedOneWithoutTemplateInput
   content: String!
   createdAt: DateTime
   description: String!
@@ -1633,18 +1636,7 @@ input TemplateCreateInput {
   uniqueKey: String!
 }
 
-input TemplateCreateNestedOneWithoutPagesInput {
-  connect: TemplateWhereUniqueInput
-  connectOrCreate: TemplateCreateOrConnectWithoutPagesInput
-  create: TemplateCreateWithoutPagesInput
-}
-
-input TemplateCreateOrConnectWithoutPagesInput {
-  create: TemplateCreateWithoutPagesInput!
-  where: TemplateWhereUniqueInput!
-}
-
-input TemplateCreateWithoutPagesInput {
+input TemplateCreateManyAuthorInput {
   content: String!
   createdAt: DateTime
   description: String!
@@ -1654,7 +1646,73 @@ input TemplateCreateWithoutPagesInput {
   uniqueKey: String!
 }
 
+input TemplateCreateManyAuthorInputEnvelope {
+  data: [TemplateCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input TemplateCreateNestedManyWithoutAuthorInput {
+  connect: [TemplateWhereUniqueInput!]
+  connectOrCreate: [TemplateCreateOrConnectWithoutAuthorInput!]
+  create: [TemplateCreateWithoutAuthorInput!]
+  createMany: TemplateCreateManyAuthorInputEnvelope
+}
+
+input TemplateCreateNestedOneWithoutPagesInput {
+  connect: TemplateWhereUniqueInput
+  connectOrCreate: TemplateCreateOrConnectWithoutPagesInput
+  create: TemplateCreateWithoutPagesInput
+}
+
+input TemplateCreateOrConnectWithoutAuthorInput {
+  create: TemplateCreateWithoutAuthorInput!
+  where: TemplateWhereUniqueInput!
+}
+
+input TemplateCreateOrConnectWithoutPagesInput {
+  create: TemplateCreateWithoutPagesInput!
+  where: TemplateWhereUniqueInput!
+}
+
+input TemplateCreateWithoutAuthorInput {
+  content: String!
+  createdAt: DateTime
+  description: String!
+  id: String
+  name: String!
+  pages: ExitPageCreateNestedManyWithoutTemplateInput
+  placeholders: JSON!
+  uniqueKey: String!
+}
+
+input TemplateCreateWithoutPagesInput {
+  author: UserCreateNestedOneWithoutTemplateInput
+  content: String!
+  createdAt: DateTime
+  description: String!
+  id: String
+  name: String!
+  placeholders: JSON!
+  uniqueKey: String!
+}
+
+input TemplateListRelationFilter {
+  every: TemplateWhereInput
+  none: TemplateWhereInput
+  some: TemplateWhereInput
+}
+
+input TemplateNo_duplicate_key_per_userCompoundUniqueInput {
+  authorId: String!
+  uniqueKey: String!
+}
+
+input TemplateOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
 enum TemplateOrderByRelevanceFieldEnum {
+  authorId
   content
   description
   id
@@ -1670,6 +1728,8 @@ input TemplateOrderByRelevanceInput {
 
 input TemplateOrderByWithRelationInput {
   _relevance: TemplateOrderByRelevanceInput
+  author: UserOrderByWithRelationInput
+  authorId: SortOrderInput
   content: SortOrder
   createdAt: SortOrder
   description: SortOrder
@@ -1681,6 +1741,7 @@ input TemplateOrderByWithRelationInput {
 }
 
 enum TemplateScalarFieldEnum {
+  authorId
   content
   createdAt
   description
@@ -1699,6 +1760,8 @@ input TemplateWhereInput {
   AND: [TemplateWhereInput!]
   NOT: [TemplateWhereInput!]
   OR: [TemplateWhereInput!]
+  author: UserNullableScalarRelationFilter
+  authorId: StringNullableFilter
   content: StringFilter
   createdAt: DateTimeFilter
   description: StringFilter
@@ -1713,14 +1776,17 @@ input TemplateWhereUniqueInput {
   AND: [TemplateWhereInput!]
   NOT: [TemplateWhereInput!]
   OR: [TemplateWhereInput!]
+  author: UserNullableScalarRelationFilter
+  authorId: StringNullableFilter
   content: StringFilter
   createdAt: DateTimeFilter
   description: StringFilter
   id: String
   name: StringFilter
+  no_duplicate_key_per_user: TemplateNo_duplicate_key_per_userCompoundUniqueInput
   pages: ExitPageListRelationFilter
   placeholders: JsonFilter
-  uniqueKey: String
+  uniqueKey: StringFilter
 }
 
 enum Tone {
@@ -1739,6 +1805,7 @@ scalar Upload
 
 type User {
   Role: [Role!]
+  Template: [Template!]
   _count: UserCount!
   comments: [Comment!]
   createdAt: DateTime!
@@ -1763,6 +1830,7 @@ type User {
 
 type UserCount {
   Role: Int!
+  Template: Int!
   comments: Int!
   images: Int!
   pages: Int!
@@ -1776,6 +1844,7 @@ type UserCount {
 
 input UserCreateInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1821,6 +1890,12 @@ input UserCreateNestedOneWithoutSharesInput {
   create: UserCreateWithoutSharesInput
 }
 
+input UserCreateNestedOneWithoutTemplateInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutTemplateInput
+  create: UserCreateWithoutTemplateInput
+}
+
 input UserCreateNestedOneWithoutVersionsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutVersionsInput
@@ -1859,6 +1934,11 @@ input UserCreateOrConnectWithoutSharesInput {
   where: UserWhereUniqueInput!
 }
 
+input UserCreateOrConnectWithoutTemplateInput {
+  create: UserCreateWithoutTemplateInput!
+  where: UserWhereUniqueInput!
+}
+
 input UserCreateOrConnectWithoutVersionsInput {
   create: UserCreateWithoutVersionsInput!
   where: UserWhereUniqueInput!
@@ -1876,6 +1956,7 @@ input UserCreateOrConnectWithoutVotesInput {
 
 input UserCreateWithoutCommentsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   createdAt: DateTime
   email: String!
   firstName: String!
@@ -1898,6 +1979,7 @@ input UserCreateWithoutCommentsInput {
 
 input UserCreateWithoutPagesInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1920,6 +2002,7 @@ input UserCreateWithoutPagesInput {
 
 input UserCreateWithoutReactionsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1942,6 +2025,7 @@ input UserCreateWithoutReactionsInput {
 
 input UserCreateWithoutSharesInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1962,8 +2046,32 @@ input UserCreateWithoutSharesInput {
   votes: VoteCreateNestedManyWithoutUserInput
 }
 
+input UserCreateWithoutTemplateInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
 input UserCreateWithoutVersionsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1986,6 +2094,7 @@ input UserCreateWithoutVersionsInput {
 
 input UserCreateWithoutViewsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -2008,6 +2117,7 @@ input UserCreateWithoutViewsInput {
 
 input UserCreateWithoutVotesInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -2126,6 +2236,7 @@ input UserOrderByRelevanceInput {
 
 input UserOrderByWithRelationInput {
   Role: RoleOrderByRelationAggregateInput
+  Template: TemplateOrderByRelationAggregateInput
   _relevance: UserOrderByRelevanceInput
   comments: CommentOrderByRelationAggregateInput
   createdAt: SortOrder
@@ -2171,6 +2282,7 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   Role: RoleListRelationFilter
+  Template: TemplateListRelationFilter
   comments: CommentListRelationFilter
   createdAt: DateTimeFilter
   email: StringFilter
@@ -2197,6 +2309,7 @@ input UserWhereUniqueInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   Role: RoleListRelationFilter
+  Template: TemplateListRelationFilter
   comments: CommentListRelationFilter
   createdAt: DateTimeFilter
   email: String
