@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
 import { UsersService } from './users.service';
-import { User } from 'src/dtos/user/user.model';
-import { FindManyUserArgs } from 'src/dtos/user/find-many-user.args';
-import { UserCreateInput } from 'src/dtos/user/user-create.input';
+import { User } from 'src/dtos/@generated';
+import { FindManyUserArgs } from 'src/dtos/@generated';
+import { UserCreateInput } from 'src/dtos/@generated';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';

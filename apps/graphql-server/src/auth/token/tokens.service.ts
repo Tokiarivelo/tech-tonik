@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RefreshToken } from 'src/dtos/refresh-token/refresh-token.model';
+import { RefreshToken } from 'src/dtos/@generated';
 import { PrismaService } from 'src/prisma-module/prisma.service';
 
 @Injectable()

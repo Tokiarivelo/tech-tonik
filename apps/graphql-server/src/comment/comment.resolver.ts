@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CommentService } from './comment.service';
-import { Comment } from 'src/dtos/comment/comment.model';
-import { FindManyCommentArgs } from 'src/dtos/comment/find-many-comment.args';
-import { CommentCreateInput } from 'src/dtos/comment/comment-create.input';
+import { Comment } from 'src/dtos/@generated';
+import { FindManyCommentArgs } from 'src/dtos/@generated';
+import { CommentCreateInput } from 'src/dtos/@generated';
 
 @Resolver(() => Comment)
 export class CommentResolver {

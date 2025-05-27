@@ -1,10 +1,11 @@
-import { Field } from '@nestjs/graphql';
-import { InputType } from '@nestjs/graphql';
-import { FileUpload, GraphQLUpload } from 'graphql-upload-ts';
-import { ExitPageCreateInput } from '../@generated';
+Additional fields to add to `exit-page-create.input.ts`
 
-@InputType()
-export class ExitPageCreateInputArgs extends ExitPageCreateInput {
+```sh
+{
+  ......
+
+  // Avant : data: any
+  // On décompose data pour gérer les fichiers
   @Field(() => String)
   openingLine: string;
 
@@ -23,3 +24,4 @@ export class ExitPageCreateInputArgs extends ExitPageCreateInput {
   @Field(() => String)
   reactionDefault: string;
 }
+```

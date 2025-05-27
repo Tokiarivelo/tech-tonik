@@ -1,8 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DeleteOneVoteArgs } from 'src/dtos/vote/delete-one-vote.args';
-import { FindManyVoteArgs } from 'src/dtos/vote/find-many-vote.args';
-import { VoteCreateInput } from 'src/dtos/vote/vote-create.input';
-import { Vote } from 'src/dtos/vote/vote.model';
+import {
+  DeleteOneVoteArgs,
+  FindManyVoteArgs,
+  Vote,
+  VoteCreateInput,
+} from 'src/dtos/@generated';
+
 import { PrismaService } from 'src/prisma-module/prisma.service';
 
 @Injectable()

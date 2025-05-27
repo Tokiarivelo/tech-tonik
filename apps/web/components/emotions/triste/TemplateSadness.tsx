@@ -103,7 +103,7 @@ export default function TemplateSadness() {
             }}
             className="transform-gpu preserve-3d cursor-pointer"
             style={{ transformStyle: 'preserve-3d' }}
-            onClick={() => route.push('/dashboard/create/sadness/1')} // Redirection vers la page de l'émotion
+            onClick={() => route.push('/dashboard/end-page/create/sadness/1')} // Redirection vers la page de l'émotion
           >
             <ImageCard id={page.id} src={page.src} date={page.date} description={''} />
           </div>

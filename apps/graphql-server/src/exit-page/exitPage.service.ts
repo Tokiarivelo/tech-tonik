@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { DeleteOneExitPageArgs } from 'src/dtos/exit-page/delete-one-exit-page.args';
-import { ExitPageCreateInput } from 'src/dtos/exit-page/exit-page-create.input';
-import { ExitPage } from 'src/dtos/exit-page/exit-page.model';
-import { FindManyExitPageArgs } from 'src/dtos/exit-page/find-many-exit-page.args';
+import { DeleteOneExitPageArgs } from 'src/dtos/@generated';
+import { ExitPageCreateInput } from 'src/dtos/@generated';
+import { ExitPage } from 'src/dtos/@generated';
+import { FindManyExitPageArgs } from 'src/dtos/@generated';
+import { ExitPageCreateInputArgs } from 'src/dtos/exit-page/exit-page-create.input';
 import { PrismaService } from 'src/prisma-module/prisma.service';
 import { streamToBuffer } from 'src/utils/stream-to-buffer';
 
@@ -14,7 +15,7 @@ export class ExitPageService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async create(input: ExitPageCreateInput): Promise<ExitPage> {
+  async create(input: ExitPageCreateInputArgs): Promise<ExitPage> {
     // 1. Uploads Cloudinary
     const imageUrls = input.images
       ? await Promise.all(

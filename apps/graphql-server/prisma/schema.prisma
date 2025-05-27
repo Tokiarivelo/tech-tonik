@@ -6,15 +6,20 @@ generator client {
   runtime                = "nodejs"
 }
 
-// generator nestgraphql {
-//   provider              = "prisma-nestjs-graphql"
-//   output                = "../src/dtos"
-//   dtoInputNameSuffix    = "Input"
-//   dtoModelNameSuffix    = "Model"
-//   emitGraphQLTypes      = "true"
-//   emitInputAndArgsTypes = "true"
-//   prismaClientImport    = "@prisma/client"
-// }
+generator nestgraphql {
+  provider                              = "prisma-nestjs-graphql"
+  output                                = "../src/dtos/@generated"
+  dtoInputNameSuffix                    = "Input"
+  dtoModelNameSuffix                    = "Model"
+  prismaClientImport                    = "@prisma/client"
+  fields_Validator_from                 = "class-validator"
+  fields_Validator_input                = true
+  requireSingleFieldsInWhereUniqueInput = true
+  emitSingle                            = true
+  // emitCompiled                          = true
+  purgeOutput                           = true
+  noTypeId                              = true
+}
 
 datasource db {
   provider = "mysql"
@@ -28,26 +33,28 @@ model Role {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  email        String         @unique
-  firstName    String
-  lastName     String?
-  phone        String?
-  username     String         @unique
-  password     String
-  isVerified   Boolean        @default(false)
-  tokens       RefreshToken[]
-  images       UserImage[]
-  pages      ExitPage[]    @relation("AuthorPages")
+  id         String         @id @default(uuid())
+  email      String         @unique
+  firstName  String
+  lastName   String?
+  phone      String?
+  username   String         @unique
+  password   String
+  isVerified Boolean        @default(false)
+  tokens     RefreshToken[]
+  images     UserImage[]
+  pages      ExitPage[]     @relation("AuthorPages")
   reactions  Reaction[]
   votes      Vote[]
   comments   Comment[]
   views      PageView[]
   shares     PageShare[]
-  versions   PageVersion[] @relation("UpdatesBy")
-  createdAt  DateTime      @default(now())
-  updatedAt    DateTime       @updatedAt
-  Role         Role[]         @relation("UserRoles")
+  versions   PageVersion[]  @relation("UpdatesBy")
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  Role       Role[]         @relation("UserRoles")
+
+  Template Template[] @relation("AuthorPages")
 }
 
 model RefreshToken {
@@ -71,10 +78,9 @@ model UserImage {
   @@index([userId], map: "UserImage_userId_fkey")
 }
 
-
 model Tag {
-  id      String @id @default(uuid())
-  name    String
+  id     String @id @default(uuid())
+  name   String
   pageId String
 
   ExitPage ExitPage[]
@@ -108,29 +114,54 @@ enum ReactionType {
 ///////////////////////
 
 model Template {
-  id           String        @id @default(uuid())
+  id           String     @id @default(uuid())
+  uniqueKey    String
+  author       User?      @relation("AuthorPages", fields: [authorId], references: [id])
+  authorId     String?
   name         String
   description  String
   // Structure complète des placeholders :
   // [
   //   {
-  //     key: String,
-  //     label: String,
-  //     inputType: String,    // "input" | "textarea" | "file" | "media" | "component"
-  //     component: String?,   // ex: "GifPicker", "ReactionPicker"
-  //     required: Boolean?,
-  //     multiple: Boolean?,
-  //     accept: String[]?,
-  //     rows: Int?,
-  //     props: Json?          // props à passer au composant
+  //     key: string;
+  //      label: string;
+  //      inputType: string;
+  //      component?: string;
+  //      required?: boolean;
+  //      multiple?: boolean;
+  //      accept?: string[];
+  //      rows?: number;
+  //      props?: Record<string, any>;
+  //      // Nouvelle section CMS
+  //      layout: {
+  //        x: number;       // position colonne départ
+  //        y: number;       // position ligne départ
+  //        w: number;       // largeur en colonnes
+  //        h: number;       // hauteur en lignes
+  //        breakpoints?: {  // optionnel : overrides mobile/desktop
+  //          mobile?: { x: number; y: number; w: number; h: number };
+  //          desktop?: { x: number; y: number; w: number; h: number };
+  //        }
+  //      };
+  //      animation?: {
+  //        type: string;    // ex. 'fade', 'slide', 'zoom'
+  //        duration: number; // ms
+  //        delay?: number;
+  //        ease?: string;
+  //      };
   //   }, ...
   // ]
   placeholders Json
   // HTML/Markdown avec helpers conditionnels et insertion de {{key}}
+  isGlobal     Boolean?
+  isPublished  Boolean?
+  isDraft      Boolean?
+  isDeleted    Boolean?
   content      String
   pages        ExitPage[]
-  uniqueKey    String     @unique
   createdAt    DateTime   @default(now())
+
+  @@unique([uniqueKey, authorId], name: "no_duplicate_key_per_user")
 }
 
 model ExitPage {
@@ -161,67 +192,70 @@ model ExitPage {
 }
 
 model Reaction {
-  id        String        @id @default(uuid())
-  page      ExitPage      @relation(fields: [pageId], references: [id])
+  id        String       @id @default(uuid())
+  page      ExitPage     @relation(fields: [pageId], references: [id])
   pageId    String
-  user      User?         @relation(fields: [userId], references: [id])
+  user      User?        @relation(fields: [userId], references: [id])
   userId    String?
   type      ReactionType
-  createdAt DateTime      @default(now())
+  createdAt DateTime     @default(now())
+
   @@index([pageId, type])
 }
 
 model Vote {
-  id        String     @id @default(uuid())
-  page      ExitPage   @relation(fields: [pageId], references: [id])
+  id        String   @id @default(uuid())
+  page      ExitPage @relation(fields: [pageId], references: [id])
   pageId    String
-  user      User?      @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
   userId    String?
-  createdAt DateTime   @default(now())
+  createdAt DateTime @default(now())
+
   @@unique([pageId, userId], name: "one_vote_per_user_page")
 }
 
 model Comment {
-  id              String     @id @default(uuid())
-  page            ExitPage   @relation(fields: [pageId], references: [id])
+  id              String    @id @default(uuid())
+  page            ExitPage  @relation(fields: [pageId], references: [id])
   pageId          String
-  user            User?      @relation(fields: [userId], references: [id])
+  user            User?     @relation(fields: [userId], references: [id])
   userId          String?
   content         String
-  parentComment   Comment?   @relation("CommentThread", fields: [parentCommentId], references: [id])
+  parentComment   Comment?  @relation("CommentThread", fields: [parentCommentId], references: [id])
   parentCommentId String?
-  replies         Comment[]  @relation("CommentThread")
-  createdAt       DateTime   @default(now())
+  replies         Comment[] @relation("CommentThread")
+  createdAt       DateTime  @default(now())
 }
 
 model PageVersion {
-  id           String     @id @default(uuid())
-  page         ExitPage   @relation("PageVersions", fields: [pageId], references: [id])
-  pageId       String
-  version      Int
-  data         Json
-  updatedBy    User?      @relation("UpdatesBy", fields: [updatedById], references: [id])
-  updatedById  String?
-  createdAt    DateTime   @default(now())
+  id          String   @id @default(uuid())
+  page        ExitPage @relation("PageVersions", fields: [pageId], references: [id])
+  pageId      String
+  version     Int
+  data        Json
+  updatedBy   User?    @relation("UpdatesBy", fields: [updatedById], references: [id])
+  updatedById String?
+  createdAt   DateTime @default(now())
+
   @@unique([pageId, version], name: "one_version_per_page")
 }
 
 model PageView {
-  id         String     @id @default(uuid())
-  page       ExitPage   @relation(fields: [pageId], references: [id])
-  pageId     String
-  user       User?      @relation(fields: [userId], references: [id])
-  userId     String?
-  sessionId  String?
-  createdAt  DateTime   @default(now())
+  id        String   @id @default(uuid())
+  page      ExitPage @relation(fields: [pageId], references: [id])
+  pageId    String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  sessionId String?
+  createdAt DateTime @default(now())
 }
 
 model PageShare {
-  id         String     @id @default(uuid())
-  page       ExitPage   @relation(fields: [pageId], references: [id])
-  pageId     String
-  platform   String
-  user       User?      @relation(fields: [userId], references: [id])
-  userId     String?
-  createdAt  DateTime   @default(now())
+  id        String   @id @default(uuid())
+  page      ExitPage @relation(fields: [pageId], references: [id])
+  pageId    String
+  platform  String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime @default(now())
 }

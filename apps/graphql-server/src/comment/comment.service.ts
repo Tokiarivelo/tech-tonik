@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma-module/prisma.service';
-import { CommentCreateInput } from 'src/dtos/comment/comment-create.input';
-import { Comment } from 'src/dtos/comment/comment.model';
-import { FindManyCommentArgs } from 'src/dtos/comment/find-many-comment.args';
-import { DeleteOneCommentArgs } from 'src/dtos/comment/delete-one-comment.args';
+import { CommentCreateInput } from 'src/dtos/@generated';
+import { Comment } from 'src/dtos/@generated';
+import { FindManyCommentArgs } from 'src/dtos/@generated';
+import { DeleteOneCommentArgs } from 'src/dtos/@generated';
 
 @Injectable()
 export class CommentService {

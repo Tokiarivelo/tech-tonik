@@ -7,11 +7,16 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+input BoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
 type Comment {
   _count: CommentCount!
   content: String!
   createdAt: DateTime!
-  id: ID!
+  id: String!
   page: ExitPage!
   pageId: String!
   parentComment: Comment
@@ -23,6 +28,16 @@ type Comment {
 
 type CommentCount {
   replies: Int!
+}
+
+type CommentCountAggregate {
+  _all: Int!
+  content: Int!
+  createdAt: Int!
+  id: Int!
+  pageId: Int!
+  parentCommentId: Int!
+  userId: Int!
 }
 
 input CommentCreateInput {
@@ -163,6 +178,24 @@ input CommentListRelationFilter {
   some: CommentWhereInput
 }
 
+type CommentMaxAggregate {
+  content: String
+  createdAt: DateTime
+  id: String
+  pageId: String
+  parentCommentId: String
+  userId: String
+}
+
+type CommentMinAggregate {
+  content: String
+  createdAt: DateTime
+  id: String
+  pageId: String
+  parentCommentId: String
+  userId: String
+}
+
 input CommentNullableScalarRelationFilter {
   is: CommentWhereInput
   isNot: CommentWhereInput
@@ -278,7 +311,7 @@ type ExitPage {
   comments: [Comment!]
   createdAt: DateTime!
   data: JSON!
-  id: ID!
+  id: String!
   isHallOfFame: Boolean!
   reactions: [Reaction!]
   shares: [PageShare!]
@@ -303,7 +336,39 @@ type ExitPageCount {
   votes: Int!
 }
 
+type ExitPageCountAggregate {
+  _all: Int!
+  authorId: Int!
+  createdAt: Int!
+  data: Int!
+  id: Int!
+  isHallOfFame: Int!
+  slug: Int!
+  templateId: Int!
+  tone: Int!
+  updatedAt: Int!
+}
+
 input ExitPageCreateInput {
+  author: UserCreateNestedOneWithoutPagesInput
+  comments: CommentCreateNestedManyWithoutPageInput
+  createdAt: DateTime
+  data: JSON!
+  id: String
+  isHallOfFame: Boolean
+  reactions: ReactionCreateNestedManyWithoutPageInput
+  shares: PageShareCreateNestedManyWithoutPageInput
+  slug: String!
+  tags: TagCreateNestedManyWithoutExitPageInput
+  template: TemplateCreateNestedOneWithoutPagesInput!
+  tone: Tone!
+  updatedAt: DateTime
+  versions: PageVersionCreateNestedManyWithoutPageInput
+  views: PageViewCreateNestedManyWithoutPageInput
+  votes: VoteCreateNestedManyWithoutPageInput
+}
+
+input ExitPageCreateInputArgs {
   audios: [Upload!]
   author: UserCreateNestedOneWithoutPagesInput
   comments: CommentCreateNestedManyWithoutPageInput
@@ -600,6 +665,28 @@ input ExitPageListRelationFilter {
   some: ExitPageWhereInput
 }
 
+type ExitPageMaxAggregate {
+  authorId: String
+  createdAt: DateTime
+  id: String
+  isHallOfFame: Boolean
+  slug: String
+  templateId: String
+  tone: Tone
+  updatedAt: DateTime
+}
+
+type ExitPageMinAggregate {
+  authorId: String
+  createdAt: DateTime
+  id: String
+  isHallOfFame: Boolean
+  slug: String
+  templateId: String
+  tone: Tone
+  updatedAt: DateTime
+}
+
 input ExitPageOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -753,7 +840,7 @@ type LoginOutput {
 
 type Mutation {
   createComment(input: CommentCreateInput!): Comment!
-  createExitPage(input: ExitPageCreateInput!): ExitPage!
+  createExitPage(input: ExitPageCreateInputArgs!): ExitPage!
   createPageVersion(input: PageVersionCreateInput!): PageVersion!
   createReaction(input: ReactionCreateInput!): Reaction!
   createTemplate(input: TemplateCreateInput!): Template!
@@ -774,6 +861,11 @@ type Mutation {
 input NestedBoolFilter {
   equals: Boolean
   not: NestedBoolFilter
+}
+
+input NestedBoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
 }
 
 input NestedDateTimeFilter {
@@ -849,12 +941,21 @@ enum NullsOrder {
 
 type PageShare {
   createdAt: DateTime!
-  id: ID!
+  id: String!
   page: ExitPage!
   pageId: String!
   platform: String!
   user: User
   userId: String
+}
+
+type PageShareCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  id: Int!
+  pageId: Int!
+  platform: Int!
+  userId: Int!
 }
 
 input PageShareCreateManyPageInput {
@@ -925,6 +1026,22 @@ input PageShareListRelationFilter {
   some: PageShareWhereInput
 }
 
+type PageShareMaxAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  platform: String
+  userId: String
+}
+
+type PageShareMinAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  platform: String
+  userId: String
+}
+
 input PageShareOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -958,11 +1075,25 @@ input PageShareWhereUniqueInput {
 type PageVersion {
   createdAt: DateTime!
   data: JSON!
-  id: ID!
+  id: String!
   page: ExitPage!
   pageId: String!
   updatedBy: User
   updatedById: String
+  version: Int!
+}
+
+type PageVersionAvgAggregate {
+  version: Float
+}
+
+type PageVersionCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  data: Int!
+  id: Int!
+  pageId: Int!
+  updatedById: Int!
   version: Int!
 }
 
@@ -1047,6 +1178,22 @@ input PageVersionListRelationFilter {
   some: PageVersionWhereInput
 }
 
+type PageVersionMaxAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  updatedById: String
+  version: Int
+}
+
+type PageVersionMinAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  updatedById: String
+  version: Int
+}
+
 input PageVersionOne_version_per_pageCompoundUniqueInput {
   pageId: String!
   version: Int!
@@ -1089,6 +1236,10 @@ enum PageVersionScalarFieldEnum {
   version
 }
 
+type PageVersionSumAggregate {
+  version: Int
+}
+
 input PageVersionWhereInput {
   AND: [PageVersionWhereInput!]
   NOT: [PageVersionWhereInput!]
@@ -1120,12 +1271,21 @@ input PageVersionWhereUniqueInput {
 
 type PageView {
   createdAt: DateTime!
-  id: ID!
+  id: String!
   page: ExitPage!
   pageId: String!
   sessionId: String
   user: User
   userId: String
+}
+
+type PageViewCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  id: Int!
+  pageId: Int!
+  sessionId: Int!
+  userId: Int!
 }
 
 input PageViewCreateManyPageInput {
@@ -1196,6 +1356,22 @@ input PageViewListRelationFilter {
   some: PageViewWhereInput
 }
 
+type PageViewMaxAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  sessionId: String
+  userId: String
+}
+
+type PageViewMinAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  sessionId: String
+  userId: String
+}
+
 input PageViewOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -1235,6 +1411,7 @@ type Query {
   pageVersion(id: String!): PageVersion!
   pageVersions(cursor: PageVersionWhereUniqueInput, distinct: [PageVersionScalarFieldEnum!], orderBy: [PageVersionOrderByWithRelationInput!], skip: Int, take: Int, where: PageVersionWhereInput): [PageVersion!]!
   reaction(id: String!): Reaction!
+  reactions(pageId: String!): Reaction!
   template(id: String!): Template!
   templates(cursor: TemplateWhereUniqueInput, distinct: [TemplateScalarFieldEnum!], orderBy: [TemplateOrderByWithRelationInput!], skip: Int, take: Int, where: TemplateWhereInput): [Template!]!
   user(id: String!): User!
@@ -1249,12 +1426,21 @@ enum QueryMode {
 
 type Reaction {
   createdAt: DateTime!
-  id: ID!
+  id: String!
   page: ExitPage!
   pageId: String!
   type: ReactionType!
   user: User
   userId: String
+}
+
+type ReactionCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  id: Int!
+  pageId: Int!
+  type: Int!
+  userId: Int!
 }
 
 input ReactionCreateInput {
@@ -1333,6 +1519,22 @@ input ReactionListRelationFilter {
   some: ReactionWhereInput
 }
 
+type ReactionMaxAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  type: ReactionType
+  userId: String
+}
+
+type ReactionMinAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  type: ReactionType
+  userId: String
+}
+
 input ReactionOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -1374,10 +1576,19 @@ input ReactionWhereUniqueInput {
 type RefreshToken {
   createdAt: DateTime!
   expiresAt: DateTime!
-  id: ID!
+  id: String!
   token: String!
   user: User!
   userId: String!
+}
+
+type RefreshTokenCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  expiresAt: Int!
+  id: Int!
+  token: Int!
+  userId: Int!
 }
 
 input RefreshTokenCreateManyUserInput {
@@ -1417,6 +1628,22 @@ input RefreshTokenListRelationFilter {
   some: RefreshTokenWhereInput
 }
 
+type RefreshTokenMaxAggregate {
+  createdAt: DateTime
+  expiresAt: DateTime
+  id: String
+  token: String
+  userId: String
+}
+
+type RefreshTokenMinAggregate {
+  createdAt: DateTime
+  expiresAt: DateTime
+  id: String
+  token: String
+  userId: String
+}
+
 input RefreshTokenOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -1454,13 +1681,19 @@ input RegisterInput {
 
 type Role {
   _count: RoleCount!
-  id: ID!
+  id: String!
   name: String!
   users: [User!]
 }
 
 type RoleCount {
   users: Int!
+}
+
+type RoleCountAggregate {
+  _all: Int!
+  id: Int!
+  name: Int!
 }
 
 input RoleCreateNestedManyWithoutUsersInput {
@@ -1483,6 +1716,16 @@ input RoleListRelationFilter {
   every: RoleWhereInput
   none: RoleWhereInput
   some: RoleWhereInput
+}
+
+type RoleMaxAggregate {
+  id: String
+  name: String
+}
+
+type RoleMinAggregate {
+  id: String
+  name: String
 }
 
 input RoleOrderByRelationAggregateInput {
@@ -1550,13 +1793,20 @@ input StringNullableFilter {
 type Tag {
   ExitPage: [ExitPage!]
   _count: TagCount!
-  id: ID!
+  id: String!
   name: String!
   pageId: String!
 }
 
 type TagCount {
   ExitPage: Int!
+}
+
+type TagCountAggregate {
+  _all: Int!
+  id: Int!
+  name: Int!
+  pageId: Int!
 }
 
 input TagCreateNestedManyWithoutExitPageInput {
@@ -1580,6 +1830,18 @@ input TagListRelationFilter {
   every: TagWhereInput
   none: TagWhereInput
   some: TagWhereInput
+}
+
+type TagMaxAggregate {
+  id: String
+  name: String
+  pageId: String
+}
+
+type TagMinAggregate {
+  id: String
+  name: String
+  pageId: String
 }
 
 input TagOrderByRelationAggregateInput {
@@ -1608,10 +1870,16 @@ input TagWhereUniqueInput {
 
 type Template {
   _count: TemplateCount!
+  author: User
+  authorId: String
   content: String!
   createdAt: DateTime!
   description: String!
-  id: ID!
+  id: String!
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
   name: String!
   pages: [ExitPage!]
   placeholders: JSON!
@@ -1622,15 +1890,62 @@ type TemplateCount {
   pages: Int!
 }
 
+type TemplateCountAggregate {
+  _all: Int!
+  authorId: Int!
+  content: Int!
+  createdAt: Int!
+  description: Int!
+  id: Int!
+  isDeleted: Int!
+  isDraft: Int!
+  isGlobal: Int!
+  isPublished: Int!
+  name: Int!
+  placeholders: Int!
+  uniqueKey: Int!
+}
+
 input TemplateCreateInput {
+  author: UserCreateNestedOneWithoutTemplateInput
   content: String!
   createdAt: DateTime
   description: String!
   id: String
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
   name: String!
   pages: ExitPageCreateNestedManyWithoutTemplateInput
   placeholders: JSON!
   uniqueKey: String!
+}
+
+input TemplateCreateManyAuthorInput {
+  content: String!
+  createdAt: DateTime
+  description: String!
+  id: String
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
+  name: String!
+  placeholders: JSON!
+  uniqueKey: String!
+}
+
+input TemplateCreateManyAuthorInputEnvelope {
+  data: [TemplateCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input TemplateCreateNestedManyWithoutAuthorInput {
+  connect: [TemplateWhereUniqueInput!]
+  connectOrCreate: [TemplateCreateOrConnectWithoutAuthorInput!]
+  create: [TemplateCreateWithoutAuthorInput!]
+  createMany: TemplateCreateManyAuthorInputEnvelope
 }
 
 input TemplateCreateNestedOneWithoutPagesInput {
@@ -1639,22 +1954,91 @@ input TemplateCreateNestedOneWithoutPagesInput {
   create: TemplateCreateWithoutPagesInput
 }
 
+input TemplateCreateOrConnectWithoutAuthorInput {
+  create: TemplateCreateWithoutAuthorInput!
+  where: TemplateWhereUniqueInput!
+}
+
 input TemplateCreateOrConnectWithoutPagesInput {
   create: TemplateCreateWithoutPagesInput!
   where: TemplateWhereUniqueInput!
 }
 
-input TemplateCreateWithoutPagesInput {
+input TemplateCreateWithoutAuthorInput {
   content: String!
   createdAt: DateTime
   description: String!
   id: String
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
+  name: String!
+  pages: ExitPageCreateNestedManyWithoutTemplateInput
+  placeholders: JSON!
+  uniqueKey: String!
+}
+
+input TemplateCreateWithoutPagesInput {
+  author: UserCreateNestedOneWithoutTemplateInput
+  content: String!
+  createdAt: DateTime
+  description: String!
+  id: String
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
   name: String!
   placeholders: JSON!
   uniqueKey: String!
 }
 
+input TemplateListRelationFilter {
+  every: TemplateWhereInput
+  none: TemplateWhereInput
+  some: TemplateWhereInput
+}
+
+type TemplateMaxAggregate {
+  authorId: String
+  content: String
+  createdAt: DateTime
+  description: String
+  id: String
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
+  name: String
+  uniqueKey: String
+}
+
+type TemplateMinAggregate {
+  authorId: String
+  content: String
+  createdAt: DateTime
+  description: String
+  id: String
+  isDeleted: Boolean
+  isDraft: Boolean
+  isGlobal: Boolean
+  isPublished: Boolean
+  name: String
+  uniqueKey: String
+}
+
+input TemplateNo_duplicate_key_per_userCompoundUniqueInput {
+  authorId: String!
+  uniqueKey: String!
+}
+
+input TemplateOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
 enum TemplateOrderByRelevanceFieldEnum {
+  authorId
   content
   description
   id
@@ -1670,10 +2054,16 @@ input TemplateOrderByRelevanceInput {
 
 input TemplateOrderByWithRelationInput {
   _relevance: TemplateOrderByRelevanceInput
+  author: UserOrderByWithRelationInput
+  authorId: SortOrderInput
   content: SortOrder
   createdAt: SortOrder
   description: SortOrder
   id: SortOrder
+  isDeleted: SortOrderInput
+  isDraft: SortOrderInput
+  isGlobal: SortOrderInput
+  isPublished: SortOrderInput
   name: SortOrder
   pages: ExitPageOrderByRelationAggregateInput
   placeholders: SortOrder
@@ -1681,10 +2071,15 @@ input TemplateOrderByWithRelationInput {
 }
 
 enum TemplateScalarFieldEnum {
+  authorId
   content
   createdAt
   description
   id
+  isDeleted
+  isDraft
+  isGlobal
+  isPublished
   name
   placeholders
   uniqueKey
@@ -1699,10 +2094,16 @@ input TemplateWhereInput {
   AND: [TemplateWhereInput!]
   NOT: [TemplateWhereInput!]
   OR: [TemplateWhereInput!]
+  author: UserNullableScalarRelationFilter
+  authorId: StringNullableFilter
   content: StringFilter
   createdAt: DateTimeFilter
   description: StringFilter
   id: StringFilter
+  isDeleted: BoolNullableFilter
+  isDraft: BoolNullableFilter
+  isGlobal: BoolNullableFilter
+  isPublished: BoolNullableFilter
   name: StringFilter
   pages: ExitPageListRelationFilter
   placeholders: JsonFilter
@@ -1713,14 +2114,21 @@ input TemplateWhereUniqueInput {
   AND: [TemplateWhereInput!]
   NOT: [TemplateWhereInput!]
   OR: [TemplateWhereInput!]
+  author: UserNullableScalarRelationFilter
+  authorId: StringNullableFilter
   content: StringFilter
   createdAt: DateTimeFilter
   description: StringFilter
   id: String
+  isDeleted: BoolNullableFilter
+  isDraft: BoolNullableFilter
+  isGlobal: BoolNullableFilter
+  isPublished: BoolNullableFilter
   name: StringFilter
+  no_duplicate_key_per_user: TemplateNo_duplicate_key_per_userCompoundUniqueInput
   pages: ExitPageListRelationFilter
   placeholders: JsonFilter
-  uniqueKey: String
+  uniqueKey: StringFilter
 }
 
 enum Tone {
@@ -1739,12 +2147,13 @@ scalar Upload
 
 type User {
   Role: [Role!]
+  Template: [Template!]
   _count: UserCount!
   comments: [Comment!]
   createdAt: DateTime!
   email: String!
   firstName: String!
-  id: ID!
+  id: String!
   images: [UserImage!]
   isVerified: Boolean!
   lastName: String
@@ -1763,6 +2172,7 @@ type User {
 
 type UserCount {
   Role: Int!
+  Template: Int!
   comments: Int!
   images: Int!
   pages: Int!
@@ -1774,8 +2184,23 @@ type UserCount {
   votes: Int!
 }
 
+type UserCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  email: Int!
+  firstName: Int!
+  id: Int!
+  isVerified: Int!
+  lastName: Int!
+  password: Int!
+  phone: Int!
+  updatedAt: Int!
+  username: Int!
+}
+
 input UserCreateInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1821,6 +2246,12 @@ input UserCreateNestedOneWithoutSharesInput {
   create: UserCreateWithoutSharesInput
 }
 
+input UserCreateNestedOneWithoutTemplateInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutTemplateInput
+  create: UserCreateWithoutTemplateInput
+}
+
 input UserCreateNestedOneWithoutVersionsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutVersionsInput
@@ -1859,6 +2290,11 @@ input UserCreateOrConnectWithoutSharesInput {
   where: UserWhereUniqueInput!
 }
 
+input UserCreateOrConnectWithoutTemplateInput {
+  create: UserCreateWithoutTemplateInput!
+  where: UserWhereUniqueInput!
+}
+
 input UserCreateOrConnectWithoutVersionsInput {
   create: UserCreateWithoutVersionsInput!
   where: UserWhereUniqueInput!
@@ -1876,6 +2312,7 @@ input UserCreateOrConnectWithoutVotesInput {
 
 input UserCreateWithoutCommentsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   createdAt: DateTime
   email: String!
   firstName: String!
@@ -1898,6 +2335,7 @@ input UserCreateWithoutCommentsInput {
 
 input UserCreateWithoutPagesInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1920,6 +2358,7 @@ input UserCreateWithoutPagesInput {
 
 input UserCreateWithoutReactionsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1942,6 +2381,7 @@ input UserCreateWithoutReactionsInput {
 
 input UserCreateWithoutSharesInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1962,8 +2402,32 @@ input UserCreateWithoutSharesInput {
   votes: VoteCreateNestedManyWithoutUserInput
 }
 
+input UserCreateWithoutTemplateInput {
+  Role: RoleCreateNestedManyWithoutUsersInput
+  comments: CommentCreateNestedManyWithoutUserInput
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: String
+  images: UserImageCreateNestedManyWithoutUserInput
+  isVerified: Boolean
+  lastName: String
+  pages: ExitPageCreateNestedManyWithoutAuthorInput
+  password: String!
+  phone: String
+  reactions: ReactionCreateNestedManyWithoutUserInput
+  shares: PageShareCreateNestedManyWithoutUserInput
+  tokens: RefreshTokenCreateNestedManyWithoutUserInput
+  updatedAt: DateTime
+  username: String!
+  versions: PageVersionCreateNestedManyWithoutUpdatedByInput
+  views: PageViewCreateNestedManyWithoutUserInput
+  votes: VoteCreateNestedManyWithoutUserInput
+}
+
 input UserCreateWithoutVersionsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -1986,6 +2450,7 @@ input UserCreateWithoutVersionsInput {
 
 input UserCreateWithoutViewsInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -2008,6 +2473,7 @@ input UserCreateWithoutViewsInput {
 
 input UserCreateWithoutVotesInput {
   Role: RoleCreateNestedManyWithoutUsersInput
+  Template: TemplateCreateNestedManyWithoutAuthorInput
   comments: CommentCreateNestedManyWithoutUserInput
   createdAt: DateTime
   email: String!
@@ -2029,11 +2495,19 @@ input UserCreateWithoutVotesInput {
 }
 
 type UserImage {
-  id: ID!
+  id: String!
   type: String!
   url: String!
   user: User!
   userId: String!
+}
+
+type UserImageCountAggregate {
+  _all: Int!
+  id: Int!
+  type: Int!
+  url: Int!
+  userId: Int!
 }
 
 input UserImageCreateManyUserInput {
@@ -2071,6 +2545,20 @@ input UserImageListRelationFilter {
   some: UserImageWhereInput
 }
 
+type UserImageMaxAggregate {
+  id: String
+  type: String
+  url: String
+  userId: String
+}
+
+type UserImageMinAggregate {
+  id: String
+  type: String
+  url: String
+  userId: String
+}
+
 input UserImageOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -2103,6 +2591,32 @@ input UserListRelationFilter {
   some: UserWhereInput
 }
 
+type UserMaxAggregate {
+  createdAt: DateTime
+  email: String
+  firstName: String
+  id: String
+  isVerified: Boolean
+  lastName: String
+  password: String
+  phone: String
+  updatedAt: DateTime
+  username: String
+}
+
+type UserMinAggregate {
+  createdAt: DateTime
+  email: String
+  firstName: String
+  id: String
+  isVerified: Boolean
+  lastName: String
+  password: String
+  phone: String
+  updatedAt: DateTime
+  username: String
+}
+
 input UserNullableScalarRelationFilter {
   is: UserWhereInput
   isNot: UserWhereInput
@@ -2126,6 +2640,7 @@ input UserOrderByRelevanceInput {
 
 input UserOrderByWithRelationInput {
   Role: RoleOrderByRelationAggregateInput
+  Template: TemplateOrderByRelationAggregateInput
   _relevance: UserOrderByRelevanceInput
   comments: CommentOrderByRelationAggregateInput
   createdAt: SortOrder
@@ -2171,6 +2686,7 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   Role: RoleListRelationFilter
+  Template: TemplateListRelationFilter
   comments: CommentListRelationFilter
   createdAt: DateTimeFilter
   email: StringFilter
@@ -2197,6 +2713,7 @@ input UserWhereUniqueInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   Role: RoleListRelationFilter
+  Template: TemplateListRelationFilter
   comments: CommentListRelationFilter
   createdAt: DateTimeFilter
   email: String
@@ -2220,11 +2737,19 @@ input UserWhereUniqueInput {
 
 type Vote {
   createdAt: DateTime!
-  id: ID!
+  id: String!
   page: ExitPage!
   pageId: String!
   user: User
   userId: String
+}
+
+type VoteCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  id: Int!
+  pageId: Int!
+  userId: Int!
 }
 
 input VoteCreateInput {
@@ -2296,6 +2821,20 @@ input VoteListRelationFilter {
   every: VoteWhereInput
   none: VoteWhereInput
   some: VoteWhereInput
+}
+
+type VoteMaxAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  userId: String
+}
+
+type VoteMinAggregate {
+  createdAt: DateTime
+  id: String
+  pageId: String
+  userId: String
 }
 
 input VoteOne_vote_per_user_pageCompoundUniqueInput {

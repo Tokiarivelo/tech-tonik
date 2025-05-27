@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { UserCreateInput } from '../dtos/user/user-create.input';
-import { User } from '../dtos/user/user.model';
-import { FindManyUserArgs } from 'src/dtos/user/find-many-user.args';
-import { DeleteOneUserArgs } from 'src/dtos/user/delete-one-user.args';
+import { UserCreateInput } from '../dtos/@generated';
+import { User } from '../dtos/@generated';
+import { FindManyUserArgs } from 'src/dtos/@generated';
+import { DeleteOneUserArgs } from 'src/dtos/@generated';
 import { PrismaService } from 'src/prisma-module/prisma.service';
 import { SALT_ROUNDS } from 'src/auth/constants';
 

@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { LogOut, User } from 'lucide-react';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
+import LogoAnimation from '@/components/logo/TheEndLogo';
 
 export default function NavbarUser() {
   const teRef = useRef(null);
@@ -70,6 +71,7 @@ export default function NavbarUser() {
         href="/"
         className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center cursor-pointer"
       >
+        {/* <LogoAnimation /> */}
         <div className="flex items-center space-x-2">
           {/* Logo TE tournant */}
           <div
@@ -81,7 +83,7 @@ export default function NavbarUser() {
           </div>
 
           {/* Texte animé */}
-          <h1 className="text-2xl font-bold text-white theend-text flex space-x-0.5">
+          {/* <h1 className="text-2xl font-bold text-white theend-text flex space-x-0.5">
             {text.split('').map((char, i) => (
               <span
                 key={i}
@@ -92,7 +94,7 @@ export default function NavbarUser() {
                 {char}
               </span>
             ))}
-          </h1>
+          </h1> */}
         </div>
 
         <div className="flex items-center space-x-4">

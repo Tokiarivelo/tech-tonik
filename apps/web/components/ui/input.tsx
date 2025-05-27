@@ -15,7 +15,7 @@ type CustomProps = {
 type ShadcnInputProps = React.ComponentProps<'input'> & CustomProps;
 
 const Input = ({
-  className = 'mb-1 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded w-full p-2.5',
+  className = 'mb-1 border border-gray-300 text-gray-900 text-sm rounded w-full p-2.5',
   inputClassname,
   startOrnerIcon,
   endOrnerIcon,

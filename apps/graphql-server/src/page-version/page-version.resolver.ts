@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PageVersionService } from './page-version.service';
-import { PageVersion } from 'src/dtos/page-version/page-version.model';
-import { FindManyPageVersionArgs } from 'src/dtos/page-version/find-many-page-version.args';
-import { PageVersionCreateInput } from 'src/dtos/page-version/page-version-create.input';
+import { PageVersion } from 'src/dtos/@generated';
+import { FindManyPageVersionArgs } from 'src/dtos/@generated';
+import { PageVersionCreateInput } from 'src/dtos/@generated';
 
 @Resolver(() => PageVersion)
 export class PageVersionResolver {

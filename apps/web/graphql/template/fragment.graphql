@@ -1,0 +1,15 @@
+fragment createTemplateFragment on Template {
+  id
+  name
+  uniqueKey
+}
+
+fragment getTemplateFragment on Template {
+  id
+  content
+  description
+  name
+  uniqueKey
+  placeholders
+  createdAt
+}

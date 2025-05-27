@@ -1,15 +1,17 @@
 import { useAuthStore } from '@/components/auth/stores/useAuthStore';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 
-const httpLink = new HttpLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_URL, // 👈 ton endpoint NestJS
+// 1. Le lien d’upload à la place de HttpLink
+const uploadLink = createUploadLink({
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
+  credentials: 'include',
 });
 
+// 2. Le lien d’authentification
 const authLink = setContext((_, { headers }) => {
-  // Récupère le token depuis zustand (hors React)
   const token = useAuthStore.getState().token;
-
   return {
     headers: {
       ...headers,
@@ -18,8 +20,9 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// 3. On concatène : authLink BEFORE uploadLink
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
 });
 

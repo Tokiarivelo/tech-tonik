@@ -1,0 +1,5 @@
+mutation CreateTemplate($input: TemplateCreateInput!) {
+  createTemplate(input: $input) {
+    ...createTemplateFragment
+  }
+}

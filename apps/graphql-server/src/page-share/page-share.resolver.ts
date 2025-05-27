@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PageShareService } from './page-share.service';
-import { PageShare } from 'src/dtos/page-share/page-share.model';
-import { FindManyPageShareArgs } from 'src/dtos/page-share/find-many-page-share.args';
-import { PageShareCreateInput } from 'src/dtos/page-share/page-share-create.input';
+import { PageShare } from 'src/dtos/@generated';
+import { FindManyPageShareArgs } from 'src/dtos/@generated';
+import { PageShareCreateInput } from 'src/dtos/@generated';
 
 @Resolver(() => PageShare)
 export class PageShareResolver {

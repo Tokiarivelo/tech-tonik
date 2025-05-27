@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { Vote } from 'src/dtos/vote/vote.model';
+import { Vote } from 'src/dtos/@generated';
 import { VoteService } from './vote.service';
-import { VoteCreateInput } from 'src/dtos/vote/vote-create.input';
+import { VoteCreateInput } from 'src/dtos/@generated';
 
 @Resolver(() => Vote)
 export class VoteResolver {
