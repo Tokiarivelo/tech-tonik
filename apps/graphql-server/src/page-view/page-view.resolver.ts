@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PageViewService } from './page-view.service';
-import { PageView } from 'src/dtos/page-view/page-view.model';
-import { FindManyPageViewArgs } from 'src/dtos/page-view/find-many-page-view.args';
-import { PageViewCreateInput } from 'src/dtos/page-view/page-view-create.input';
+import { PageView } from 'src/dtos/@generated';
+import { FindManyPageViewArgs } from 'src/dtos/@generated';
+import { PageViewCreateInput } from 'src/dtos/@generated';
 
 @Resolver(() => PageView)
 export class PageViewResolver {

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma-module/prisma.service';
-import { PageViewCreateInput } from 'src/dtos/page-view/page-view-create.input';
-import { PageView } from 'src/dtos/page-view/page-view.model';
-import { FindManyPageViewArgs } from 'src/dtos/page-view/find-many-page-view.args';
-import { DeleteOnePageViewArgs } from 'src/dtos/page-view/delete-one-page-view.args';
+import { PageViewCreateInput } from 'src/dtos/@generated';
+import { PageView } from 'src/dtos/@generated';
+import { FindManyPageViewArgs } from 'src/dtos/@generated';
+import { DeleteOnePageViewArgs } from 'src/dtos/@generated';
 
 @Injectable()
 export class PageViewService {

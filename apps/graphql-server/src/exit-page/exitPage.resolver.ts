@@ -1,8 +1,9 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExitPageService } from './exitPage.service';
-import { ExitPage } from 'src/dtos/exit-page/exit-page.model';
-import { FindManyExitPageArgs } from 'src/dtos/exit-page/find-many-exit-page.args';
-import { ExitPageCreateInput } from 'src/dtos/exit-page/exit-page-create.input';
+import { ExitPage } from 'src/dtos/@generated';
+import { FindManyExitPageArgs } from 'src/dtos/@generated';
+import { ExitPageCreateInput } from 'src/dtos/@generated';
+import { ExitPageCreateInputArgs } from 'src/dtos/exit-page/exit-page-create.input';
 
 @Resolver(() => ExitPage)
 export class ExitPageResolver {
@@ -21,7 +22,9 @@ export class ExitPageResolver {
   }
 
   @Mutation(() => ExitPage, { name: 'createExitPage' })
-  async create(@Args('input') input: ExitPageCreateInput): Promise<ExitPage> {
+  async create(
+    @Args('input') input: ExitPageCreateInputArgs,
+  ): Promise<ExitPage> {
     return this.exitPageService.create(input);
   }
 

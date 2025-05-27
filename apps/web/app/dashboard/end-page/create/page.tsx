@@ -17,25 +17,25 @@ export default function EmotionsPage() {
             emotion="Sadness"
             color="blue"
             icon={<FaSadTear color="blue" />}
-            href="/dashboard/create/sadness"
+            href="/dashboard/end-page/create/sadness"
           />
           <EmotionCard
             emotion="Joy"
             color="yellow"
             icon={<FaLaughBeam color="yellow" />}
-            href="/dashboard/create/joy"
+            href="/dashboard/end-page/create/joy"
           />
           <EmotionCard
             emotion="Anger"
             color="red"
             icon={<FaAngry color="red" />}
-            href="/dashboard/create/anger"
+            href="/dashboard/end-page/create/anger"
           />
           <EmotionCard
             emotion="Despair"
             color="purple"
             icon={<FaTired color="purple" />}
-            href="/dashboard/create/despair"
+            href="/dashboard/end-page/create/despair"
           />
         </div>
       </div>

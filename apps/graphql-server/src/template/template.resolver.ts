@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TemplateService } from './template.service';
-import { Template } from 'src/dtos/template/template.model';
-import { FindManyTemplateArgs } from 'src/dtos/template/find-many-template.args';
-import { TemplateCreateInput } from 'src/dtos/template/template-create.input';
+import { Template } from 'src/dtos/@generated';
+import { FindManyTemplateArgs } from 'src/dtos/@generated';
+import { TemplateCreateInput } from 'src/dtos/@generated';
 
 @Resolver(() => Template)
 export class TemplateResolver {

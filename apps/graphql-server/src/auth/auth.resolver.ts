@@ -5,7 +5,7 @@ import { TokensService } from './token/tokens.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LoginInput } from 'src/dtos/auth/login.input';
-import { User } from 'src/dtos/user/user.model';
+import { User } from 'src/dtos/@generated';
 import { RegisterInput } from 'src/dtos/auth/register.input';
 import { LoginOutput } from 'src/dtos/auth/login.output';
 

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma-module/prisma.service';
-import { PageVersionCreateInput } from 'src/dtos/page-version/page-version-create.input';
-import { PageVersion } from 'src/dtos/page-version/page-version.model';
-import { FindManyPageVersionArgs } from 'src/dtos/page-version/find-many-page-version.args';
-import { DeleteOnePageVersionArgs } from 'src/dtos/page-version/delete-one-page-version.args';
+import { PageVersionCreateInput } from 'src/dtos/@generated';
+import { PageVersion } from 'src/dtos/@generated';
+import { FindManyPageVersionArgs } from 'src/dtos/@generated';
+import { DeleteOnePageVersionArgs } from 'src/dtos/@generated';
 
 @Injectable()
 export class PageVersionService {

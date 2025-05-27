@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DeleteOneReactionArgs } from 'src/dtos/reaction/delete-one-reaction.args';
-import { FindManyReactionArgs } from 'src/dtos/reaction/find-many-reaction.args';
-import { ReactionCreateInput } from 'src/dtos/reaction/reaction-create.input';
-import { Reaction } from 'src/dtos/reaction/reaction.model';
+import { DeleteOneReactionArgs } from 'src/dtos/@generated';
+import { FindManyReactionArgs } from 'src/dtos/@generated';
+import { ReactionCreateInput } from 'src/dtos/@generated';
+import { Reaction } from 'src/dtos/@generated';
 import { PrismaService } from 'src/prisma-module/prisma.service';
 
 @Injectable()
@@ -53,6 +53,17 @@ export class ReactionService {
       where: { id },
     });
     if (!reaction) throw new NotFoundException(`reaction ${id} not found`);
+    return reaction;
+  }
+
+  async findByPageId(pageId: string): Promise<Reaction[]> {
+    const reaction = await this.prisma.reaction.findMany({
+      where: {
+        pageId: pageId,
+      },
+    });
+    if (!reaction)
+      throw new NotFoundException(`reaction by page ${pageId} not found`);
     return reaction;
   }
 

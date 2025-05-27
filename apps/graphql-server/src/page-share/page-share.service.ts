@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma-module/prisma.service';
-import { PageShareCreateInput } from 'src/dtos/page-share/page-share-create.input';
-import { PageShare } from 'src/dtos/page-share/page-share.model';
-import { FindManyPageShareArgs } from 'src/dtos/page-share/find-many-page-share.args';
-import { DeleteOnePageShareArgs } from 'src/dtos/page-share/delete-one-page-share.args';
+import { PageShareCreateInput } from 'src/dtos/@generated';
+import { PageShare } from 'src/dtos/@generated';
+import { FindManyPageShareArgs } from 'src/dtos/@generated';
+import { DeleteOnePageShareArgs } from 'src/dtos/@generated';
 
 @Injectable()
 export class PageShareService {

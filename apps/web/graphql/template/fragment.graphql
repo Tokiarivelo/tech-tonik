@@ -3,3 +3,13 @@ fragment createTemplateFragment on Template {
   name
   uniqueKey
 }
+
+fragment getTemplateFragment on Template {
+  id
+  content
+  description
+  name
+  uniqueKey
+  placeholders
+  createdAt
+}

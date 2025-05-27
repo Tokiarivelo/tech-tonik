@@ -25,6 +25,11 @@ export type BoolFilter = {
   not?: InputMaybe<NestedBoolFilter>;
 };
 
+export type BoolNullableFilter = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolNullableFilter>;
+};
+
 export type Comment = {
   __typename?: 'Comment';
   _count: CommentCount;
@@ -876,6 +881,11 @@ export type MutationUploadFileArgs = {
 export type NestedBoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type NestedBoolNullableFilter = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolNullableFilter>;
 };
 
 export type NestedDateTimeFilter = {
@@ -1806,10 +1816,16 @@ export type TagWhereUniqueInput = {
 export type Template = {
   __typename?: 'Template';
   _count: TemplateCount;
+  author?: Maybe<User>;
+  authorId?: Maybe<Scalars['String']['output']>;
   content: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isDeleted?: Maybe<Scalars['Boolean']['output']>;
+  isDraft?: Maybe<Scalars['Boolean']['output']>;
+  isGlobal?: Maybe<Scalars['Boolean']['output']>;
+  isPublished?: Maybe<Scalars['Boolean']['output']>;
   name: Scalars['String']['output'];
   pages?: Maybe<Array<ExitPage>>;
   placeholders: Scalars['JSON']['output'];
@@ -1822,14 +1838,45 @@ export type TemplateCount = {
 };
 
 export type TemplateCreateInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutTemplateInput>;
   content: Scalars['String']['input'];
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isDraft?: InputMaybe<Scalars['Boolean']['input']>;
+  isGlobal?: InputMaybe<Scalars['Boolean']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   name: Scalars['String']['input'];
   pages?: InputMaybe<ExitPageCreateNestedManyWithoutTemplateInput>;
   placeholders: Scalars['JSON']['input'];
   uniqueKey: Scalars['String']['input'];
+};
+
+export type TemplateCreateManyAuthorInput = {
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isDraft?: InputMaybe<Scalars['Boolean']['input']>;
+  isGlobal?: InputMaybe<Scalars['Boolean']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+  placeholders: Scalars['JSON']['input'];
+  uniqueKey: Scalars['String']['input'];
+};
+
+export type TemplateCreateManyAuthorInputEnvelope = {
+  data: Array<TemplateCreateManyAuthorInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type TemplateCreateNestedManyWithoutAuthorInput = {
+  connect?: InputMaybe<Array<TemplateWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TemplateCreateOrConnectWithoutAuthorInput>>;
+  create?: InputMaybe<Array<TemplateCreateWithoutAuthorInput>>;
+  createMany?: InputMaybe<TemplateCreateManyAuthorInputEnvelope>;
 };
 
 export type TemplateCreateNestedOneWithoutPagesInput = {
@@ -1838,22 +1885,63 @@ export type TemplateCreateNestedOneWithoutPagesInput = {
   create?: InputMaybe<TemplateCreateWithoutPagesInput>;
 };
 
+export type TemplateCreateOrConnectWithoutAuthorInput = {
+  create: TemplateCreateWithoutAuthorInput;
+  where: TemplateWhereUniqueInput;
+};
+
 export type TemplateCreateOrConnectWithoutPagesInput = {
   create: TemplateCreateWithoutPagesInput;
   where: TemplateWhereUniqueInput;
 };
 
-export type TemplateCreateWithoutPagesInput = {
+export type TemplateCreateWithoutAuthorInput = {
   content: Scalars['String']['input'];
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isDraft?: InputMaybe<Scalars['Boolean']['input']>;
+  isGlobal?: InputMaybe<Scalars['Boolean']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutTemplateInput>;
+  placeholders: Scalars['JSON']['input'];
+  uniqueKey: Scalars['String']['input'];
+};
+
+export type TemplateCreateWithoutPagesInput = {
+  author?: InputMaybe<UserCreateNestedOneWithoutTemplateInput>;
+  content: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isDraft?: InputMaybe<Scalars['Boolean']['input']>;
+  isGlobal?: InputMaybe<Scalars['Boolean']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   name: Scalars['String']['input'];
   placeholders: Scalars['JSON']['input'];
   uniqueKey: Scalars['String']['input'];
 };
 
+export type TemplateListRelationFilter = {
+  every?: InputMaybe<TemplateWhereInput>;
+  none?: InputMaybe<TemplateWhereInput>;
+  some?: InputMaybe<TemplateWhereInput>;
+};
+
+export type TemplateNoDuplicateKeyPerUserCompoundUniqueInput = {
+  authorId: Scalars['String']['input'];
+  uniqueKey: Scalars['String']['input'];
+};
+
+export type TemplateOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
 export enum TemplateOrderByRelevanceFieldEnum {
+  AUTHORID = 'authorId',
   CONTENT = 'content',
   DESCRIPTION = 'description',
   ID = 'id',
@@ -1869,10 +1957,16 @@ export type TemplateOrderByRelevanceInput = {
 
 export type TemplateOrderByWithRelationInput = {
   _relevance?: InputMaybe<TemplateOrderByRelevanceInput>;
+  author?: InputMaybe<UserOrderByWithRelationInput>;
+  authorId?: InputMaybe<SortOrderInput>;
   content?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrderInput>;
+  isDraft?: InputMaybe<SortOrderInput>;
+  isGlobal?: InputMaybe<SortOrderInput>;
+  isPublished?: InputMaybe<SortOrderInput>;
   name?: InputMaybe<SortOrder>;
   pages?: InputMaybe<ExitPageOrderByRelationAggregateInput>;
   placeholders?: InputMaybe<SortOrder>;
@@ -1880,10 +1974,15 @@ export type TemplateOrderByWithRelationInput = {
 };
 
 export enum TemplateScalarFieldEnum {
+  AUTHORID = 'authorId',
   CONTENT = 'content',
   CREATEDAT = 'createdAt',
   DESCRIPTION = 'description',
   ID = 'id',
+  ISDELETED = 'isDeleted',
+  ISDRAFT = 'isDraft',
+  ISGLOBAL = 'isGlobal',
+  ISPUBLISHED = 'isPublished',
   NAME = 'name',
   PLACEHOLDERS = 'placeholders',
   UNIQUEKEY = 'uniqueKey'
@@ -1898,10 +1997,16 @@ export type TemplateWhereInput = {
   AND?: InputMaybe<Array<TemplateWhereInput>>;
   NOT?: InputMaybe<Array<TemplateWhereInput>>;
   OR?: InputMaybe<Array<TemplateWhereInput>>;
+  author?: InputMaybe<UserNullableScalarRelationFilter>;
+  authorId?: InputMaybe<StringNullableFilter>;
   content?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
+  isDeleted?: InputMaybe<BoolNullableFilter>;
+  isDraft?: InputMaybe<BoolNullableFilter>;
+  isGlobal?: InputMaybe<BoolNullableFilter>;
+  isPublished?: InputMaybe<BoolNullableFilter>;
   name?: InputMaybe<StringFilter>;
   pages?: InputMaybe<ExitPageListRelationFilter>;
   placeholders?: InputMaybe<JsonFilter>;
@@ -1912,14 +2017,21 @@ export type TemplateWhereUniqueInput = {
   AND?: InputMaybe<Array<TemplateWhereInput>>;
   NOT?: InputMaybe<Array<TemplateWhereInput>>;
   OR?: InputMaybe<Array<TemplateWhereInput>>;
+  author?: InputMaybe<UserNullableScalarRelationFilter>;
+  authorId?: InputMaybe<StringNullableFilter>;
   content?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<Scalars['String']['input']>;
+  isDeleted?: InputMaybe<BoolNullableFilter>;
+  isDraft?: InputMaybe<BoolNullableFilter>;
+  isGlobal?: InputMaybe<BoolNullableFilter>;
+  isPublished?: InputMaybe<BoolNullableFilter>;
   name?: InputMaybe<StringFilter>;
+  no_duplicate_key_per_user?: InputMaybe<TemplateNoDuplicateKeyPerUserCompoundUniqueInput>;
   pages?: InputMaybe<ExitPageListRelationFilter>;
   placeholders?: InputMaybe<JsonFilter>;
-  uniqueKey?: InputMaybe<Scalars['String']['input']>;
+  uniqueKey?: InputMaybe<StringFilter>;
 };
 
 export enum Tone {
@@ -1936,6 +2048,7 @@ export enum Tone {
 export type User = {
   __typename?: 'User';
   Role?: Maybe<Array<Role>>;
+  Template?: Maybe<Array<Template>>;
   _count: UserCount;
   comments?: Maybe<Array<Comment>>;
   createdAt: Scalars['DateTime']['output'];
@@ -1961,6 +2074,7 @@ export type User = {
 export type UserCount = {
   __typename?: 'UserCount';
   Role: Scalars['Int']['output'];
+  Template: Scalars['Int']['output'];
   comments: Scalars['Int']['output'];
   images: Scalars['Int']['output'];
   pages: Scalars['Int']['output'];
@@ -1974,6 +2088,7 @@ export type UserCount = {
 
 export type UserCreateInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2019,6 +2134,12 @@ export type UserCreateNestedOneWithoutSharesInput = {
   create?: InputMaybe<UserCreateWithoutSharesInput>;
 };
 
+export type UserCreateNestedOneWithoutTemplateInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutTemplateInput>;
+  create?: InputMaybe<UserCreateWithoutTemplateInput>;
+};
+
 export type UserCreateNestedOneWithoutVersionsInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutVersionsInput>;
@@ -2057,6 +2178,11 @@ export type UserCreateOrConnectWithoutSharesInput = {
   where: UserWhereUniqueInput;
 };
 
+export type UserCreateOrConnectWithoutTemplateInput = {
+  create: UserCreateWithoutTemplateInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserCreateOrConnectWithoutVersionsInput = {
   create: UserCreateWithoutVersionsInput;
   where: UserWhereUniqueInput;
@@ -2074,6 +2200,7 @@ export type UserCreateOrConnectWithoutVotesInput = {
 
 export type UserCreateWithoutCommentsInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
@@ -2096,6 +2223,7 @@ export type UserCreateWithoutCommentsInput = {
 
 export type UserCreateWithoutPagesInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2118,6 +2246,7 @@ export type UserCreateWithoutPagesInput = {
 
 export type UserCreateWithoutReactionsInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2140,6 +2269,7 @@ export type UserCreateWithoutReactionsInput = {
 
 export type UserCreateWithoutSharesInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2160,8 +2290,32 @@ export type UserCreateWithoutSharesInput = {
   votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
 };
 
+export type UserCreateWithoutTemplateInput = {
+  Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<UserImageCreateNestedManyWithoutUserInput>;
+  isVerified?: InputMaybe<Scalars['Boolean']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  pages?: InputMaybe<ExitPageCreateNestedManyWithoutAuthorInput>;
+  password: Scalars['String']['input'];
+  phone?: InputMaybe<Scalars['String']['input']>;
+  reactions?: InputMaybe<ReactionCreateNestedManyWithoutUserInput>;
+  shares?: InputMaybe<PageShareCreateNestedManyWithoutUserInput>;
+  tokens?: InputMaybe<RefreshTokenCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  username: Scalars['String']['input'];
+  versions?: InputMaybe<PageVersionCreateNestedManyWithoutUpdatedByInput>;
+  views?: InputMaybe<PageViewCreateNestedManyWithoutUserInput>;
+  votes?: InputMaybe<VoteCreateNestedManyWithoutUserInput>;
+};
+
 export type UserCreateWithoutVersionsInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2184,6 +2338,7 @@ export type UserCreateWithoutVersionsInput = {
 
 export type UserCreateWithoutViewsInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2206,6 +2361,7 @@ export type UserCreateWithoutViewsInput = {
 
 export type UserCreateWithoutVotesInput = {
   Role?: InputMaybe<RoleCreateNestedManyWithoutUsersInput>;
+  Template?: InputMaybe<TemplateCreateNestedManyWithoutAuthorInput>;
   comments?: InputMaybe<CommentCreateNestedManyWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   email: Scalars['String']['input'];
@@ -2325,6 +2481,7 @@ export type UserOrderByRelevanceInput = {
 
 export type UserOrderByWithRelationInput = {
   Role?: InputMaybe<RoleOrderByRelationAggregateInput>;
+  Template?: InputMaybe<TemplateOrderByRelationAggregateInput>;
   _relevance?: InputMaybe<UserOrderByRelevanceInput>;
   comments?: InputMaybe<CommentOrderByRelationAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
@@ -2370,6 +2527,7 @@ export type UserWhereInput = {
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
   Role?: InputMaybe<RoleListRelationFilter>;
+  Template?: InputMaybe<TemplateListRelationFilter>;
   comments?: InputMaybe<CommentListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   email?: InputMaybe<StringFilter>;
@@ -2396,6 +2554,7 @@ export type UserWhereUniqueInput = {
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
   Role?: InputMaybe<RoleListRelationFilter>;
+  Template?: InputMaybe<TemplateListRelationFilter>;
   comments?: InputMaybe<CommentListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   email?: InputMaybe<Scalars['String']['input']>;
@@ -2559,12 +2718,19 @@ export type ImageFragment = { __typename?: 'UserImage', id: string, url: string,
 
 export type CreateTemplateFragmentFragment = { __typename?: 'Template', id: string, name: string, uniqueKey: string };
 
+export type GetTemplateFragmentFragment = { __typename?: 'Template', id: string, content: string, description: string, name: string, uniqueKey: string, placeholders: any, createdAt: any };
+
 export type CreateTemplateMutationVariables = Exact<{
   input: TemplateCreateInput;
 }>;
 
 
 export type CreateTemplateMutation = { __typename?: 'Mutation', createTemplate: { __typename?: 'Template', id: string, name: string, uniqueKey: string } };
+
+export type TemplatesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TemplatesQuery = { __typename?: 'Query', templates: Array<{ __typename?: 'Template', id: string, content: string, description: string, name: string, uniqueKey: string, placeholders: any, createdAt: any }> };
 
 export type UserFragmentFragment = { __typename?: 'User', id: string, firstName: string, lastName?: string | null, email: string, phone?: string | null, username: string, images?: Array<{ __typename?: 'UserImage', id: string, url: string, type: string }> | null };
 
@@ -2599,6 +2765,17 @@ export const CreateTemplateFragmentFragmentDoc = gql`
   id
   name
   uniqueKey
+}
+    `;
+export const GetTemplateFragmentFragmentDoc = gql`
+    fragment getTemplateFragment on Template {
+  id
+  content
+  description
+  name
+  uniqueKey
+  placeholders
+  createdAt
 }
     `;
 export const ImageFragmentDoc = gql`
@@ -2763,6 +2940,45 @@ export function useCreateTemplateMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateTemplateMutationHookResult = ReturnType<typeof useCreateTemplateMutation>;
 export type CreateTemplateMutationResult = Apollo.MutationResult<CreateTemplateMutation>;
 export type CreateTemplateMutationOptions = Apollo.BaseMutationOptions<CreateTemplateMutation, CreateTemplateMutationVariables>;
+export const TemplatesDocument = gql`
+    query Templates {
+  templates {
+    ...getTemplateFragment
+  }
+}
+    ${GetTemplateFragmentFragmentDoc}`;
+
+/**
+ * __useTemplatesQuery__
+ *
+ * To run a query within a React component, call `useTemplatesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTemplatesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTemplatesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTemplatesQuery(baseOptions?: Apollo.QueryHookOptions<TemplatesQuery, TemplatesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TemplatesQuery, TemplatesQueryVariables>(TemplatesDocument, options);
+      }
+export function useTemplatesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TemplatesQuery, TemplatesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TemplatesQuery, TemplatesQueryVariables>(TemplatesDocument, options);
+        }
+export function useTemplatesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<TemplatesQuery, TemplatesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TemplatesQuery, TemplatesQueryVariables>(TemplatesDocument, options);
+        }
+export type TemplatesQueryHookResult = ReturnType<typeof useTemplatesQuery>;
+export type TemplatesLazyQueryHookResult = ReturnType<typeof useTemplatesLazyQuery>;
+export type TemplatesSuspenseQueryHookResult = ReturnType<typeof useTemplatesSuspenseQuery>;
+export type TemplatesQueryResult = Apollo.QueryResult<TemplatesQuery, TemplatesQueryVariables>;
 export const CreateUserDocument = gql`
     mutation createUser($input: UserCreateInput!) {
   createUser(input: $input) {

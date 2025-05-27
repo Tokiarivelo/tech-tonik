@@ -7,13 +7,18 @@ generator client {
 }
 
 generator nestgraphql {
-  provider              = "prisma-nestjs-graphql"
-  output                = "../src/dtos"
-  dtoInputNameSuffix    = "Input"
-  dtoModelNameSuffix    = "Model"
-  emitGraphQLTypes      = "true"
-  emitInputAndArgsTypes = "true"
-  prismaClientImport    = "@prisma/client"
+  provider                              = "prisma-nestjs-graphql"
+  output                                = "../src/dtos/@generated"
+  dtoInputNameSuffix                    = "Input"
+  dtoModelNameSuffix                    = "Model"
+  prismaClientImport                    = "@prisma/client"
+  fields_Validator_from                 = "class-validator"
+  fields_Validator_input                = true
+  requireSingleFieldsInWhereUniqueInput = true
+  emitSingle                            = true
+  // emitCompiled                          = true
+  purgeOutput                           = true
+  noTypeId                              = true
 }
 
 datasource db {
@@ -118,19 +123,40 @@ model Template {
   // Structure complète des placeholders :
   // [
   //   {
-  //     key: String,
-  //     label: String,
-  //     inputType: String,    // "input" | "textarea" | "file" | "media" | "component"
-  //     component: String?,   // ex: "GifPicker", "ReactionPicker"
-  //     required: Boolean?,
-  //     multiple: Boolean?,
-  //     accept: String[]?,
-  //     rows: Int?,
-  //     props: Json?          // props à passer au composant
+  //     key: string;
+  //      label: string;
+  //      inputType: string;
+  //      component?: string;
+  //      required?: boolean;
+  //      multiple?: boolean;
+  //      accept?: string[];
+  //      rows?: number;
+  //      props?: Record<string, any>;
+  //      // Nouvelle section CMS
+  //      layout: {
+  //        x: number;       // position colonne départ
+  //        y: number;       // position ligne départ
+  //        w: number;       // largeur en colonnes
+  //        h: number;       // hauteur en lignes
+  //        breakpoints?: {  // optionnel : overrides mobile/desktop
+  //          mobile?: { x: number; y: number; w: number; h: number };
+  //          desktop?: { x: number; y: number; w: number; h: number };
+  //        }
+  //      };
+  //      animation?: {
+  //        type: string;    // ex. 'fade', 'slide', 'zoom'
+  //        duration: number; // ms
+  //        delay?: number;
+  //        ease?: string;
+  //      };
   //   }, ...
   // ]
   placeholders Json
   // HTML/Markdown avec helpers conditionnels et insertion de {{key}}
+  isGlobal     Boolean?
+  isPublished  Boolean?
+  isDraft      Boolean?
+  isDeleted    Boolean?
   content      String
   pages        ExitPage[]
   createdAt    DateTime   @default(now())

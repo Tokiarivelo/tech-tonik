@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma-module/prisma.service';
-import { TemplateCreateInput } from 'src/dtos/template/template-create.input';
-import { Template } from 'src/dtos/template/template.model';
-import { FindManyTemplateArgs } from 'src/dtos/template/find-many-template.args';
-import { DeleteOneTemplateArgs } from 'src/dtos/template/delete-one-template.args';
+import { TemplateCreateInput } from 'src/dtos/@generated';
+import { Template } from 'src/dtos/@generated';
+import { FindManyTemplateArgs } from 'src/dtos/@generated';
+import { DeleteOneTemplateArgs } from 'src/dtos/@generated';
 
 @Injectable()
 export class TemplateService {
